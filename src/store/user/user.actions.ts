@@ -2,12 +2,20 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import AuthService from "@/services/auth/auth.service";
 import { removeFromStorage } from "@/services/auth/auth.helper";
 import { errorCatch } from "@/api/api.helper";
-import { IAuthResponse, IEmailPassword } from "@/types/auth.interface";
+import { IRegisterForm, IAuthResponse, IEmailPassword } from "@/types/auth.interface";
 
-export const login = createAsyncThunk('user/fetchUser', async (data: IEmailPassword) => {
+export const login = createAsyncThunk('user/login', async (data: IEmailPassword) => {
     const response = await AuthService.login(data) 
     if (!response) {
       throw new Error('Failed to login');
+    }
+    return response
+  })         
+
+export const register = createAsyncThunk('user/register', async (data: IRegisterForm) => {
+    const response = await AuthService.register(data) 
+    if (!response) {
+      throw new Error('Failed to register');
     }
     return response
   });

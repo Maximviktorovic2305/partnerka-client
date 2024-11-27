@@ -14,14 +14,14 @@ export interface IAUthRegister {
    email: string   
    password: string
    name?: string   
-   lastname?: string
 }
-
-// // export interface IUserResponseEmailId {
-// //    email: string   
-// //    id: number
-// // }
 
 export interface IAuthResponse extends ITokens {
    user: IUser
+}
+
+export interface IRegisterForm {
+   name: string
+   email: string
+   password: string
 }

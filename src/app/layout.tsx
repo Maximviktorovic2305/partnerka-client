@@ -32,20 +32,20 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased text-muted-foreground text-sm size-full`}>
 				<Providers>
-					<div className='bg-primary size-full'>
+					<main className='bg-primary size-full'>
 						<Header />
 						<div className='flex'>
 							<div>
 								<Sidebar />
 								<SidebarMobile />
 							</div>
-							<main className='bg-primary size-full'>
+							<div className='bg-primary size-full'>
 								<div className='bg-secondary size-full rounded-tl-md overflow-hidden'>
 									{children}
 								</div>
-							</main>
+							</div>
 						</div>
-					</div>
+					</main>
 				</Providers>
 			</body>
 		</html>

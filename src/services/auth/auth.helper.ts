@@ -15,11 +15,11 @@ export const removeFromStorage = () => {
 }
 
 export const getAccessToken = () => {
-	const accessToken = JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '{}')
+	const accessToken = JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '')
 	return accessToken || null
 }
 export const getRefreshToken = () => {
-	const refreshToken = JSON.parse(localStorage.getItem(REFRESH_TOKEN) || '{}')
+	const refreshToken = JSON.parse(localStorage.getItem(REFRESH_TOKEN) || '')
 	return refreshToken || null
 }
 
