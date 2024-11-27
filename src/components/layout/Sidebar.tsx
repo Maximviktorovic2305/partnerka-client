@@ -1,11 +1,10 @@
 'use client'
 
+import { ROUTES } from '@/constants/routes'
 import {
-	CalendarCog,
 	CircleDollarSign,
-	MessagesSquare,
-	PiggyBank,
-	Shirt,
+	Handshake,
+	Layers3,
 	UsersRound,
 	Wrench,
 } from 'lucide-react'
@@ -22,7 +21,7 @@ const Sidebar = () => {
 
 	return (
 		<aside className='min-w-[180px] h-full bg-primary text-sidebarText flex flex-col max-sm:hidden'>
-			<Link className='px-3' href='/'>
+			<Link className='px-3' href={ROUTES.home}>
 				<Image
 					priority
 					width={100}
@@ -33,60 +32,44 @@ const Sidebar = () => {
 				/>
 			</Link>
 			<Link
-				href='/users'
+				href={ROUTES.partners}
 				className={`${linkStyle} ${
-					pathname.startsWith('/users') && activeLink
-				}`}>
+					pathname.startsWith(ROUTES.partners) && activeLink
+				} mt-10`}>
 				<UsersRound size={22} className='shadow-md' />
-				<span>Состав клуба</span>
+				<span>Партнеры</span>
 			</Link>
 			<Link
-				href='/till'
+				href={ROUTES.leads}
 				className={`${linkStyle} ${
-					pathname.startsWith('/till') && activeLink
+					pathname.startsWith(ROUTES.leads) && activeLink
+				}`}>
+				<Handshake size={22} className='shadow-md' />
+				<span>Лиды</span>
+			</Link>
+			<Link
+				href={ROUTES.offers}
+				className={`${linkStyle} ${
+					pathname.startsWith(ROUTES.offers) && activeLink
 				}`}>
 				<CircleDollarSign size={22} />
-				<span>Казна моя</span>
+				<span>Офферы</span>
 			</Link>
 			<Link
-				href='/club-till'
+				href={ROUTES.politics}
 				className={`${linkStyle} ${
-					pathname.startsWith('/club-till') && activeLink
+					pathname.startsWith(ROUTES.politics) && activeLink
 				}`}>
-				<PiggyBank size={22} />
-				<span>Казна клуба</span>
+				<Layers3 size={22} />
+				<span>Политики</span>
 			</Link>
 			<Link
-				href='/property'
+				href={ROUTES.settings}
 				className={`${linkStyle} ${
-					pathname.startsWith('/property') && activeLink
+					pathname.startsWith(ROUTES.settings) && activeLink
 				}`}>
 				<Wrench size={22} />
-				<span>Имущество</span>
-			</Link>
-			<Link
-				href='/warehouse'
-				className={`${linkStyle} ${
-					pathname.startsWith('/warehouse') && activeLink
-				}`}>
-				<Shirt size={22} />
-				<span>Склад</span>
-			</Link>
-			<Link
-				href='/calendary'
-				className={`${linkStyle} ${
-					pathname.startsWith('/calendary') && activeLink
-				}`}>
-				<CalendarCog size={22} />
-				<span>Календарь</span>
-			</Link>
-			<Link
-				href='/chat'
-				className={`${linkStyle} ${
-					pathname.startsWith('/chat') && activeLink
-				}`}>
-				<MessagesSquare size={22} />
-				<span>Чат</span>
+				<span>Настройки</span>
 			</Link>
 		</aside>
 	)

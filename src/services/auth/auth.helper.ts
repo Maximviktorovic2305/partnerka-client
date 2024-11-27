@@ -2,25 +2,24 @@
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/token.constants'
 import { IAuthResponse, ITokens } from '@/types/auth.interface'
-import Cookie from 'js-cookie'
 
 export const saveTokensStorage = (data: ITokens) => {
-	Cookie.set(ACCESS_TOKEN, data.accessToken)
-	Cookie.set(REFRESH_TOKEN, data.refreshToken)
+	localStorage.setItem(ACCESS_TOKEN, JSON.stringify(data.accessToken))
+	localStorage.setItem(REFRESH_TOKEN, JSON.stringify(data.refreshToken))
 }
 
 export const removeFromStorage = () => {
-	Cookie.remove(ACCESS_TOKEN)
-	Cookie.remove(REFRESH_TOKEN)
+	localStorage.removeItem(ACCESS_TOKEN)
+	localStorage.removeItem(REFRESH_TOKEN)
 	localStorage.removeItem('user')
 }
 
 export const getAccessToken = () => {
-	const accessToken = Cookie.get(ACCESS_TOKEN)
+	const accessToken = JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '{}')
 	return accessToken || null
 }
 export const getRefreshToken = () => {
-	const refreshToken = Cookie.get(REFRESH_TOKEN)
+	const refreshToken = JSON.parse(localStorage.getItem(REFRESH_TOKEN) || '{}')
 	return refreshToken || null
 }
 

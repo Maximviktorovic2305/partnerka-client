@@ -18,8 +18,8 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-	title: 'Казна Клуба | Black Bears',
-	description: 'Тестовый сайт для клуба',
+	title: 'Partners | Partners app',
+	description: 'Partners app for partners',
 }
 
 export default function RootLayout({

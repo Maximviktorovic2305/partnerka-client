@@ -1,11 +1,24 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { axiosClassic } from "@/api/api.interceptor";
-import Cookies from "js-cookie";
-import { getUserFromStorage, saveToStorage } from "./auth.helper";
-import { REFRESH_TOKEN } from "@/constants/token.constants";
-import { IAuthResponse, IEmailPassword } from "@/types/auth.interface";
+import { getRefreshToken, getUserFromStorage, saveToStorage } from "./auth.helper";
+import { IAUthRegister, IAuthResponse, IEmailPassword } from "@/types/auth.interface";
 
 export const AuthService = {
+
+   // Регистрация для пользователя   
+   async register(data: IAUthRegister) {
+      const response = await axiosClassic<IAuthResponse>({
+         url: `/auth/register`,
+         method: "POST",
+         data,
+      });
+
+      if (response.data.accessToken) {
+         saveToStorage(response.data);
+      }
+
+      return response.data;
+   },
 
    // Логин для пользователя   
    async login(data: IEmailPassword) {
@@ -24,7 +37,7 @@ export const AuthService = {
 
    // Получение новых токенов               
    async getNewTokens() {
-      const refreshToken = Cookies.get(REFRESH_TOKEN);
+      const refreshToken = getRefreshToken()
 
       const response = await axiosClassic.post<string, { data: IAuthResponse }>(
          "/auth/login/access-token",
