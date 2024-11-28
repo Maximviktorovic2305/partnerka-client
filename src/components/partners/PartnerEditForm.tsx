@@ -70,12 +70,13 @@ const PartnerEditForm = ({ setActiveEditPartner, partner }: Props) => {
 						text='Фамилия'
 					/>
 					<PartnerEditInput
-					className='text-newAccent'
-						value={registerDate}
-						onChange={setRegisterDate}
-						name='Дата рег-ии'
-						text='Дата рег-ии'
-					/>
+							value={registerDate}
+							className='max-w-[200px] text-newAccent'
+							onChange={setRegisterDate}
+							name='registerDate'
+							dateBirthday
+							text='Дата Рег-ии'
+						/>
 					<div className='mt-4 text-newAccent'>
 							<PartnersStatusSelect
 								setActiveSelecItem={setStatus}

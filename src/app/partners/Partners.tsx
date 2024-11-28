@@ -71,7 +71,7 @@ export function Partners() {
 			{ isPartnerCreatActive && <PartnerCreateModal setIsPartnerCreatActive={setIsPartnerCreatActive} /> }
 
 			<div className='flex items-center gap-4 py-4 max-w-[400px]'>
-				{/* Поиск по прозвищу         */}
+				{/* Поиск по имени         */}
 				<Input
 					placeholder='Поиск по имени...'
 					value={
@@ -113,7 +113,7 @@ export function Partners() {
 			<div className='rounded-md border overflow-hidden'>
 				<Table>
 					{/* TableHeader */}
-					<TableHeader className='bg-sidebarText'>
+					<TableHeader className='bg-newAccent'>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map(header => {

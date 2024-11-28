@@ -93,13 +93,15 @@ const PartnerCreateModal = ({ setIsPartnerCreatActive }: Props) => {
 					<div className='flex items-center justify-between '>
 						<PartnerEditInput
 							value={totalAwards}
-							className='max-w-[200px] '
+							className='max-w-[200px]'
 							onChange={setTotalAwards}
+							num
 							name='Вознаг-ие'
 							text='Вознаг-ие'
 						/>
 						<PartnerEditInput
 							value={balance}
+							num
 							className='max-w-[200px] '
 							onChange={setBalance}
 							name='Баланс'
