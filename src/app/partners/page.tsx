@@ -1,9 +1,11 @@
+import { Partners } from "./Partners"
 
-
-const PartnersPAge = () => {
+const page = () => {
   return (
-    <div>Партнеры</div>
+    <div className="size-full min-h-screen text-center mt-10">
+      <Partners />         
+    </div>
   )
 }
 
-export default PartnersPAge
+export default page

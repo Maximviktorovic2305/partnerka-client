@@ -1,6 +1,6 @@
 const Offers = () => {
   return (
-    <div>Офферы</div>
+    <div className="size-full min-h-screen text-center mt-10">Страница с Офферами</div>
   )
 }
 

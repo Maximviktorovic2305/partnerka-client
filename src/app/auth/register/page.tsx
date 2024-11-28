@@ -41,7 +41,7 @@ const Page = () => {
 	return (
 		<div className='size-full min-h-screen text-muted fixed flex items-center justify-center'>
 			<div className='fixed bg-secondary top-0 px-3 left-0 right-0 bottom-0'>
-				<div className='flex items-center justify-center shadow-md shadow-primary mt-[15%] rounded-lg bg-primary max-w-xl p-5 mx-auto'>
+				<div className='flex items-center justify-center shadow-md shadow-primary mt-[10%] rounded-lg bg-primary max-w-xl p-5 mx-auto'>
 					<form
 						className='w-full max-w-[400px] flex flex-col gap-3'
 						onSubmit={handleSubmit(onSubmit)}>

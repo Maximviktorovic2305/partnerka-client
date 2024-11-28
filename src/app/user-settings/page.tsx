@@ -1,6 +1,6 @@
 const UserSettings = () => {
   return (
-    <div>Настройки</div>
+    <div className="size-full min-h-screen text-center mt-10">Страница с Настройками</div>
   )
 }
 

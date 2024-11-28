@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client'
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/constants/token.constants";
@@ -12,14 +13,16 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
    const pathname = usePathname();
 
    useEffect(() => {
-      const accessToken = JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '{}')
+      // @ts-ignore
+      const accessToken = JSON.parse(localStorage.getItem(ACCESS_TOKEN))
       if (accessToken) {
          checkAuth();
       }
    }, [checkAuth]);
 
    useEffect(() => {
-      const refreshToken = JSON.parse(localStorage.getItem(REFRESH_TOKEN) || '{}')
+      // @ts-ignore
+      const refreshToken = JSON.parse(localStorage.getItem(REFRESH_TOKEN))
       if (!refreshToken && user) {
          getProfile();
       }
