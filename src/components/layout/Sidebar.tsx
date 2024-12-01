@@ -8,7 +8,6 @@ import {
 	UsersRound,
 	Wrench,
 } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -20,16 +19,24 @@ const Sidebar = () => {
 	const activeLink = 'bg-black1 text-white border-l-2 border-white'
 
 	return (
-		<aside className='min-w-[180px] h-full bg-primary text-sidebarText flex flex-col max-sm:hidden'>
+		<aside className='min-w-[180px] h-full bg-primary text-sidebarText flex flex-col max-sm:hidden border-r-4 border-grayDeep pt-[20%]'>
 			<Link className='px-3' href={ROUTES.home}>
-				<Image
+				{/* <Image
 					priority
 					width={100}
 					height={100}
 					src='/big-logo.png'
 					alt='logo'
 					className='mx-auto'
-				/>
+				/> */}
+				<div className='text-center text-secondary flex items-center w-full'>
+					<span className='border-r border-1 text-sm border-gray-500 pr-2 text-nowrap py-2'>
+						Prt-Online
+					</span>
+					<span className='pl-2 text-wrap text-[10px] text-left leading-3'>
+						Кабинет администратора
+					</span>
+				</div>
 			</Link>
 			<Link
 				href={ROUTES.partners}

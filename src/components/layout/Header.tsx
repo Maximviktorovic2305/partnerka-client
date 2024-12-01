@@ -23,9 +23,9 @@ const Header = () => {
 	}   
 
 	return (
-		<header className='py-4 px-5 w-full flex items-center justify-between bg-primary sm:pl-[22%] md:pl-[17%]'>
-			<div className='flex items-center gap-5 ml-auto'>
-				<div className='hover:text-white cursor-pointer duration-200'>
+		<header className='py-3 px-5 w-full text-blue1 flex items-center justify-between bg-white sm:pl-[22%] md:pl-[17%]'>
+			<div className='flex items-center gap-7 ml-auto'>
+				<div className='hover:text-primary font-bold text-base text-primary/80 cursor-pointer duration-200'>
 					{user && user?.name}
 				</div>
 				{user && user?.name ? (

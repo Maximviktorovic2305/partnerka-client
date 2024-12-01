@@ -65,7 +65,7 @@ export function Partners() {
 	})
 
 	return (
-		<div className='w-full min-h-screen text-primary p-3'>
+		<div className='w-full text-primary p-3 rounded-lg bg-white m-3'>
 			<Button onClick={() => setIsPartnerCreatActive(true)} className='shadow-md shadow-primary text-primary/90 bg-newAccent flex self-start hover:bg-primary hover:text-white duration-200'>Создать +</Button>
 
 			{ isPartnerCreatActive && <PartnerCreateModal setIsPartnerCreatActive={setIsPartnerCreatActive} /> }

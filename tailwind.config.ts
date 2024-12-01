@@ -18,6 +18,8 @@ export default {
     },
   	extend: {
   		colors: {
+			blue1: '#256ADA',
+			grayDeep: '#A2B7D1',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -29,11 +31,11 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+  				DEFAULT: '#172438',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
+  				DEFAULT: '#F5F6FA',
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
   			muted: {
@@ -58,7 +60,8 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-			newAccent: '#b8c7ce'
+			newAccent: '#DDEBF6'
+
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
