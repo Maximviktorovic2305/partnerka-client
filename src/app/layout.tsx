@@ -37,7 +37,7 @@ export default function RootLayout({
 						<div className='flex'>
 							<div>
 								<Sidebar />
-								<SidebarMobile />
+								{/* <SidebarMobile /> */}
 							</div>
 							<div className='bg-primary size-full'>
 							<Header />

@@ -1,85 +1,73 @@
 'use client'
 
-import { ROUTES } from '@/constants/routes'
+import { useState } from 'react';
+import { ROUTES } from '@/constants/routes';
 import {
 	CircleDollarSign,
 	Handshake,
 	Layers3,
 	UsersRound,
 	Wrench,
-} from 'lucide-react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+	ChevronLeft,
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Sidebar = () => {
-	const pathname = usePathname()
-	// Styles
+	const pathname = usePathname();
+	const [isCollapsed, setIsCollapsed] = useState(false);
+
 	const linkStyle =
-		'pl-2 pr-1 hover:text-white duration-200 hover:bg-black1 py-3 flex items-center gap-3'
-	const activeLink = 'bg-black1 text-white border-l-2 border-white'
+		`hover:text-white duration-200 hover:bg-black1 my-2 px-2 ${isCollapsed ? 'mb-5 pt-5' : 'flex items-center gap-3 py-3'}`;
+	const activeLink = 'bg-black1 text-white border-l-2 border-white';
+	const sidebarWidth = isCollapsed ? 'w-[60px]' : 'w-56';  // Устанавливаем ширину в зависимости от состояния
 
 	return (
-		<aside className='min-w-[180px] h-full bg-primary text-sidebarText flex flex-col max-sm:hidden border-r-4 border-grayDeep pt-[20%]'>
-			<Link className='px-3' href={ROUTES.home}>
-				{/* <Image
-					priority
-					width={100}
-					height={100}
-					src='/big-logo.png'
-					alt='logo'
-					className='mx-auto'
-				/> */}
-				<div className='text-center text-secondary flex items-center w-full'>
-					<span className='border-r border-1 text-sm border-gray-500 pr-2 text-nowrap py-2'>
+		<aside className={`h-full bg-primary text-sidebarText flex flex-col border-r-4 border-grayDeep pt-[20%] transition-all duration-300 ${sidebarWidth}`}>
+			<button 
+				className='p-2 cursor-pointer' 
+				onClick={() => setIsCollapsed(!isCollapsed)}
+			>
+				<ChevronLeft size={20} className={`transition-transform duration-200 hover:text-white ${isCollapsed ? 'rotate-180 mb-10' : '-mt-8'}`} />
+			</button>
+
+			{/* Логотип и текст */}
+			<Link className='px-3 flex text-center pl-5 w-full mb-10' href={ROUTES.home}>
+				<div className={`text-center text-secondary duration-200 flex items-center w-full ${isCollapsed ? 'hidden' : ''}`}>
+					<span className='border-r border-1 text-base border-gray-500 pr-2 text-nowrap py-2'>
 						Prt-Online
 					</span>
-					<span className='pl-2 text-wrap text-[10px] text-left leading-3'>
+					<span className={`pl-2 text-wrap text-[12px] text-left leading-3`}>
 						Кабинет администратора
 					</span>
 				</div>
 			</Link>
-			<Link
-				href={ROUTES.partners}
-				className={`${linkStyle} ${
-					pathname.startsWith(ROUTES.partners) && activeLink
-				} mt-10`}>
-				<UsersRound size={22} className='shadow-md' />
-				<span>Партнеры</span>
-			</Link>
-			<Link
-				href={ROUTES.leads}
-				className={`${linkStyle} ${
-					pathname.startsWith(ROUTES.leads) && activeLink
-				}`}>
-				<Handshake size={22} className='shadow-md' />
-				<span>Лиды</span>
-			</Link>
-			<Link
-				href={ROUTES.offers}
-				className={`${linkStyle} ${
-					pathname.startsWith(ROUTES.offers) && activeLink
-				}`}>
-				<CircleDollarSign size={22} />
-				<span>Офферы</span>
-			</Link>
-			<Link
-				href={ROUTES.politics}
-				className={`${linkStyle} ${
-					pathname.startsWith(ROUTES.politics) && activeLink
-				}`}>
-				<Layers3 size={22} />
-				<span>Политики</span>
-			</Link>
-			<Link
-				href={ROUTES.settings}
-				className={`${linkStyle} ${
-					pathname.startsWith(ROUTES.settings) && activeLink
-				}`}>
-				<Wrench size={22} />
-				<span>Настройки</span>
-			</Link>
+
+			{/* Ссылки с иконками */}
+			<div className="flex flex-col">
+				<Link href={ROUTES.partners} className={`${linkStyle} ${pathname.startsWith(ROUTES.partners) && activeLink}`}>
+					<UsersRound size={22} className='shadow-md' />
+					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Партнеры</span>
+				</Link>
+				<Link href={ROUTES.leads} className={`${linkStyle} ${pathname.startsWith(ROUTES.leads) && activeLink}`}>
+					<Handshake size={22} className='shadow-md' />
+					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Лиды</span>
+				</Link>
+				<Link href={ROUTES.offers} className={`${linkStyle} ${pathname.startsWith(ROUTES.offers) && activeLink}`}>
+					<CircleDollarSign size={22} />
+					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Офферы</span>
+				</Link>
+				<Link href={ROUTES.politics} className={`${linkStyle} ${pathname.startsWith(ROUTES.politics) && activeLink}`}>
+					<Layers3 size={22} />
+					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Политики</span>
+				</Link>
+				<Link href={ROUTES.settings} className={`${linkStyle} ${pathname.startsWith(ROUTES.settings) && activeLink}`}>
+					<Wrench size={22} />
+					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Настройки</span>
+				</Link>
+			</div>
 		</aside>
-	)
+	);
 }
 
-export default Sidebar
+export default Sidebar;

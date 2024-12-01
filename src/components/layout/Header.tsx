@@ -20,7 +20,7 @@ const Header = () => {
 		logout()
 		router.push(`/auth${ROUTES.login}`)
 		router.refresh()
-	}   
+	}
 
 	return (
 		<header className='py-3 px-5 w-full text-blue1 flex items-center justify-between bg-white sm:pl-[22%] md:pl-[17%]'>
