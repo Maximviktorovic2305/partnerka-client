@@ -24,6 +24,7 @@ const Sidebar = () => {
 
 	return (
 		<aside className={`h-full bg-primary text-sidebarText flex flex-col border-r-4 border-grayDeep pt-[20%] transition-all duration-300 ${sidebarWidth}`}>
+			{/* Стрелка скрыть */}
 			<button 
 				className='p-2 cursor-pointer' 
 				onClick={() => setIsCollapsed(!isCollapsed)}

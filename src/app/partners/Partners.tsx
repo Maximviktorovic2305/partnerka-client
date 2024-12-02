@@ -34,6 +34,7 @@ import {
 import { columns } from '@/components/partners/PartnersColumns'
 import { useGetAllPartners } from '@/queries/partners'
 import PartnerCreateModal from '@/components/partners/PartnerCreateModal'
+import { Settings, UserPlus } from 'lucide-react'
 
 export function Partners() {
 	const { data } = useGetAllPartners()
@@ -65,28 +66,16 @@ export function Partners() {
 	})
 
 	return (
-		<div className='w-full text-primary p-3 rounded-lg bg-white m-3'>
-			<Button onClick={() => setIsPartnerCreatActive(true)} className='shadow-md shadow-primary text-primary/90 bg-newAccent flex self-start hover:bg-primary hover:text-white duration-200'>Создать +</Button>
-
-			{ isPartnerCreatActive && <PartnerCreateModal setIsPartnerCreatActive={setIsPartnerCreatActive} /> }
-
-			<div className='flex items-center gap-4 py-4 max-w-[400px]'>
-				{/* Поиск по имени         */}
-				<Input
-					placeholder='Поиск по имени...'
-					value={
-						(table.getColumn('name')?.getFilterValue() as string) ?? ''
-					}
-					onChange={event =>
-						table.getColumn('name')?.setFilterValue(event.target.value)
-					}
-					className='max-w-[200px] w-full text-primary border-primary/40 shadow shadow-newAccent'
-				/>
+		<>
+		<div className='flex items-center justify-between mt-10 pl-6'>
+				<div className="text-left text-[30px] text-blue2 font-bold">Партнеры</div>
+				<div className='flex items-center gap-3'>
+				<Button onClick={() => setIsPartnerCreatActive(true)} variant='outline' className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'> <UserPlus /> Добавить партнера</Button>
 				{/* Колонки видимые         */}
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant='outline' className='border-primary/40 shadow shadow-newAccent'>
-							Колонки <ChevronDownIcon className='ml-2 h-4 w-4' />
+						<Button variant='outline' className='border-blue1 shadow text-blue1 py-5 hover:text-blue1 hover:bg-grayDeep/30 shadow-newAccent'>
+							<Settings />
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent
@@ -108,7 +97,30 @@ export function Partners() {
 							})}
 					</DropdownMenuContent>
 				</DropdownMenu>
+				</div>
 			</div>
+
+				{/* Поиск по имени         */}
+			{/* <div className='flex items-center gap-4 py-4 max-w-[400px]'>
+				<Input
+					placeholder='Поиск по имени...'
+					value={
+						(table.getColumn('name')?.getFilterValue() as string) ?? ''
+					}
+					onChange={event =>
+						table.getColumn('name')?.setFilterValue(event.target.value)
+					}
+					className='max-w-[200px] w-full text-primary border-primary/40 shadow shadow-newAccent'
+				/>
+				
+			</div> */}
+
+		<div className='w-full text-primary p-3 rounded-lg bg-white m-3'>
+			
+
+			{ isPartnerCreatActive && <PartnerCreateModal setIsPartnerCreatActive={setIsPartnerCreatActive} /> }
+
+			
 			{/* Table */}
 			<div className='rounded-md border overflow-hidden'>
 				<Table>
@@ -186,5 +198,6 @@ export function Partners() {
 				</div>
 			</div>
 		</div>
+		</>
 	)
 }

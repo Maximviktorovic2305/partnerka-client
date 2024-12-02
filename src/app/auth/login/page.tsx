@@ -37,8 +37,8 @@ const Page = () => {
 
   return (
     <div className='size-full min-h-screen text-muted fixed flex items-center justify-center'>
-      <div className='fixed bg-secondary px-3  top-0 left-0 right-0 bottom-0'>
-        <div className='flex items-center shadow-md shadow-primary justify-center mt-[10%] rounded-lg bg-primary max-w-xl p-5 mx-auto'>
+      <div className='fixed bg-secondary px-3  top-0 left-0 right-0 bottom-0' style={{ backgroundImage: 'url(/fon.png)', backgroundSize: 'cover' }}>
+        <div className='flex items-center shadow-md shadow-primary justify-center mt-[10%] rounded-lg bg-blue2 max-w-xl p-5 mx-auto'>
           <form
             className='w-full max-w-[400px] flex flex-col gap-3'
             onSubmit={handleSubmit(onSubmit)}
@@ -49,6 +49,7 @@ const Page = () => {
                 Почта
               </Label>
               <Input
+                className='border-white'
                 type='email'
                 id='email'
                 placeholder='Почта...'
@@ -69,6 +70,7 @@ const Page = () => {
                 Пароль
               </Label>
               <Input
+                className='border-white'
                 type='password'
                 id='password'
                 placeholder='Пароль...'
