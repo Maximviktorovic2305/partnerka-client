@@ -29,27 +29,25 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 
-import { columns } from '@/components/partners/PartnersColumns'
-import { useGetAllPartners } from '@/queries/partners'
-import PartnerCreateModal from '@/components/partners/PartnerCreateModal'
 import { Settings, UserPlus } from 'lucide-react'
-import BaseSquareText from '@/components/base/BaseSquareText'
+import { useGetAllLeads } from '@/queries/lead'
+import { columns } from '../LeadsColumns'
+import LeadCreateModal from '../LeadCreateModal'
 
-export function Partners() {
-	const { data } = useGetAllPartners()
+export function LeadsTabsContent() {
+	const { data } = useGetAllLeads()
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})         
 	
-	const [isPartnerCreatActive, setIsPartnerCreatActive] = useState(false)   
-	
 	// Устанавливаем количество строк на страницу
 	const rowsPerPage = 20
 
+	const [isLeadCreatActive, setIsLeadCreatActive] = useState(false)   
 	const table = useReactTable({
-		data: data ? data : [],
+		data: data?.leads ? data.leads : [],
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
@@ -64,8 +62,8 @@ export function Partners() {
 			columnFilters,
 			columnVisibility,
 			rowSelection,
-		},   
-		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
+		},
+		pageCount: Math.ceil((data?.leads ? data.leads.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
 		initialState: {
 			pagination: {
 				pageSize: rowsPerPage, // Устанавливаем размер страницы
@@ -76,16 +74,9 @@ export function Partners() {
 
 	return (
 		<>
-		<div className='flex items-center justify-between mt-10 pl-6'>
-				<div className="text-left text-[30px] text-blue2 font-bold">Партнеры</div>
-				<div className='flex items-center gap-3'>
-				<div className='flex items-center gap-2'>
-					<BaseSquareText color='new'>новый</BaseSquareText>
-					<BaseSquareText color='inWork'>в работе</BaseSquareText>
-					<BaseSquareText color='deal'>сделка</BaseSquareText>
-					<BaseSquareText color='cancel'>отмена</BaseSquareText>
-				</div>
-				<Button onClick={() => setIsPartnerCreatActive(true)} variant='outline' className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'> <UserPlus /> Добавить партнера</Button>
+		<div className='flex items-center justify-between mt-3 pl-6'>
+				<div className='flex items-center gap-3 ml-auto'>
+				<Button onClick={() => setIsLeadCreatActive(true)} variant='outline' className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'> <UserPlus /> Добавить Лида</Button>
 				{/* Колонки видимые         */}
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -133,7 +124,7 @@ export function Partners() {
 		<div className='w-full text-primary p-3 rounded-lg bg-white m-3'>
 			
 
-			{ isPartnerCreatActive && <PartnerCreateModal setIsPartnerCreatActive={setIsPartnerCreatActive} /> }
+			{ isLeadCreatActive && <LeadCreateModal setIsLeadCreatActive={setIsLeadCreatActive} /> }
 
 			
 			{/* Table */}

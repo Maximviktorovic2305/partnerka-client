@@ -40,14 +40,14 @@ export interface ILead extends IBaseLeadResponse {
 
 export interface ICreateLead {
 	id?: number, 
+	createdFormatedDate?: string
+   updatedFormatedDate?: string
 	name?: string
-	lastname?: string
-	email?: string
-	registerDate?: string
-	status?: string
-	phone?: string
-	balance?: number
-	totalAwards?: number
+	sourse?: string
+   status?: string
+   offer?: string
+   amount?: number
+   partnerId?: number
    partner?: IPartner
 }
 

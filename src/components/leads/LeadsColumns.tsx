@@ -9,16 +9,15 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { IPartner } from '@/types/partner.interface'
 import { Button } from '../ui/button'
-import PartnerEditForm from './PartnerEditForm'
+import { ILead } from '@/types/lead.interface'
 import { useEffect, useState } from 'react'
-import PartnerService from '@/services/partner/partner.service'
-import { PartnersStatusSelect } from '../base/PartnersStatusSelect'
-import { useGetPartnerLeads } from '@/queries/lead'
-import BaseSquareText from '../base/BaseSquareText'
+import { LeadSourceSelect } from '../base/LeadSourceSelect'
+import { LeadStatusSelect } from '../base/LeadStatusSelect'
+import LeadEditForm from './LeadEditForm'
+import LeadsService from '@/services/leads/lead.service'
 
-export const columns: ColumnDef<IPartner>[] = [
+export const columns: ColumnDef<ILead>[] = [
 	{
 		accessorKey: 'name',
 		header: ({ column }) => {
@@ -33,50 +32,74 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => (
 			<div className='flex items-center gap-[2px]'>
-				<span className='lowercase'>{row.getValue('name')}</span>
+				<span className='lowercase text-blue1'>{row.getValue('name')}</span>
 			</div>
 		),
 	},
 	{
-		accessorKey: 'registerDate',
+		accessorKey: 'createdFormatedDate',
 		header: ({ column }) => {
 			return (
 				<Button
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Дата Рег-и
+					Дата Соз-ия
 					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('registerDate')}</div>,
+		cell: ({ row }) => <div className='lowercase'>{row.getValue('createdFormatedDate')}</div>,
 	},
 	{
-		accessorKey: 'leads',
+		accessorKey: 'updatedFormatedDate',
 		header: ({ column }) => {
-
 			return (
 				<Button
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Кол-во лидов
+					Дата Изм-ия
+					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
-		cell: ({ row }) => {         
-			const { data } = useGetPartnerLeads(Number(row?.original.id))
-			const newLeads = data?.newLeads
-			const inWorkLeads = data?.inWorkLeads
-			const dealLeads = data?.dealLeads
-			const cancelLeads = data?.cancelLeads   
-
-		return (<div className='lowercase flex items-center justify-between gap-[2px]'>
-			<BaseSquareText color='new'>{newLeads}</BaseSquareText>
-			<BaseSquareText color='inWork'>{inWorkLeads}</BaseSquareText>
-			<BaseSquareText color='deal'>{dealLeads}</BaseSquareText>
-			<BaseSquareText color='cancel'>{cancelLeads}</BaseSquareText>
-		</div>)
+		cell: ({ row }) => <div className='lowercase'>{row.getValue('updatedFormatedDate')}</div>,
 	},
+	{
+		accessorKey: 'partnerId',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					Партнер
+					<CaretSortIcon className='h-4 w-4' />
+				</Button>
+			)
+		},
+		cell: ({ row }) => {
+         const partnerName = row.original.partner?.name
+      return (<div className='lowercase text-blue1'>{partnerName}</div>)
+   },
+	},
+	{
+		accessorKey: 'sourse',
+		header: ({ column }) => {
+			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
+
+			useEffect(() => {
+				if (activeSelectItem === 'Clear') {
+					column.setFilterValue('')
+				} else {
+					column.setFilterValue(activeSelectItem)
+				}
+			}, [activeSelectItem, column])
+			return <LeadSourceSelect setActiveSelecItem={setActiveSelecItem} />
+		},
+		cell: ({ row }) => {
+			const styleClassName = `${row.getValue('sourse') === 'DirectAdd' ? 'text-green-400' : ''} ${row.getValue('sourse') === 'ReferrelProgram' ? 'text-orange-400' : ''}
+			 ${row.getValue('sourse') === 'Promokod' ? 'text-blue-400' : ''}`
+		return (<div className={`lowercase ${styleClassName}`} >{row.getValue('sourse')}</div>)
+      }
 	},
 	{
 		accessorKey: 'status',
@@ -90,80 +113,52 @@ export const columns: ColumnDef<IPartner>[] = [
 					column.setFilterValue(activeSelectItem)
 				}
 			}, [activeSelectItem, column])
-			return <PartnersStatusSelect setActiveSelecItem={setActiveSelecItem} />
+			return <LeadStatusSelect setActiveSelecItem={setActiveSelecItem} />
 		},
 		cell: ({ row }) => {
-			const styleClassName = `${row.getValue('status') === 'Pro' ? 'text-green-400' : ''} ${row.getValue('status') === 'Base' ? 'text-orange-400' : ''}
-			 ${row.getValue('status') === 'Advanced' ? 'text-blue-400' : ''}`
+			const styleClassName = `${row.getValue('status') === 'New' ? 'text-green-400' : ''} ${row.getValue('status') === 'InWork' ? 'text-orange-400' : ''}
+			 ${row.getValue('status') === 'Deal' ? 'text-blue-400' : ''} ${row.getValue('status') === 'Cancel' ? 'text-red-300' : ''}`
 		return (<div className={`lowercase ${styleClassName}`} >{row.getValue('status')}</div>)
+      }
 	},
-	},   
 	{
-		accessorKey: 'totalAwards',
+		accessorKey: 'offer',
 		header: ({ column }) => {
 			return (
 				<Button
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Вознагр-ие
+					Оффер
 					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('totalAwards')}</div>,
+		cell: ({ row }) => <div className='lowercase'>{row.getValue('offer')}</div>,
 	},
 	{
-		accessorKey: 'balance',
+		accessorKey: 'amount',
 		header: ({ column }) => {
 			return (
 				<Button
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Баланс
+					Сумма
 					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('balance')}</div>,
-	},
-	{
-		accessorKey: 'phone',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Телефон
-					<CaretSortIcon className='h-4 w-4' />
-				</Button>
-			)
-		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('phone')}</div>,
-	},
-	{
-		accessorKey: 'email',
-		header: ({ column }) => {
-			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Email
-					<CaretSortIcon className='h-4 w-4' />
-				</Button>
-			)
-		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('email')}</div>,
+		cell: ({ row }) => <div className='lowercase'>{row.getValue('amount')}</div>,
 	},
 	{
 		id: 'actions',
 		enableHiding: false,
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		cell: ({ row }) => {
-			const partner = row.original
-			const [activeEditPartner, setActiveEditPartner] = useState(false)
+			const lead = row.original
+			const [activeEditLead, setActiveEditLead] = useState(false)
 
 			const handleDeleteUser = async () => {
-				await PartnerService.deletePartner(partner.id)
+				await LeadsService.deleteLead(lead.id)
 			}
 
 			return (
@@ -181,7 +176,7 @@ export const columns: ColumnDef<IPartner>[] = [
 						{/* Update Partner */}
 						<DropdownMenuItem
 							onClick={() => {
-								setActiveEditPartner(true)
+								setActiveEditLead(true)
 							}}
 							className='cursor-pointer hover:bg-sidebarText'>
 							Изменить
@@ -195,8 +190,8 @@ export const columns: ColumnDef<IPartner>[] = [
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 
-					{activeEditPartner && (
-						<PartnerEditForm setActiveEditPartner={setActiveEditPartner} partner={partner} />
+					{activeEditLead && (
+						<LeadEditForm setActiveEditLead={setActiveEditLead} lead={lead} />
 					)}
 				</DropdownMenu>
 			)
