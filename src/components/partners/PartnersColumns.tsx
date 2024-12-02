@@ -15,6 +15,8 @@ import PartnerEditForm from './PartnerEditForm'
 import { useEffect, useState } from 'react'
 import PartnerService from '@/services/partner/partner.service'
 import { PartnersStatusSelect } from '../base/PartnersStatusSelect'
+import { useGetPartnerLeads } from '@/queries/lead'
+import BaseSquareText from '../base/BaseSquareText'
 
 export const columns: ColumnDef<IPartner>[] = [
 	{
@@ -48,6 +50,33 @@ export const columns: ColumnDef<IPartner>[] = [
 			)
 		},
 		cell: ({ row }) => <div className='lowercase'>{row.getValue('registerDate')}</div>,
+	},
+	{
+		accessorKey: 'leads',
+		header: ({ column }) => {
+
+			return (
+				<Button
+					variant='ghost'
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					Кол-во лидов
+				</Button>
+			)
+		},
+		cell: ({ row }) => {         
+			const { data } = useGetPartnerLeads(Number(row?.original.id ?? undefined))
+			const newLeads = data?.newLeads
+			const inWorkLeads = data?.inWorkLeads
+			const dealLeads = data?.dealLeads
+			const cancelLeads = data?.cancelLeads   
+
+		return (<div className='lowercase flex items-center justify-between gap-[2px]'>
+			<BaseSquareText color='new'>{newLeads}</BaseSquareText>
+			<BaseSquareText color='inWork'>{inWorkLeads}</BaseSquareText>
+			<BaseSquareText color='deal'>{dealLeads}</BaseSquareText>
+			<BaseSquareText color='cancel'>{cancelLeads}</BaseSquareText>
+		</div>)
+	},
 	},
 	{
 		accessorKey: 'status',

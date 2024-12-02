@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDownIcon } from '@radix-ui/react-icons'
 import {
 	ColumnFiltersState,
 	SortingState,
@@ -21,7 +20,6 @@ import {
 	DropdownMenuContent,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
 import {
 	Table,
 	TableBody,
@@ -35,6 +33,7 @@ import { columns } from '@/components/partners/PartnersColumns'
 import { useGetAllPartners } from '@/queries/partners'
 import PartnerCreateModal from '@/components/partners/PartnerCreateModal'
 import { Settings, UserPlus } from 'lucide-react'
+import BaseSquareText from '@/components/base/BaseSquareText'
 
 export function Partners() {
 	const { data } = useGetAllPartners()
@@ -70,6 +69,12 @@ export function Partners() {
 		<div className='flex items-center justify-between mt-10 pl-6'>
 				<div className="text-left text-[30px] text-blue2 font-bold">Партнеры</div>
 				<div className='flex items-center gap-3'>
+				<div className='flex items-center gap-2'>
+					<BaseSquareText color='new'>новый</BaseSquareText>
+					<BaseSquareText color='inWork'>в работе</BaseSquareText>
+					<BaseSquareText color='deal'>сделка</BaseSquareText>
+					<BaseSquareText color='cancel'>отмена</BaseSquareText>
+				</div>
 				<Button onClick={() => setIsPartnerCreatActive(true)} variant='outline' className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'> <UserPlus /> Добавить партнера</Button>
 				{/* Колонки видимые         */}
 				<DropdownMenu>
@@ -125,7 +130,7 @@ export function Partners() {
 			<div className='rounded-md border overflow-hidden'>
 				<Table>
 					{/* TableHeader */}
-					<TableHeader className='bg-newAccent'>
+					<TableHeader className='bg-secondary'>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map(header => {

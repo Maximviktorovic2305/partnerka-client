@@ -1,3 +1,5 @@
+import { ILead } from "./lead.interface"
+
 interface IBasePartnerResponse {
 	id: number
 	createdAt: string
@@ -13,6 +15,7 @@ export interface IPartnerRequest extends Partial<IBasePartnerResponse> {
 	phone?: string
 	balance?: number
 	totalAwards?: number
+	leads?: ILead[]
 }
 
 export interface IPartner extends IBasePartnerResponse {
@@ -24,6 +27,7 @@ export interface IPartner extends IBasePartnerResponse {
 	phone?: string
 	balance?: number
 	totalAwards?: number
+	leads?: ILead[]
 }
 
 export interface ICreatePartner {
@@ -36,5 +40,6 @@ export interface ICreatePartner {
 	phone?: string
 	balance?: number
 	totalAwards?: number
+	leads?: ILead[]
 }
 

@@ -33,7 +33,7 @@ const PartnerEditInput = ({
 				onChange={e => onChange(e.target.value)}
 				type={(dateBirthday && 'date') || (tel && 'tel') || (num && 'number') || 'text'}
 				name={name}
-				className={`placeholder:text-primary/50 shadow-none -my-1 border-newAccent ${
+				className={`placeholder:text-primary/50 shadow-none -my-1 border-blue2/70 ${
 					className ? className : ''
 				}`}
 				placeholder={`${name}...`}
