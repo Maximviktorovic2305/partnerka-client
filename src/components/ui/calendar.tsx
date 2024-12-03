@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
 
 import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
@@ -60,8 +60,7 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+    
       }}
       {...props}
     />
