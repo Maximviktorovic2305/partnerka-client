@@ -6,14 +6,16 @@ import { useGetAllLeads } from '@/queries/lead'
 
 const StatisticsTabsContent = () => {
   const [activeSwithItem, setActiveSwithItem] = useState<string>('Сегодня')
-  const { data } = useGetAllLeads({filterType: activeSwithItem})   
+  const [startDate, setStartDate] = useState<Date | undefined>()
+  const [endDate, setEndDate] = useState<Date | undefined>()
+  const { data } = useGetAllLeads({filterType: activeSwithItem, startDate, endDate})   
         
 	const blockStyle =
 		'p-3 flex flex-col shadow-md shadow-secandary gap-2 rounded-lg border border-gray-300'
 
 	return (
 		<div className='p-3 rounded-lg bg-white mt-5 m-3 text-left'>
-			<StatisticsSwitch setActiveSwithItem={setActiveSwithItem} />
+			<StatisticsSwitch startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} activeSwithItem={activeSwithItem} setActiveSwithItem={setActiveSwithItem} />
 
 			<div className='flex items-center justify-between flex-wrap mt-10 text-blue2'>
 				<div className={blockStyle}>
