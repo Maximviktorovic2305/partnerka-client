@@ -93,8 +93,8 @@ export const columns: ColumnDef<IPartner>[] = [
 			return <PartnersStatusSelect setActiveSelecItem={setActiveSelecItem} />
 		},
 		cell: ({ row }) => {
-			const styleClassName = `${row.getValue('status') === 'Pro' ? 'text-green-400' : ''} ${row.getValue('status') === 'Base' ? 'text-orange-400' : ''}
-			 ${row.getValue('status') === 'Advanced' ? 'text-blue-400' : ''}`
+			const styleClassName = `${row.getValue('status') === 'Профессионал' ? 'text-green-400' : ''} ${row.getValue('status') === 'Базовый' ? 'text-orange-400' : ''}
+			 ${row.getValue('status') === 'Продвинутый' ? 'text-blue-400' : ''}`
 		return (<div className={`lowercase ${styleClassName}`} >{row.getValue('status')}</div>)
 	},
 	},   

@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/select'
 
 export enum PartnerStatusEnum {
-	Base = 'Base',
-	Advanced = 'Advanced',
-	Pro = 'Pro',
+	Base = 'Базовый',
+	Advanced = 'Продвинутый',
+	Pro = 'Профессионал',
 }
 
 export function PartnersStatusSelect({
@@ -32,9 +32,9 @@ export function PartnersStatusSelect({
 			<SelectContent>
 				<SelectGroup className='text-primary bg-white'>
 					<SelectItem value='Clear'>Статус</SelectItem>
-					<SelectItem value='Base'>{PartnerStatusEnum.Base}</SelectItem>
-					<SelectItem value='Advanced'>{PartnerStatusEnum.Advanced}</SelectItem>
-					<SelectItem value='Pro'>{PartnerStatusEnum.Pro}</SelectItem>
+					<SelectItem value='Базовый'>{PartnerStatusEnum.Base}</SelectItem>
+					<SelectItem value='Продвинутый'>{PartnerStatusEnum.Advanced}</SelectItem>
+					<SelectItem value='Профессионал'>{PartnerStatusEnum.Pro}</SelectItem>
 
 				</SelectGroup>
 			</SelectContent>

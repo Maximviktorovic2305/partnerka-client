@@ -96,8 +96,8 @@ export const columns: ColumnDef<ILead>[] = [
 			return <LeadSourceSelect setActiveSelecItem={setActiveSelecItem} />
 		},
 		cell: ({ row }) => {
-			const styleClassName = `${row.getValue('sourse') === 'DirectAdd' ? 'text-green-400' : ''} ${row.getValue('sourse') === 'ReferrelProgram' ? 'text-orange-400' : ''}
-			 ${row.getValue('sourse') === 'Promokod' ? 'text-blue-400' : ''}`
+			const styleClassName = `${row.getValue('sourse') === 'Прямое добавление' ? 'text-green-400' : ''} ${row.getValue('sourse') === 'Реферальная программа' ? 'text-orange-400' : ''}
+			 ${row.getValue('sourse') === 'Промокод' ? 'text-blue-400' : ''}`
 		return (<div className={`lowercase ${styleClassName}`} >{row.getValue('sourse')}</div>)
       }
 	},
@@ -116,8 +116,8 @@ export const columns: ColumnDef<ILead>[] = [
 			return <LeadStatusSelect setActiveSelecItem={setActiveSelecItem} />
 		},
 		cell: ({ row }) => {
-			const styleClassName = `${row.getValue('status') === 'New' ? 'text-green-400' : ''} ${row.getValue('status') === 'InWork' ? 'text-orange-400' : ''}
-			 ${row.getValue('status') === 'Deal' ? 'text-blue-400' : ''} ${row.getValue('status') === 'Cancel' ? 'text-red-300' : ''}`
+			const styleClassName = `${row.getValue('status') === 'Новый' ? 'text-green-400' : ''} ${row.getValue('status') === 'В работе' ? 'text-orange-400' : ''}
+			 ${row.getValue('status') === 'Сделка' ? 'text-blue-400' : ''} ${row.getValue('status') === 'Отмена' ? 'text-red-300' : ''}`
 		return (<div className={`lowercase ${styleClassName}`} >{row.getValue('status')}</div>)
       }
 	},

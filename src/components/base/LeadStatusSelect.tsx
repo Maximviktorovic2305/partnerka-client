@@ -34,10 +34,10 @@ export function LeadStatusSelect({ setActiveSelecItem, className }: Props) {
 			<SelectContent>
 				<SelectGroup className='text-primary bg-white'>
 					<SelectItem value='Clear'>Статус</SelectItem>
-					<SelectItem value="New">{LeadStatusEnum.New}</SelectItem>
-					<SelectItem value="InWork">{LeadStatusEnum.InWork}</SelectItem>
-					<SelectItem value="Deal">{LeadStatusEnum.Deal}</SelectItem>
-					<SelectItem value="Cancel">{LeadStatusEnum.Cancel}</SelectItem>
+					<SelectItem value="Новый">{LeadStatusEnum.New}</SelectItem>
+					<SelectItem value="В работе">{LeadStatusEnum.InWork}</SelectItem>
+					<SelectItem value="Сделка">{LeadStatusEnum.Deal}</SelectItem>
+					<SelectItem value="Отмена">{LeadStatusEnum.Cancel}</SelectItem>
 
 				</SelectGroup>
 			</SelectContent>
