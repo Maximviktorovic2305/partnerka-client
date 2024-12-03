@@ -35,7 +35,7 @@ import { columns } from '../LeadsColumns'
 import LeadCreateModal from '../LeadCreateModal'
 
 export function LeadsTabsContent() {
-	const { data } = useGetAllLeads()
+	const { data } = useGetAllLeads({})
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])

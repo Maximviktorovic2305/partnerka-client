@@ -51,3 +51,8 @@ export interface ICreateLead {
    partner?: IPartner
 }
 
+export interface GetAllLeadsRequest {
+   filterType?: string 
+   startDate?: Date 
+   endDate?: Date
+}
