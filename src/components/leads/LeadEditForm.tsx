@@ -54,35 +54,26 @@ const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 	return (
 		<div>
 			<form onSubmit={handleSubmit} className='fixed top-2 right-10'>
-				<div className='px-5 pt-5 pb-[22%] relative z-10 rounded-lg bg-primary/80 backdrop-blur-sm text-primary min-w-[300px] right-10 top-10'>
+				<div className='px-5 pt-5 pb-[22%] relative z-10 rounded-lg flex flex-col gap-3 bg-primary/80 backdrop-blur-sm text-primary min-w-[300px] right-10 top-10'>
 					<PartnerEditInput
 					className='text-newAccent border-white'
 						onChange={setName}
 						value={name}
 						name='Имя'
-						text='Имя'
 					/>
-					{/* <PartnerEditInput
-							value={updatedFormatedDate}
-							className='max-w-[200px] text-newAccent border-white'
-							onChange={setUpdatedFormatedDate}
-							name='Дата изм-ия'
-							dateBirthday
-							text='Дата изм-ия'
-						/> */}
-					<div className='mt-4 text-newAccent border-white'>
+					<div className='text-newAccent border-white'>
 							<SelectPartner
 								setActiveSelecItem={setPartner}
 							/>
 						</div>
 
-               <div className='mt-4 text-newAccent border-white'>
+               <div className='text-newAccent border-white'>
 							<LeadSourceSelect
 								setActiveSelecItem={setSourse}
 							/>
 						</div>
 
-               <div className='mt-4 text-newAccent border-white'>
+               <div className='text-newAccent border-white'>
 							<LeadStatusSelect
 								setActiveSelecItem={setStatus}
 							/>
@@ -93,7 +84,6 @@ const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 						value={offer}
 						onChange={setOffer}
 						name='Оффер'
-						text='Оффер'
 					/>
 
 					<PartnerEditInput
@@ -101,7 +91,6 @@ const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 						value={String(amount)}
 						onChange={setAmount}
 						name='Сумма'
-						text='Сумма'
 					/>
 
 				</div>

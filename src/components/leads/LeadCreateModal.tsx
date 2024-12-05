@@ -46,56 +46,62 @@ const LeadCreateModal = ({ setIsLeadCreatActive }: Props) => {
 	return (
 		<div className='w-full rounded-md mt-5 mb-2 bg-secondary shadow-md shadow-primary text-primary'>
 			<form onSubmit={handleSubmit} className='p-3 flex flex-col'>
-				<div className='flex items-center justify-between flex-wrap'>
+				<div className='flex items-center gap-3 justify-between flex-wrap'>
 					<PartnerEditInput
-						className='text-primary border-blue2/70'
+						className='text-primary mt-[1px] border-blue2/70'
 						onChange={setName}
 						value={name}
 						name='Имя'
-						text='Имя'
 					/>
 					<div className='text-primary border-blue2/70'>
-						<SelectPartner className='border-blue2/70' setActiveSelecItem={setPartner} />
+						<SelectPartner
+							className='border-blue2/70'
+							setActiveSelecItem={setPartner}
+						/>
 					</div>
 
-					<div className='mt-5 text-primary border-blue2/70'>
-						<LeadSourceSelect className='border-blue2/70' setActiveSelecItem={setSourse} />
+					<div className='text-primary border-blue2/70'>
+						<LeadSourceSelect
+							className='border-blue2/70'
+							setActiveSelecItem={setSourse}
+						/>
 					</div>
 
-					<div className='mt-5 text-primary border-blue2/70'>
-						<LeadStatusSelect className='border-blue2/70' setActiveSelecItem={setStatus} />
+					<div className='text-primary border-blue2/70'>
+						<LeadStatusSelect
+							className='border-blue2/70'
+							setActiveSelecItem={setStatus}
+						/>
 					</div>
 
 					<PartnerEditInput
-						className='text-primary border-blue2/70'
+						className='text-primary mt-[1px] border-blue2/70'
 						value={offer}
 						onChange={setOffer}
 						name='Оффер'
-						text='Оффер'
 					/>
 					<PartnerEditInput
-						className='text-primary border-blue2/70'
+						className='text-primary mt-[1px] border-blue2/70'
 						value={String(amount)}
 						onChange={setAmount}
 						num
 						name='Сумма'
-						text='Сумма'
 					/>
 				</div>
 
-					<div className='pt-4 flex gap-3'>
-						<Button
-							variant='outline'
-							className=' bg-secondary text-primary hover:text-white border-none hover:bg-primary duration-200 '
-							onClick={() => setIsLeadCreatActive(false)}>
-							Отмена
-						</Button>
-						<Button
-							type='submit'
-							className='bg-newAccent text-primary hover:text-white duration-200 '>
-							Сохранить
-						</Button>
-					</div>
+				<div className='flex gap-3 mt-3'>
+					<Button
+						variant='outline'
+						className=' bg-secondary text-primary hover:text-white border-none hover:bg-primary duration-200 '
+						onClick={() => setIsLeadCreatActive(false)}>
+						Отмена
+					</Button>
+					<Button
+						type='submit'
+						className='bg-newAccent text-primary hover:text-white duration-200 '>
+						Сохранить
+					</Button>
+				</div>
 			</form>
 		</div>
 	)

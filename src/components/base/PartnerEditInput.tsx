@@ -1,9 +1,8 @@
 import React from 'react'
-import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 
 interface Props {
-	text: string
+	// text: string
 	name: string
 	value: string
 	onChange: (value: string) => void
@@ -15,7 +14,7 @@ interface Props {
 
 const PartnerEditInput = ({
 	num,
-	text,
+	// text,
 	value,
 	name,
 	onChange,
@@ -25,9 +24,9 @@ const PartnerEditInput = ({
 }: Props) => {
 	return (
 		<div className='flex flex-col gap-[2px] mb-1 text-primary'>
-			<Label className='text-[10px] text-left text-muted-foreground pl-1' htmlFor={name}>
+			{/* <Label className='text-[10px] text-left text-muted-foreground pl-1' htmlFor={name}>
 				{text}
-			</Label>
+			</Label> */}
 			<Input
 				value={value}
 				onChange={e => onChange(e.target.value)}
