@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ColumnDef } from '@tanstack/react-table'
 import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
@@ -11,11 +12,14 @@ import {
 } from '../ui/dropdown-menu'
 import { Button } from '../ui/button'
 import { ILead } from '@/types/lead.interface'
-import { useEffect, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { LeadSourceSelect } from '../base/LeadSourceSelect'
 import { LeadStatusSelect } from '../base/LeadStatusSelect'
 import LeadEditForm from './LeadEditForm'
 import LeadsService from '@/services/leads/lead.service'
+import LeadEditRow from './LeadEditRow'
+import { SelectPartner } from '../base/PartnerSelect'
+import { CheckCheck, X } from 'lucide-react'
 
 export const columns: ColumnDef<ILead>[] = [
 	{
@@ -30,11 +34,10 @@ export const columns: ColumnDef<ILead>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => (
-			<div className='flex items-center gap-[2px]'>
-				<span className='lowercase text-blue1'>{row.getValue('name')}</span>
-			</div>
-		),
+		cell: ({ row }) => {
+			const lead = row.original
+			return <LeadEditRow lead={lead} type='name' />
+		},
 	},
 	{
 		accessorKey: 'createdFormatedDate',
@@ -48,7 +51,10 @@ export const columns: ColumnDef<ILead>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('createdFormatedDate')}</div>,
+		cell: ({ row }) => {
+			const lead = row.original
+			return <div className='lowercase'>{lead.createdFormatedDate}</div>
+		},
 	},
 	{
 		accessorKey: 'updatedFormatedDate',
@@ -62,7 +68,10 @@ export const columns: ColumnDef<ILead>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('updatedFormatedDate')}</div>,
+		cell: ({ row }) => {
+			const lead = row.original
+			return <div className='lowercase'>{lead.updatedFormatedDate}</div>
+		},
 	},
 	{
 		accessorKey: 'partnerId',
@@ -77,14 +86,78 @@ export const columns: ColumnDef<ILead>[] = [
 			)
 		},
 		cell: ({ row }) => {
-         const partnerName = row.original.partner?.name
-      return (<div className='lowercase text-blue1'>{partnerName}</div>)
-   },
+			const lead = row.original
+			const [isEditing, setIsEditing] = useState(false)
+			const [typeState, setTypeState] = useState<number | undefined>(lead.partnerId)
+
+			// Ф-ия на двойной клик
+			const handleDoubleClick = () => {
+				setIsEditing(true)
+				setTypeState(lead.partnerId)
+			}
+
+			// Ф-ия на сохранение
+			const handleSave = async (e: FormEvent) => {
+				e.preventDefault()
+				await LeadsService.updateLead({
+					id: lead.id,
+					partnerId: typeState && +typeState
+				})
+				setIsEditing(false)
+				setTypeState(lead.partnerId)
+			}
+
+			// Ф-ия отмены
+			const handleCancel = useCallback(() => {
+				setIsEditing(false)
+				setTypeState(lead.partnerId)
+			}, [lead])
+
+			useEffect(() => {
+				const handleKeyDown = (e: KeyboardEvent) => {
+					if (e.key === 'Escape') {
+						handleCancel()
+					}
+				}
+
+				if (isEditing) {
+					window.addEventListener('keydown', handleKeyDown)
+				} else {
+					window.removeEventListener('keydown', handleKeyDown)
+				}
+
+				return () => {
+					window.removeEventListener('keydown', handleKeyDown)
+				}
+			}, [handleCancel, isEditing])
+
+			return isEditing ? (
+				<form className='flex items-center justify-center'>
+					{/* @ts-ignore */ }
+					<SelectPartner setActiveSelecItem={setTypeState} />
+					{/* Кнопки */}
+					<div className='flex items-center gap-1'>
+						<button type='submit' onClick={handleSave}>
+							<CheckCheck className='h-4 w-auto cursor-pointer text-green-300 hover:text-green-500 duration-200' />
+						</button>
+						<button type='button' onClick={handleCancel}>
+							<X className='h-4 w-auto cursor-pointer text-red-300 hover:text-red-500 duration-200' />
+						</button>
+					</div>
+				</form>
+			) : (
+				<div
+					className='flex items-center justify-center cursor-pointer'
+					onDoubleClick={handleDoubleClick}>
+					<span>{lead.partner?.name}</span>
+				</div>
+			)
+		},
 	},
 	{
 		accessorKey: 'sourse',
 		header: ({ column }) => {
-			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
+			const [activeSelectItem, setActiveSelecItem] = useState('Clear')               
 
 			useEffect(() => {
 				if (activeSelectItem === 'Clear') {
@@ -96,10 +169,76 @@ export const columns: ColumnDef<ILead>[] = [
 			return <LeadSourceSelect setActiveSelecItem={setActiveSelecItem} />
 		},
 		cell: ({ row }) => {
+			const lead = row.original
+			const [isEditing, setIsEditing] = useState(false)
+			const [typeState, setTypeState] = useState(lead.sourse)
+
 			const styleClassName = `${row.getValue('sourse') === 'Прямое добавление' ? 'text-green-400' : ''} ${row.getValue('sourse') === 'Реферальная программа' ? 'text-orange-400' : ''}
-			 ${row.getValue('sourse') === 'Промокод' ? 'text-blue-400' : ''}`
-		return (<div className={`lowercase ${styleClassName}`} >{row.getValue('sourse')}</div>)
-      }
+		      ${row.getValue('sourse') === 'Промокод' ? 'text-blue-400' : ''}`
+
+			// Ф-ия на двойной клик
+			const handleDoubleClick = () => {
+				setIsEditing(true)
+				setTypeState(lead.sourse)
+			}
+
+			// Ф-ия на сохранение
+			const handleSave = async (e: FormEvent) => {
+				e.preventDefault()
+				await LeadsService.updateLead({
+					id: lead.id,
+					sourse: typeState
+				})
+				setIsEditing(false)
+				setTypeState(lead.sourse)
+			}
+
+			// Ф-ия отмены
+			const handleCancel = useCallback(() => {
+				setIsEditing(false)
+				setTypeState(lead.sourse)
+			}, [lead])
+
+			useEffect(() => {
+				const handleKeyDown = (e: KeyboardEvent) => {
+					if (e.key === 'Escape') {
+						handleCancel()
+					}
+				}
+
+				if (isEditing) {
+					window.addEventListener('keydown', handleKeyDown)
+				} else {
+					window.removeEventListener('keydown', handleKeyDown)
+				}
+
+				return () => {
+					window.removeEventListener('keydown', handleKeyDown)
+				}
+			}, [handleCancel, isEditing])
+
+			return isEditing ? (
+				<form className='flex items-center justify-center'>
+					{/* @ts-ignore */ }
+					<LeadSourceSelect setActiveSelecItem={setTypeState} />
+					{/* Кнопки */}
+					<div className='flex items-center gap-1'>
+						<button type='submit' onClick={handleSave}>
+							<CheckCheck className='h-4 w-auto cursor-pointer text-green-300 hover:text-green-500 duration-200' />
+						</button>
+						<button type='button' onClick={handleCancel}>
+							<X className='h-4 w-auto cursor-pointer text-red-300 hover:text-red-500 duration-200' />
+						</button>
+					</div>
+				</form>
+			) : (
+				<div
+					className='flex items-center justify-center cursor-pointer'
+					onDoubleClick={handleDoubleClick}>
+					<div className={`lowercase ${styleClassName}`} >{lead.sourse}</div>
+				</div>
+			)
+		},
 	},
 	{
 		accessorKey: 'status',
@@ -114,12 +253,78 @@ export const columns: ColumnDef<ILead>[] = [
 				}
 			}, [activeSelectItem, column])
 			return <LeadStatusSelect setActiveSelecItem={setActiveSelecItem} />
-		},
+		},         
 		cell: ({ row }) => {
+			const lead = row.original
+			const [isEditing, setIsEditing] = useState(false)
+			const [typeState, setTypeState] = useState(lead.status)
+
 			const styleClassName = `${row.getValue('status') === 'Новый' ? 'text-green-400' : ''} ${row.getValue('status') === 'В работе' ? 'text-orange-400' : ''}
-			 ${row.getValue('status') === 'Сделка' ? 'text-blue-400' : ''} ${row.getValue('status') === 'Отмена' ? 'text-red-300' : ''}`
-		return (<div className={`lowercase ${styleClassName}`} >{row.getValue('status')}</div>)
-      }
+				${row.getValue('status') === 'Сделка' ? 'text-blue-400' : ''} ${row.getValue('status') === 'Отмена' ? 'text-red-300' : ''}`
+
+			// Ф-ия на двойной клик
+			const handleDoubleClick = () => {
+				setIsEditing(true)
+				setTypeState(lead.status)
+			}
+
+			// Ф-ия на сохранение
+			const handleSave = async (e: FormEvent) => {
+				e.preventDefault()
+				await LeadsService.updateLead({
+					id: lead.id,
+					status: typeState
+				})
+				setIsEditing(false)
+				setTypeState(lead.status)
+			}
+
+			// Ф-ия отмены
+			const handleCancel = useCallback(() => {
+				setIsEditing(false)
+				setTypeState(lead.status)
+			}, [lead])
+
+			useEffect(() => {
+				const handleKeyDown = (e: KeyboardEvent) => {
+					if (e.key === 'Escape') {
+						handleCancel()
+					}
+				}
+
+				if (isEditing) {
+					window.addEventListener('keydown', handleKeyDown)
+				} else {
+					window.removeEventListener('keydown', handleKeyDown)
+				}
+
+				return () => {
+					window.removeEventListener('keydown', handleKeyDown)
+				}
+			}, [handleCancel, isEditing])
+
+			return isEditing ? (
+				<form className='flex items-center justify-center'>
+					{/* @ts-ignore */ }
+					<LeadStatusSelect setActiveSelecItem={setTypeState} />
+					{/* Кнопки */}
+					<div className='flex items-center gap-1'>
+						<button type='submit' onClick={handleSave}>
+							<CheckCheck className='h-4 w-auto cursor-pointer text-green-300 hover:text-green-500 duration-200' />
+						</button>
+						<button type='button' onClick={handleCancel}>
+							<X className='h-4 w-auto cursor-pointer text-red-300 hover:text-red-500 duration-200' />
+						</button>
+					</div>
+				</form>
+			) : (
+				<div
+					className='flex items-center justify-center cursor-pointer'
+					onDoubleClick={handleDoubleClick}>
+					<div className={`lowercase ${styleClassName}`} >{lead.status}</div>
+				</div>
+			)
+		},
 	},
 	{
 		accessorKey: 'offer',
@@ -133,7 +338,10 @@ export const columns: ColumnDef<ILead>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('offer')}</div>,
+		cell: ({ row }) => {
+			const lead = row.original
+			return <LeadEditRow lead={lead} type='offer' />
+		},
 	},
 	{
 		accessorKey: 'amount',
@@ -147,7 +355,10 @@ export const columns: ColumnDef<ILead>[] = [
 				</Button>
 			)
 		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('amount')}</div>,
+		cell: ({ row }) => {
+			const lead = row.original
+			return <LeadEditRow lead={lead} type='amount' />
+		},
 	},
 	{
 		id: 'actions',
