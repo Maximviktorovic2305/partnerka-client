@@ -57,7 +57,7 @@ const PartnerEditStatus = ({ partner }: Props) => {
 
 			return isEditing ? (
 				<form className='flex items-center justify-center'>
-					<PartnersStatusSelect setActiveSelecItem={setTypeState} />
+					<PartnersStatusSelect type='edit' setActiveSelecItem={setTypeState} />
 					{/* Кнопки */}
 					<div className='flex items-center gap-1'>
 						<button type='submit' onClick={handleSave}>

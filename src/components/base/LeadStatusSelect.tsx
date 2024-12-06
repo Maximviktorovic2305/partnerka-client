@@ -12,6 +12,7 @@ import {
 interface Props {
 	setActiveSelecItem: (value: string) => void
 	className?: string
+	type: 'edit' | 'normal'
 }
 
 export enum LeadStatusEnum {
@@ -21,14 +22,14 @@ export enum LeadStatusEnum {
 	Cancel = 'Отмена' 
 }
 
-export function LeadStatusSelect({ setActiveSelecItem, className }: Props) {
+export function LeadStatusSelect({ setActiveSelecItem, type = 'normal', className }: Props) {
 	const handleSelectChange = (value: string) => {
 		setActiveSelecItem(value)
 	}
 
 	return (
 		<Select onValueChange={handleSelectChange}>
-			<SelectTrigger className={`w-[180px] ${className}`}>
+			<SelectTrigger className={`${type === 'edit' ? 'w-[134px] border-none -my-2' : 'w-[170px]'} ${className}`}>
 				<SelectValue placeholder='Статус' />
 			</SelectTrigger>
 			<SelectContent>

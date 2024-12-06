@@ -15,18 +15,19 @@ export enum PartnerStatusEnum {
 	Pro = 'Профессионал',
 }
 
-export function PartnersStatusSelect({
-	setActiveSelecItem,
-}: {
+interface Props {
+	type: 'edit' | 'normal'
 	setActiveSelecItem: (value: string) => void
-}) {
+}
+
+export function PartnersStatusSelect({ setActiveSelecItem, type = 'normal' }: Props) {
 	const handleSelectChange = (value: string) => {
 		setActiveSelecItem(value)
 	}
 
 	return (
 		<Select onValueChange={handleSelectChange}>
-			<SelectTrigger className='w-[180px] '>
+			<SelectTrigger className={`${type === 'edit' ? 'w-[134px] border-none -my-1' : 'w-[170px]'}`}>
 				<SelectValue placeholder='Статус' />
 			</SelectTrigger>
 			<SelectContent>

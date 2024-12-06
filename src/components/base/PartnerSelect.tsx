@@ -12,13 +12,15 @@ import { useGetAllPartners } from '@/queries/partners'
 import { useState } from 'react'
 
 interface Props {
+	type: 'edit' | 'normal'               
 	setActiveSelecItem: (value: string) => void
 	className?: string
 }
 
 export function SelectPartner({
 	setActiveSelecItem,
-	className
+	type = 'normal',
+	className,
 }: Props) {
 	const { data } = useGetAllPartners()
 	const [searchTerm, setSearchTerm] = useState('')
@@ -35,7 +37,7 @@ export function SelectPartner({
 		<Select onValueChange={handleSelectChange}>
 			<div>
 				{/* <div className='text-[10px] text-left pl-2 text-muted-foreground'>{label}</div> */}
-				<SelectTrigger className={`w-[200px] ${className}`}>
+				<SelectTrigger className={`${type === 'edit' ? 'w-[134px] border-none -my-2' : 'w-[170px]'} ${className}`}>
 					<SelectValue placeholder='Имя' />
 				</SelectTrigger>
 			</div>

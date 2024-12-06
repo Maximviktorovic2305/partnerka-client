@@ -62,7 +62,7 @@ const LeadEditStatus = ({ lead }: Props) => {
 			return isEditing ? (
 				<form className='flex items-center justify-center'>
 					{/* @ts-ignore */ }
-					<LeadStatusSelect setActiveSelecItem={setTypeState} />
+					<LeadStatusSelect setActiveSelecItem={setTypeState} type='edit' />
 					{/* Кнопки */}
 					<div className='flex items-center gap-1'>
 						<button type='submit' onClick={handleSave}>

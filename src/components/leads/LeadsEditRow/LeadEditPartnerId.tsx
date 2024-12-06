@@ -59,7 +59,7 @@ const LeadEditPartnerId = ({ lead }: Props) => {
 			return isEditing ? (
 				<form className='flex items-center justify-center'>
 					{/* @ts-ignore */ }
-					<SelectPartner setActiveSelecItem={setTypeState} />
+					<SelectPartner type='edit' setActiveSelecItem={setTypeState} />
 					{/* Кнопки */}
 					<div className='flex items-center gap-1'>
 						<button type='submit' onClick={handleSave}>

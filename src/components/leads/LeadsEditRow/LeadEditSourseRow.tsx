@@ -62,7 +62,7 @@ const LeadEditSourse = ({ lead }: Props) => {
 			return isEditing ? (
 				<form className='flex items-center justify-center'>
 					{/* @ts-ignore */ }
-					<LeadSourceSelect setActiveSelecItem={setTypeState} />
+					<LeadSourceSelect type='edit' setActiveSelecItem={setTypeState} />
 					{/* Кнопки */}
 					<div className='flex items-center gap-1'>
 						<button type='submit' onClick={handleSave}>
