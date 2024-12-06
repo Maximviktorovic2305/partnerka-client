@@ -60,15 +60,15 @@ const LeadEditRow = ({ lead, type }: Props) => {
 	}, [handleCancel, isEditing])
 
 	return isEditing ? (
-		<form className='flex items-center justify-center'>
+		<form className='flex items-center justify-center transition-all duration-300 ease-in-out'>
 			<input
 				type='text'
 				value={typeState}
 				onChange={e => setTypeState(type === 'amount' ? +e.target.value : e.target.value)}
-				className='border-0 outline-none p-0 m-0 bg-transparent max-w-fit'
+				className='border-0 outline-none p-0 m-0 bg-transparent max-w-[70px] transition-all duration-300 ease-in-out'
 			/>
 			{/* Кнопки */}
-			<div className='flex items-center gap-1'>
+			<div className='flex items-center gap-1 transition-all duration-300 ease-in-out'>
 				<button type='submit' onClick={handleSave}>
 					<CheckCheck className='h-4 w-auto cursor-pointer text-green-300 hover:text-green-500 duration-200' />
 				</button>

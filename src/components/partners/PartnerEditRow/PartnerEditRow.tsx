@@ -65,7 +65,7 @@ const PartnerEditRow = ({ partner, type }: Props) => {
 				type='text'
 				value={typeState}
 				onChange={e => setTypeState((type === 'totalAwards' || type === 'balance') ? +e.target.value : e.target.value)}
-				className='border-0 outline-none p-0 m-0 bg-transparent max-w-fit'
+				className='border-0 outline-none p-0 m-0 bg-transparent max-w-[70px] transition-all duration-300 ease-in-out'
 			/>
 			{/* Кнопки */}
 			<div className='flex items-center gap-1'>

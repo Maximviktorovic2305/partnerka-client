@@ -37,8 +37,8 @@ const Leads = () => {
   }, [activeTab]);
 
   return (
-    <div>
-      <div className="relative flex items-center justify-start ml-3 text-blue1 text-xl">
+    <div className='transition-all duration-300'>
+      <div className="relative flex items-center justify-start ml-3 text-blue1 text-xl transition-all duration-300">
         <button 
           ref={leadsRef}
           className={`p-3 transition-all duration-300 ${activeTab === 'leads' ? 'text-blue1' : 'text-blue2'}`} 
@@ -60,7 +60,7 @@ const Leads = () => {
           style={underlineStyle}
         />
       </div>
-      <div className="">
+      <div className="transition-all duration-300">
         {renderContent()}
       </div>
     </div>

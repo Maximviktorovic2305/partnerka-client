@@ -74,8 +74,8 @@ export function LeadsTabsContent() {
 
 	return (
 		<>
-		<div className='flex items-center justify-between mt-3 pl-6'>
-				<div className='flex items-center gap-3 ml-auto'>
+		<div className='flex items-center justify-between mt-3 pl-6 transition-all duration-300 ease-in-out'>
+				<div className='flex items-center gap-3 ml-auto transition-all duration-300 ease-in-out'>
 				<Button onClick={() => setIsLeadCreatActive(true)} variant='outline' className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'> <UserPlus /> Добавить Лида</Button>
 				{/* Колонки видимые         */}
 				<DropdownMenu>
@@ -121,17 +121,17 @@ export function LeadsTabsContent() {
 				
 			</div> */}
 
-		<div className='w-full text-primary p-3 rounded-lg bg-white m-3'>
+		<div className='w-full text-primary p-3 rounded-lg bg-white m-3 transition-all duration-300 ease-in-out'>
 			
 
 			{ isLeadCreatActive && <LeadCreateModal setIsLeadCreatActive={setIsLeadCreatActive} /> }
 
 			
 			{/* Table */}
-			<div className='rounded-md border overflow-hidden'>
+			<div className='rounded-md border overflow-hidden transition-all duration-300 ease-in-out'>
 				<Table>
 					{/* TableHeader */}
-					<TableHeader className='bg-secondary'>
+					<TableHeader className='bg-secondary transition-all duration-300 ease-in-out'>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map(header => {
@@ -150,7 +150,7 @@ export function LeadsTabsContent() {
 						))}
 					</TableHeader>
 					{/* TableBody */}
-					<TableBody>
+					<TableBody className='transition-all duration-300 ease-in-out'>
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map(row => (
 								<TableRow
@@ -158,7 +158,7 @@ export function LeadsTabsContent() {
 									key={row.id}
 									data-state={row.getIsSelected() && 'selected'}>
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>
+										<TableCell key={cell.id} className='transition-all duration-300 ease-in-out'>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext(),
