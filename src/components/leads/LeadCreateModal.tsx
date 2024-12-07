@@ -54,21 +54,21 @@ const LeadCreateModal = ({ setIsLeadCreatActive }: Props) => {
 						name='Имя'
 					/>
 					<div className='text-primary border-blue2/70'>
-						<SelectPartner
+						<SelectPartner type='normal'
 							className='border-blue2/70'
 							setActiveSelecItem={setPartner}
 						/>
 					</div>
 
 					<div className='text-primary border-blue2/70'>
-						<LeadSourceSelect
+						<LeadSourceSelect type='normal'
 							className='border-blue2/70'
 							setActiveSelecItem={setSourse}
 						/>
 					</div>
 
 					<div className='text-primary border-blue2/70'>
-						<LeadStatusSelect
+						<LeadStatusSelect type='normal'
 							className='border-blue2/70'
 							setActiveSelecItem={setStatus}
 						/>

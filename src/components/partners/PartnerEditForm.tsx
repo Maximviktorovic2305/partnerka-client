@@ -76,7 +76,7 @@ const PartnerEditForm = ({ setActiveEditPartner, partner }: Props) => {
 						dateBirthday
 					/>
 					<div className='text-newAccent border-white'>
-						<PartnersStatusSelect setActiveSelecItem={setStatus} />
+						<PartnersStatusSelect type='normal' setActiveSelecItem={setStatus} />
 					</div>
 
 					<PartnerEditInput

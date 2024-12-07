@@ -62,19 +62,19 @@ const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 						name='Имя'
 					/>
 					<div className='text-newAccent border-white'>
-							<SelectPartner
+							<SelectPartner type='normal'
 								setActiveSelecItem={setPartner}
 							/>
 						</div>
 
                <div className='text-newAccent border-white'>
-							<LeadSourceSelect
+							<LeadSourceSelect type='normal'
 								setActiveSelecItem={setSourse}
 							/>
 						</div>
 
                <div className='text-newAccent border-white'>
-							<LeadStatusSelect
+							<LeadStatusSelect type='normal'
 								setActiveSelecItem={setStatus}
 							/>
 						</div>               

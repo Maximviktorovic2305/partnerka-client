@@ -98,7 +98,7 @@ const PartnerCreateModal = ({ setIsPartnerCreatActive }: Props) => {
 								name='Баланс'
 							/>
 							<div className='mb-1'>
-								<PartnersStatusSelect setActiveSelecItem={setStatus} />
+								<PartnersStatusSelect type='normal' setActiveSelecItem={setStatus} />
 							</div>
 
 						<div className='flex items-center gap-3 ml-[5%]'>

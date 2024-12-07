@@ -103,7 +103,7 @@ export const columns: ColumnDef<ILead>[] = [
 					column.setFilterValue(activeSelectItem)
 				}
 			}, [activeSelectItem, column])
-			return <LeadSourceSelect setActiveSelecItem={setActiveSelecItem} />
+			return <LeadSourceSelect type='normal' setActiveSelecItem={setActiveSelecItem} />
 		},
 		cell: ({ row }) => {
 			const lead = row.original
@@ -122,7 +122,7 @@ export const columns: ColumnDef<ILead>[] = [
 					column.setFilterValue(activeSelectItem)
 				}
 			}, [activeSelectItem, column])
-			return <LeadStatusSelect setActiveSelecItem={setActiveSelecItem} />
+			return <LeadStatusSelect type='normal' setActiveSelecItem={setActiveSelecItem} />
 		},         
 		cell: ({ row }) => {
 			const lead = row.original

@@ -95,7 +95,7 @@ export const columns: ColumnDef<IPartner>[] = [
 					column.setFilterValue(activeSelectItem)
 				}
 			}, [activeSelectItem, column])
-			return <PartnersStatusSelect setActiveSelecItem={setActiveSelecItem} />
+			return <PartnersStatusSelect type='normal' setActiveSelecItem={setActiveSelecItem} />
 		},
 		cell: ({ row }) => {
 			const partner = row.original
