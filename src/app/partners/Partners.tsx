@@ -34,9 +34,18 @@ import { useGetAllPartners } from '@/queries/partners'
 import PartnerCreateModal from '@/components/partners/PartnerCreateModal'
 import { Settings, UserPlus } from 'lucide-react'
 import BaseSquareText from '@/components/base/BaseSquareText'
+import { useUser } from '@/hooks/useSelectors'
+import { useRouter } from 'next/navigation'
 
 export function Partners() {
-	const { data } = useGetAllPartners()
+	const { user } = useUser()
+	const router = useRouter()
+	const { data } = useGetAllPartners()   
+
+	if (typeof window!== 'undefined' && !user?.id) {
+		router.push('/auth/login')
+		router.refresh()
+	}
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])

@@ -3,9 +3,14 @@
 
 import { LeadsTabsContent } from '@/components/leads/tabs/LeadsTabsContent';
 import StatisticsTabsContent from '@/components/leads/tabs/StatisticsTabsContent';
+import { useUser } from '@/hooks/useSelectors';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 
 const Leads = () => {
+  const { user } = useUser()
+  const router = useRouter()
+
   const [activeTab, setActiveTab] = useState('leads');
   const [underlineStyle, setUnderlineStyle] = useState({});
   const underlineRef = useRef(null);
@@ -22,6 +27,11 @@ const Leads = () => {
         return null;
     }
   };
+
+  if (typeof window!== 'undefined' && !user?.id) {
+		router.push('/auth/login')
+		router.refresh()
+	}
 
   useEffect(() => {
     const activeRef = activeTab === 'leads' ? leadsRef.current : statisticsRef.current;

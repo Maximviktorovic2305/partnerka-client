@@ -16,7 +16,7 @@ const LeadCreateModal = ({ setIsLeadCreatActive }: Props) => {
 	const [sourse, setSourse] = useState('')
 	const [status, setStatus] = useState('')
 	const [offer, setOffer] = useState('')
-	const [amount, setAmount] = useState<string | number>(0)
+	const [amount, setAmount] = useState<string | number>()
 	const [partner, setPartner] = useState<string | number>(0)
 
 	const { mutate } = useMutation({
