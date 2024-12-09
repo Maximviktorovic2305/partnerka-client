@@ -14,18 +14,6 @@ export const useGetLeadById = (leadId: number) => {
 	return { data, isLoading }
 }
 
-// // Получить всех лидов
-// export const useGetAllLeads = () => {
-// 	const { data, isLoading } = useQuery({
-// 		queryKey: ['get all leads'],
-// 		queryFn: () => LeadsService.getAllLeads(),
-// 		select: ({ data }) => data,
-// 		refetchInterval: 1000,
-// 	})
-
-// 	return { data, isLoading }
-// }               
-
 // Получить всех лидов
 export const useGetAllLeads = (dataLeads: GetAllLeadsRequest) => {
 	const { data, isLoading } = useQuery({
