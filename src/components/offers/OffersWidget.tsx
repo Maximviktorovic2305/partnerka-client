@@ -29,18 +29,17 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 
-import { columns } from '@/components/partners/PartnersColumns'
-import { useGetAllPartners } from '@/queries/partners'
-import PartnerCreateModal from '@/components/partners/PartnerCreateModal'
+import { columns } from '@/components/offers/OffersColumns'
 import { Settings, UserPlus } from 'lucide-react'
-import BaseSquareText from '@/components/base/BaseSquareText'
 import { useUser } from '@/hooks/useSelectors'
 import { useRouter } from 'next/navigation'
+import { useGetAllOffers } from '@/queries/offers'
+import OfferCreateModal from '@/components/offers/OfferCreateModal'
 
-export function Partners() {
+export default function OffersWidget() {
 	const { user } = useUser()
 	const router = useRouter()
-	const { data } = useGetAllPartners()
+	const { data } = useGetAllOffers()
 
 	if (typeof window !== 'undefined' && !user?.id) {
 		router.push('/auth/login')
@@ -52,10 +51,10 @@ export function Partners() {
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
 
-	const [isPartnerCreatActive, setIsPartnerCreatActive] = useState(false)
+	const [isOferCreatActive, setIsOfferCreatActive] = useState(false)
 
 	// Устанавливаем количество строк на страницу
-	const rowsPerPage = 20
+	const rowsPerPage = 10
 
 	const table = useReactTable({
 		data: data ? data : [],
@@ -87,21 +86,15 @@ export function Partners() {
 		<>
 			<div className='flex items-center justify-between mt-10 pl-6'>
 				<div className='text-left text-[30px] text-blue2 font-bold'>
-					Партнеры
+					Список офферов
 				</div>
 				<div className='flex items-center gap-3'>
-					<div className='flex items-center gap-2'>
-						<BaseSquareText color='new'>новый</BaseSquareText>
-						<BaseSquareText color='inWork'>в работе</BaseSquareText>
-						<BaseSquareText color='deal'>сделка</BaseSquareText>
-						<BaseSquareText color='cancel'>отмена</BaseSquareText>
-					</div>
 					<Button
-						onClick={() => setIsPartnerCreatActive(true)}
+						onClick={() => setIsOfferCreatActive(true)}
 						variant='outline'
 						className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'>
 						{' '}
-						<UserPlus /> Добавить партнера
+						<UserPlus /> Добавить Оффер
 					</Button>
 					{/* Колонки видимые         */}
 					<DropdownMenu>
@@ -137,10 +130,8 @@ export function Partners() {
 			</div>
 
 			<div className='w-full text-primary p-3 rounded-lg bg-white m-3'>
-				{isPartnerCreatActive && (
-					<PartnerCreateModal
-						setIsPartnerCreatActive={setIsPartnerCreatActive}
-					/>
+				{isOferCreatActive && (
+					<OfferCreateModal setIsOfferCreatActive={setIsOfferCreatActive} />
 				)}
 
 				{/* Table */}

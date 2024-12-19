@@ -17,7 +17,6 @@ interface Props {
 
 const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 	const [name, setName] = useState(lead.name ?? '')
-	// const [updatedFormatedDate, setUpdatedFormatedDate] = useState(lead.updatedFormatedDate ?? '')
 	const [sourse, setSourse] = useState(lead.sourse ?? '')
 	const [status, setStatus] = useState(lead.status ?? '')
 	const [offer, setOffer] = useState(lead.offer ?? '')   
@@ -30,7 +29,6 @@ const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 			LeadsService.updateLead({
             id: lead.id,
 				name,
-				// updatedFormatedDate,
 				sourse,
 				status,
             offer,

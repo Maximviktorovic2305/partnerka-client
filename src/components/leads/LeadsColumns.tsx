@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ColumnDef } from '@tanstack/react-table'
-import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -31,7 +31,6 @@ export const columns: ColumnDef<ILead>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Имя
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -48,7 +47,6 @@ export const columns: ColumnDef<ILead>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Дата Соз-ия
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -65,7 +63,6 @@ export const columns: ColumnDef<ILead>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Дата Изм-ия
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -82,7 +79,6 @@ export const columns: ColumnDef<ILead>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Партнер
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -137,7 +133,6 @@ export const columns: ColumnDef<ILead>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Оффер
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -154,7 +149,6 @@ export const columns: ColumnDef<ILead>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Сумма
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},

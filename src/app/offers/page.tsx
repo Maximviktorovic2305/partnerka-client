@@ -1,7 +1,11 @@
-const Offers = () => {
+import Offers from "./Offers"
+
+const page = () => {
   return (
-    <div className="size-full min-h-screen text-center mt-10">Страница с Офферами</div>
+    <div className="size-full min-h-screen text-center mt-10">
+      <Offers />
+    </div>
   )
 }
 
-export default Offers
+export default page

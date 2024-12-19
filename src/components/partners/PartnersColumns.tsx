@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ColumnDef } from '@tanstack/react-table'
-import { CaretSortIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -29,7 +29,6 @@ export const columns: ColumnDef<IPartner>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Имя
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -46,7 +45,6 @@ export const columns: ColumnDef<IPartner>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Дата Рег-и
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -110,7 +108,6 @@ export const columns: ColumnDef<IPartner>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Вознагр-ие
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -127,7 +124,6 @@ export const columns: ColumnDef<IPartner>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Баланс
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -144,7 +140,6 @@ export const columns: ColumnDef<IPartner>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Телефон
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
@@ -161,7 +156,6 @@ export const columns: ColumnDef<IPartner>[] = [
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
 					Email
-					<CaretSortIcon className='h-4 w-4' />
 				</Button>
 			)
 		},
