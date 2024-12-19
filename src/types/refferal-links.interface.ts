@@ -13,9 +13,12 @@ export interface IRefferalLinksRequest
 	name?: string
 	partnerId?: number
 	devicesId?: string
-   localeLinkPath?: string
+	localeLinkPath?: string
 	serverLinkPath?: string
 	registerCount?: number
+	hash?: string
+	viewCount?: number
+	viewUniqueCount?: number
 }
 
 export interface IRefferalLinksResponse
@@ -24,11 +27,14 @@ export interface IRefferalLinksResponse
 	updatedFormatedDate?: string
 	name?: string
 	partnerId?: number
-   localeLinkPath?: string
+	localeLinkPath?: string
 	serverLinkPath?: string
 	partner?: IPartner[]
 	devicesId?: string[]
 	registerCount?: number
+	hash?: string
+	viewCount?: number
+	viewUniqueCount?: number
 }
 
 export interface IRefferalLink {
@@ -42,4 +48,7 @@ export interface IRefferalLink {
 	registerCount?: number
 	serverLinkPath?: string
 	devicesId?: string[]
+	hash?: string
+	viewCount?: number
+	viewUniqueCount?: number
 }

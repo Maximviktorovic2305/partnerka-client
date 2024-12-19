@@ -24,7 +24,18 @@ const RefferalLinkService = {
 		})
 
 		return response
-	},         
+	},        
+	
+	// Получить ссылку по hash
+	async getRefferalLinkByHash(hash: string) {
+		const response = await instanse<IRefferalLink>({
+			url: `${REFERRAL_LINK}/hash`,
+			method: 'POST',
+         data: { hash },
+		})
+
+		return response
+	},  
 
    // Получить все ссылки партнера по partnerId
 	async getAllPartnerRefferalLinks(partnerId: number) {
