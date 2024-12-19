@@ -84,7 +84,7 @@ const ReffEditForm = ({ setActiveEditReffLink, reffLink }: Props) => {
 					/>         
 
 					<div className='text-newAccent border-white placeholder:text-newAccent/50'>
-						<SelectOffer type='edit' setActiveSelecItem={setOfferName} />
+						<SelectOffer type='normal' setActiveSelecItem={setOfferName} />
 					</div>
 
 					<PartnerEditInput

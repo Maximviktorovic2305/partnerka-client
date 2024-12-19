@@ -16,6 +16,8 @@ import { IRefferalLink } from '@/types/refferal-links.interface'
 import ReffEditForm from './ReffEditForm'
 import RefferalLinkService from '@/services/referral-links/referral-links.service'
 import RefLinkEditRow from './RefLinkEditRow'
+import RefLinksEditPartner from './RefLinksEditPartner'
+import RefLinksEditOffer from './RefLinksEditOffer'
 
 export const columns: ColumnDef<IRefferalLink>[] = [
 	{
@@ -32,7 +34,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <RefLinkEditRow reffLink={reffLink} type='name' />
+			return <span className='text-blue2'><RefLinkEditRow reffLink={reffLink} type='name' /></span>
 		},
 	},
 	{
@@ -49,10 +51,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return (<div
-			className='flex items-center justify-center justify-self-center place-self-center cursor-pointer'>
-			<span className='lowercase'>{reffLink.partner?.name}</span>
-		</div>)
+			return <RefLinksEditPartner reffLink={reffLink} />
 		},
 	},
 	{
@@ -69,7 +68,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <RefLinkEditRow reffLink={reffLink} type='localeLinkPath' />
+			return <span className='text-blue3'><RefLinkEditRow reffLink={reffLink} type='localeLinkPath' /></span>
 		},
    },
    {
@@ -86,10 +85,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return (<div
-			className='flex items-center justify-center justify-self-center place-self-center cursor-pointer'>
-			<span className='lowercase'>{reffLink.offer?.name}</span>
-		</div>)
+			return <RefLinksEditOffer reffLink={reffLink} />         
 		},
 	},
 	{
@@ -106,7 +102,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <RefLinkEditRow reffLink={reffLink} type='viewUniqueCount' />
+			return <span className='text-blue2'><RefLinkEditRow reffLink={reffLink} type='viewUniqueCount' /></span>
 		},
    },
 	{
@@ -123,7 +119,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <RefLinkEditRow reffLink={reffLink} type='viewCount' />
+			return <span className='text-blue2'><RefLinkEditRow reffLink={reffLink} type='viewCount' /></span>
 		},
    },
 	{
@@ -157,7 +153,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <RefLinkEditRow reffLink={reffLink} type='amountToAwait' />
+			return <span className='font-bold text-blue2'><RefLinkEditRow reffLink={reffLink} type='amountToAwait' /></span>
 		},
    },
 	{
@@ -174,7 +170,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <RefLinkEditRow reffLink={reffLink} type='amountToPay' />
+			return <span className='font-bold text-blue2'><RefLinkEditRow reffLink={reffLink} type='amountToPay' /></span>
 		},
    },
 	{

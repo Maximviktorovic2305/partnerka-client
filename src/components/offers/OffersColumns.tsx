@@ -32,7 +32,7 @@ export const columns: ColumnDef<IOffer>[] = [
 		},
 		cell: ({ row }) => {
 			const offer = row.original
-			return <OfferEditRow offer={offer} type='name' />
+			return <span className='text-blue1'><OfferEditRow offer={offer} type='name' /></span>
 		},
 	},
 	{
@@ -49,7 +49,7 @@ export const columns: ColumnDef<IOffer>[] = [
 		},
 		cell: ({ row }) => {
 			const offer = row.original
-			return <OfferEditRow offer={offer} type='domain' />
+			return <span className='text-blue3 font-bold'><OfferEditRow offer={offer} type='domain' /></span>
 		},
 	},
 	{
@@ -111,7 +111,7 @@ export const columns: ColumnDef<IOffer>[] = [
 		},
 		cell: ({ row }) => {
 			const offer = row.original
-			return <OfferEditRow offer={offer} type='amount' />
+			return <span className='font-bold text-blue2'><OfferEditRow offer={offer} type='amount' /></span>
 		},
 	},
 	{

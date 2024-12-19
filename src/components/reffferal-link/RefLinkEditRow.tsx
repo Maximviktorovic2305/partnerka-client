@@ -23,6 +23,8 @@ const RefLinkEditRow = ({ reffLink, type }: Props) => {
 	const [isEditing, setIsEditing] = useState(false)
 	const [typeState, setTypeState] = useState(reffLink[type])
 
+	const classStyles = ` ${type === 'viewCount' && 'text-blue3'} ${type === 'viewUniqueCount' && 'text-blue1'} ${type === 'conversions' && 'bg-[#D5EDF1] px-3 text-[#34B3BA] rounded-md'}`
+
 	// Ф-ия на двойной клик
 	const handleDoubleClick = () => {
 		setIsEditing(true)
@@ -91,7 +93,7 @@ const RefLinkEditRow = ({ reffLink, type }: Props) => {
 		<div
 			className='flex items-center justify-center cursor-pointer'
 			onDoubleClick={handleDoubleClick}>
-			<span className='lowercase'>{reffLink[type]}</span>
+			<span className={`lowercase ${classStyles}`}>{reffLink[type]}</span>
 		</div>
 	)
 }

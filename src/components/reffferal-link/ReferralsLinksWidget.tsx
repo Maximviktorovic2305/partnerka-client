@@ -30,11 +30,11 @@ import {
 } from '@/components/ui/table'
 
 import { columns } from '@/components/reffferal-link/RefLinksColumns'
-import { Settings, UserPlus } from 'lucide-react'
+import { Link, Settings } from 'lucide-react'
 import { useUser } from '@/hooks/useSelectors'
 import { useRouter } from 'next/navigation'
-import OfferCreateModal from '@/components/offers/OfferCreateModal'
 import { useGetAllRefferalLinks } from '@/queries/refferal-link'
+import ReffCreateModal from './RefCreateModal'
 
 export default function ReferralsLinksWidget() {
 	const { user } = useUser()
@@ -51,7 +51,7 @@ export default function ReferralsLinksWidget() {
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
 
-	const [isOferCreatActive, setIsOfferCreatActive] = useState(false)
+	const [isReffLinkCreatActive, setIsReffLinkCreatActive] = useState(false)
 
 	// Устанавливаем количество строк на страницу
 	const rowsPerPage = 15
@@ -90,11 +90,11 @@ export default function ReferralsLinksWidget() {
 				</div>
 				<div className='flex items-center gap-3'>
 					<Button
-						onClick={() => setIsOfferCreatActive(true)}
+						onClick={() => setIsReffLinkCreatActive(true)}
 						variant='outline'
 						className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'>
 						{' '}
-						<UserPlus /> Создать Ссылку
+						<Link /> Создать Ссылку
 					</Button>
 					{/* Колонки видимые         */}
 					<DropdownMenu>
@@ -130,8 +130,8 @@ export default function ReferralsLinksWidget() {
 			</div>
 
 			<div className='w-full text-primary p-3 rounded-lg bg-white m-3'>
-				{isOferCreatActive && (
-					<OfferCreateModal setIsOfferCreatActive={setIsOfferCreatActive} />
+				{isReffLinkCreatActive && (
+					<ReffCreateModal setIsReffLinkCreatActive={setIsReffLinkCreatActive} />
 				)}
 
 				{/* Table */}
