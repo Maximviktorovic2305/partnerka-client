@@ -36,7 +36,7 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <LeadEditRow lead={lead} type='name' />
+			return <span className='text-blue1'><LeadEditRow lead={lead} type='name' /></span>
 		},
 	},
 	{
@@ -52,7 +52,7 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <div className='lowercase'>{lead.createdFormatedDate}</div>
+			return <div className='lowercase text-blue2'>{lead.createdFormatedDate}</div>
 		},
 	},
 	{
@@ -68,7 +68,7 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <div className='lowercase'>{lead.updatedFormatedDate}</div>
+			return <div className='lowercase text-blue2'>{lead.updatedFormatedDate}</div>
 		},
 	},
 	{
@@ -84,7 +84,7 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <LeadEditPartnerId lead={lead} />
+			return <span className='text-blue1'><LeadEditPartnerId lead={lead} /></span>
 		},
 	},
 	{
@@ -138,7 +138,7 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <LeadEditRow lead={lead} type='offer' />
+			return <span className='text-blue1'><LeadEditRow lead={lead} type='offer' /></span>
 		},
 	},
 	{
@@ -154,7 +154,7 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <LeadEditRow lead={lead} type='amount' />
+			return <span className='text-blue2 font-semibold'><LeadEditRow lead={lead} type='amount' /></span>
 		},
 	},
 	{

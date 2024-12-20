@@ -200,7 +200,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		cell: ({ row }) => {
 			const reffLink = row.original
 			return (
-				<span className='font-bold text-blue2'>
+				<span className='font-semibold text-blue2'>
 					<RefLinkEditRow reffLink={reffLink} type='amountToAwait' />
 				</span>
 			)
@@ -221,7 +221,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		cell: ({ row }) => {
 			const reffLink = row.original
 			return (
-				<span className='font-bold text-blue2'>
+				<span className='font-semibold text-blue2'>
 					<RefLinkEditRow reffLink={reffLink} type='amountToPay' />
 				</span>
 			)

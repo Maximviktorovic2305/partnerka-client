@@ -34,7 +34,7 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <PartnerEditRow partner={partner} type='name' />
+			return <span className='text-blue1'><PartnerEditRow partner={partner} type='name' /></span>
 		},
 	},
 	{
@@ -50,7 +50,7 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <PartnerEditRow partner={partner} type='registerDate' />
+			return <span className='text-blue2'><PartnerEditRow partner={partner} type='registerDate' /></span>
 		},
 	},
 	{
@@ -113,7 +113,7 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <PartnerEditRow partner={partner} type='totalAwards' />
+			return <span className='text-blue2/70 font-semibold'><PartnerEditRow partner={partner} type='totalAwards' /></span>
 		},
 	},
 	{
@@ -129,7 +129,7 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <PartnerEditRow partner={partner} type='balance' />
+			return <span className='text-blue2/70 font-semibold'><PartnerEditRow partner={partner} type='balance' /></span>
 		},
 	},
 	{
@@ -145,7 +145,7 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <PartnerEditRow partner={partner} type='phone' />
+			return <span className='text-blue2'><PartnerEditRow partner={partner} type='phone' /></span>
 		},
 	},
 	{
@@ -161,7 +161,7 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <PartnerEditRow partner={partner} type='email' />
+			return <span className='text-blue2'><PartnerEditRow partner={partner} type='email' /></span>
 		},
 	},
 	{

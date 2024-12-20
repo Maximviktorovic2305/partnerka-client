@@ -111,7 +111,7 @@ export const columns: ColumnDef<IOffer>[] = [
 		},
 		cell: ({ row }) => {
 			const offer = row.original
-			return <span className='font-bold text-blue2'><OfferEditRow offer={offer} type='amount' /></span>
+			return <span className='font-semibold text-blue2'><OfferEditRow offer={offer} type='amount' /></span>
 		},
 	},
 	{
