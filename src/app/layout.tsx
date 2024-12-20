@@ -32,42 +32,42 @@ export default function RootLayout({
 		<html lang='en' className='size-full bg-primary'>
 			<head>
 			<Script id='partner-script' strategy='afterInteractive'>
-    {`
-    const urlParams = new URLSearchParams(window.location.search);
-    const reff = urlParams.get('reff');
+				{`
+					const urlParams = new URLSearchParams(window.location.search);
+					const add = urlParams.get('add');
 
-    const checkCookie = (name, value) => {
-        const cookieValue = document.cookie.split('; ').find(row => row.startsWith(name));
-        return cookieValue ? cookieValue.split('=')[1] === value : false;
-    };
+					const checkCookie = (name, value) => {
+						const cookieValue = document.cookie.split('; ').find(row => row.startsWith(name));
+						return cookieValue ? cookieValue.split('=')[1] === value : false;
+					};
 
-    if (reff) {
-        console.log(reff);
-        const unique = !checkCookie('reff', reff);
+					if (add) {
+						console.log(add);
+						const unique = !checkCookie('add', add);
 
-        if (unique) {
-            document.cookie = \`reff=\${reff}; path=/; max-age=2592000;\`;
-        }
+						if (unique) {
+								document.cookie = \`add=\${add}; path=/; max-age=2592000;\`;
+						}
 
-        fetch('http://localhost:3339/conversation', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ reff, unique }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            // Установка куки партнера, если уникальный
-            if (data.reff && unique) {
-                document.cookie = \`reff=\${data.reff}; path=/; max-age=2592000;\`;
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-    `}
-</Script>
+						fetch('http://localhost:3339/conversation', {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify({ add, unique }),
+						})
+						.then(response => response.json())
+						.then(data => {
+								console.log('Success:', data);
+								// Установка куки партнера, если уникальный
+								if (data.add && unique) {
+									document.cookie = \`add=\${data.add}; path=/; max-age=2592000;\`;
+								}
+						})
+						.catch(error => console.error('Error:', error));
+					}
+				`}
+			</Script>
 			</head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased text-muted-foreground text-sm size-full`}>
