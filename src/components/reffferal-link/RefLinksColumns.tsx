@@ -18,6 +18,7 @@ import RefferalLinkService from '@/services/referral-links/referral-links.servic
 import RefLinkEditRow from './RefLinkEditRow'
 import RefLinksEditPartner from './RefLinksEditPartner'
 import RefLinksEditOffer from './RefLinksEditOffer'
+import { CheckCheck, Files, QrCode } from 'lucide-react'
 
 export const columns: ColumnDef<IRefferalLink>[] = [
 	{
@@ -34,7 +35,11 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <span className='text-blue2'><RefLinkEditRow reffLink={reffLink} type='name' /></span>
+			return (
+				<span className='text-blue2'>
+					<RefLinkEditRow reffLink={reffLink} type='name' />
+				</span>
+			)
 		},
 	},
 	{
@@ -67,11 +72,39 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 			)
 		},
 		cell: ({ row }) => {
-			const reffLink = row.original
-			return <span className='text-blue3'><RefLinkEditRow reffLink={reffLink} type='localeLinkPath' /></span>
+			const reffLink = row.original;
+        const [copied, setCopied] = useState(false); // Состояние для отслеживания копирования
+
+        const handleCopy = async () => {
+            try {
+                await navigator.clipboard.writeText(reffLink.localeLinkPath ?? '');
+                console.log('Ссылка скопирована в буфер обмена');
+                setCopied(true); 
+
+                setTimeout(() => {
+                    setCopied(false); // Возвращаем состояние обратно через 2 секунды
+                }, 1000);
+            } catch (err) {
+                console.error('Ошибка копирования: ', err);
+            }
+        };
+
+        return (
+            <div className='text-blue3 flex items-center gap-2'>
+                <RefLinkEditRow reffLink={reffLink} type='localeLinkPath' />
+                <span className='flex items-center gap-1 text-blue1'>
+                    {copied ? (
+                        <CheckCheck className='cursor-pointer size-5 transition-opacity duration-300 opacity-100' />
+                    ) : (
+                        <Files className='cursor-pointer size-5 transition-opacity duration-300 opacity-100' onClick={handleCopy} />
+                    )}
+						  <QrCode className='cursor-pointer size-5' />
+                </span>
+            </div>
+        );
 		},
-   },
-   {
+	},
+	{
 		accessorKey: 'offerId',
 		header: ({ column }) => {
 			return (
@@ -85,7 +118,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <RefLinksEditOffer reffLink={reffLink} />         
+			return <RefLinksEditOffer reffLink={reffLink} />
 		},
 	},
 	{
@@ -102,9 +135,13 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <span className='text-blue2'><RefLinkEditRow reffLink={reffLink} type='viewUniqueCount' /></span>
+			return (
+				<span className='text-blue2'>
+					<RefLinkEditRow reffLink={reffLink} type='viewUniqueCount' />
+				</span>
+			)
 		},
-   },
+	},
 	{
 		accessorKey: 'viewUniqueCount',
 		header: ({ column }) => {
@@ -119,9 +156,13 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <span className='text-blue2'><RefLinkEditRow reffLink={reffLink} type='viewCount' /></span>
+			return (
+				<span className='text-blue2'>
+					<RefLinkEditRow reffLink={reffLink} type='viewCount' />
+				</span>
+			)
 		},
-   },
+	},
 	{
 		accessorKey: 'conversions',
 		header: ({ column }) => {
@@ -138,7 +179,7 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 			const reffLink = row.original
 			return <RefLinkEditRow reffLink={reffLink} type='conversions' />
 		},
-   },
+	},
 	{
 		accessorKey: 'amountToAwait',
 		header: ({ column }) => {
@@ -153,9 +194,13 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <span className='font-bold text-blue2'><RefLinkEditRow reffLink={reffLink} type='amountToAwait' /></span>
+			return (
+				<span className='font-bold text-blue2'>
+					<RefLinkEditRow reffLink={reffLink} type='amountToAwait' />
+				</span>
+			)
 		},
-   },
+	},
 	{
 		accessorKey: 'amountToPay',
 		header: ({ column }) => {
@@ -170,9 +215,13 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original
-			return <span className='font-bold text-blue2'><RefLinkEditRow reffLink={reffLink} type='amountToPay' /></span>
+			return (
+				<span className='font-bold text-blue2'>
+					<RefLinkEditRow reffLink={reffLink} type='amountToPay' />
+				</span>
+			)
 		},
-   },
+	},
 	{
 		id: 'actions',
 		enableHiding: false,
