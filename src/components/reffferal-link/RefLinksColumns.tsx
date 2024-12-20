@@ -18,7 +18,9 @@ import RefferalLinkService from '@/services/referral-links/referral-links.servic
 import RefLinkEditRow from './RefLinkEditRow'
 import RefLinksEditPartner from './RefLinksEditPartner'
 import RefLinksEditOffer from './RefLinksEditOffer'
-import { CheckCheck, Files, QrCode } from 'lucide-react'
+import { CheckCheck, Files, QrCode } from 'lucide-react'               
+import BaseQRModal from '../base/BaseQRModal'
+
 
 export const columns: ColumnDef<IRefferalLink>[] = [
 	{
@@ -73,16 +75,16 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 		},
 		cell: ({ row }) => {
 			const reffLink = row.original;
-        const [copied, setCopied] = useState(false); // Состояние для отслеживания копирования
+        const [copied, setCopied] = useState(false);
+        const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для управления модальным окном
 
         const handleCopy = async () => {
             try {
                 await navigator.clipboard.writeText(reffLink.localeLinkPath ?? '');
-                console.log('Ссылка скопирована в буфер обмена');
-                setCopied(true); 
-
+                console.log('Ссылка скопирована');
+                setCopied(true);
                 setTimeout(() => {
-                    setCopied(false); // Возвращаем состояние обратно через 2 секунды
+                    setCopied(false);
                 }, 1000);
             } catch (err) {
                 console.error('Ошибка копирования: ', err);
@@ -98,8 +100,11 @@ export const columns: ColumnDef<IRefferalLink>[] = [
                     ) : (
                         <Files className='cursor-pointer size-5 transition-opacity duration-300 opacity-100' onClick={handleCopy} />
                     )}
-						  <QrCode className='cursor-pointer size-5' />
+                    <QrCode className='cursor-pointer size-5' onClick={() => setIsModalOpen(true)} /> {/* Открытие модального окна */}
                 </span>
+                
+                {/* Модальное окно для QR-кода */}
+                <BaseQRModal isOpen={isModalOpen} onClose={setIsModalOpen} link={reffLink.localeLinkPath ?? ''} />
             </div>
         );
 		},
