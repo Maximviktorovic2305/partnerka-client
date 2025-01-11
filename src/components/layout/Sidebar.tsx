@@ -22,6 +22,8 @@ const Sidebar = () => {
 	const activeLink = 'bg-black1 text-white border-l-2 border-white';
 	const sidebarWidth = isCollapsed ? 'w-[60px]' : 'w-56';  // Устанавливаем ширину в зависимости от состояния
 
+	const itemStyle = `transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`
+
 	return (
 		<aside className={`h-full bg-primary text-sidebarText flex flex-col border-r-4 border-grayDeep pt-[20%] transition-all duration-300 ${sidebarWidth}`}>
 			{/* Стрелка скрыть */}
@@ -48,23 +50,23 @@ const Sidebar = () => {
 			<div className="flex flex-col">
 				<Link href={ROUTES.partners} className={`${linkStyle} ${pathname.startsWith(ROUTES.partners) && activeLink}`}>
 					<UsersRound size={22} className='shadow-md' />
-					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Партнеры</span>
+					<span className={itemStyle}>Партнеры</span>
 				</Link>
 				<Link href={ROUTES.leads} className={`${linkStyle} ${pathname.startsWith(ROUTES.leads) && activeLink}`}>
 					<Handshake size={22} className='shadow-md' />
-					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Лиды</span>
+					<span className={itemStyle}>Лиды</span>
 				</Link>
 				<Link href={ROUTES.offers} className={`${linkStyle} ${pathname.startsWith(ROUTES.offers) && activeLink}`}>
 					<CircleDollarSign size={22} />
-					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Офферы</span>
+					<span className={itemStyle}>Офферы</span>
 				</Link>
 				<Link href={ROUTES.politics} className={`${linkStyle} ${pathname.startsWith(ROUTES.politics) && activeLink}`}>
 					<Layers3 size={22} />
-					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Политики</span>
+					<span className={itemStyle}>Политики</span>
 				</Link>
 				<Link href={ROUTES.settings} className={`${linkStyle} ${pathname.startsWith(ROUTES.settings) && activeLink}`}>
 					<Wrench size={22} />
-					<span className={`transition-opacity duration-200 ${isCollapsed ? 'opacity-0' : 'opacity-100'}`}>Настройки</span>
+					<span className={itemStyle}>Настройки</span>
 				</Link>
 			</div>
 		</aside>

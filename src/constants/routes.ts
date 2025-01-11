@@ -7,4 +7,5 @@ export const ROUTES = {
 	offers: '/offers',
 	politics: '/politics',
 	settings: '/user-settings',
+	news: '/news',
 }

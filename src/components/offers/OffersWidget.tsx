@@ -31,20 +31,14 @@ import {
 
 import { columns } from '@/components/offers/OffersColumns'
 import { Settings, UserPlus } from 'lucide-react'
-import { useUser } from '@/hooks/useSelectors'
-import { useRouter } from 'next/navigation'
 import { useGetAllOffers } from '@/queries/offers'
 import OfferCreateModal from '@/components/offers/OfferCreateModal'
+import { useUserUnautorized } from '@/hooks/useUserUnautorized'
 
 export default function OffersWidget() {
-	const { user } = useUser()
-	const router = useRouter()
 	const { data } = useGetAllOffers()
 
-	if (typeof window !== 'undefined' && !user?.id) {
-		router.push('/auth/login')
-		router.refresh()
-	}
+	useUserUnautorized()
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -92,7 +86,7 @@ export default function OffersWidget() {
 					<Button
 						onClick={() => setIsOfferCreatActive(true)}
 						variant='outline'
-						className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'>
+						className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 bg-transparent hover:bg-grayDeep/10'>
 						{' '}
 						<UserPlus /> Добавить Оффер
 					</Button>
@@ -101,7 +95,7 @@ export default function OffersWidget() {
 						<DropdownMenuTrigger asChild>
 							<Button
 								variant='outline'
-								className='border-blue1 shadow text-blue1 py-5 hover:text-blue1 hover:bg-grayDeep/30 shadow-newAccent'>
+								className='border-blue1 shadow text-blue1 py-5 hover:text-blue1 bg-transparent hover:bg-grayDeep/10 shadow-newAccent'>
 								<Settings />
 							</Button>
 						</DropdownMenuTrigger>

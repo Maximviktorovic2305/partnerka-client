@@ -76,11 +76,11 @@ export function LeadsTabsContent() {
 		<>
 		<div className='flex items-center justify-between mt-3 pl-6 transition-all duration-300 ease-in-out'>
 				<div className='flex items-center gap-3 ml-auto transition-all duration-300 ease-in-out'>
-				<Button onClick={() => setIsLeadCreatActive(true)} variant='outline' className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 hover:bg-grayDeep/30'> <UserPlus /> Добавить Лида</Button>
+				<Button onClick={() => setIsLeadCreatActive(true)} variant='outline' className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 bg-transparent hover:bg-grayDeep/10'> <UserPlus /> Добавить Лида</Button>
 				{/* Колонки видимые         */}
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant='outline' className='border-blue1 shadow text-blue1 py-5 hover:text-blue1 hover:bg-grayDeep/30 shadow-newAccent'>
+						<Button variant='outline' className='border-blue1 shadow text-blue1 py-5 hover:text-blue1 bg-transparent hover:bg-grayDeep/10 shadow-newAccent'>
 							<Settings />
 						</Button>
 					</DropdownMenuTrigger>
