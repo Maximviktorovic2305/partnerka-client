@@ -4,7 +4,6 @@ import { ROUTES } from '@/constants/routes'
 import {
 	CircleDollarSign,
 	Handshake,
-	Layers3,
 	UsersRound,
 	Wrench,
 } from 'lucide-react'
@@ -45,12 +44,12 @@ const SidebarMobile = () => {
 				<span className='max-ssm:hidden'>Офферы</span>
 			</Link>
 			<Link
-				href={ROUTES.politics}
+				href={ROUTES.withdraw}
 				className={`${linkStyle} ${
-					pathname.startsWith(ROUTES.politics) && activeLink
+					pathname.startsWith(ROUTES.withdraw) && activeLink
 				}`}>
-				<Layers3 size={22} />
-				<span className='max-ssm:hidden'>Политики</span>
+				<CircleDollarSign size={22} />
+				<span className='max-ssm:hidden'>Выплаты</span>
 			</Link>
 			<Link
 				href={ROUTES.settings}

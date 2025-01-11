@@ -40,7 +40,7 @@ const Leads = () => {
   }, [activeTab]);
 
   return (
-    <div className='transition-all duration-300'>
+    <section className='transition-all duration-300'>
       <div className="relative flex items-center justify-start ml-3 text-blue1 text-xl transition-all duration-300">
         <button 
           ref={leadsRef}
@@ -66,7 +66,7 @@ const Leads = () => {
       <div className="transition-all duration-300">
         {renderContent()}
       </div>
-    </div>
+    </section>
   );
 };
 

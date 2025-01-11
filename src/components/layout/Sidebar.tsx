@@ -5,10 +5,10 @@ import { ROUTES } from '@/constants/routes';
 import {
 	CircleDollarSign,
 	Handshake,
-	Layers3,
 	UsersRound,
 	Wrench,
 	ChevronLeft,
+	Wallet,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -60,9 +60,9 @@ const Sidebar = () => {
 					<CircleDollarSign size={22} />
 					<span className={itemStyle}>Офферы</span>
 				</Link>
-				<Link href={ROUTES.politics} className={`${linkStyle} ${pathname.startsWith(ROUTES.politics) && activeLink}`}>
-					<Layers3 size={22} />
-					<span className={itemStyle}>Политики</span>
+				<Link href={ROUTES.withdraw} className={`${linkStyle} ${pathname.startsWith(ROUTES.withdraw) && activeLink}`}>
+					<Wallet size={22} />
+					<span className={itemStyle}>Выплаты</span>
 				</Link>
 				<Link href={ROUTES.settings} className={`${linkStyle} ${pathname.startsWith(ROUTES.settings) && activeLink}`}>
 					<Wrench size={22} />
