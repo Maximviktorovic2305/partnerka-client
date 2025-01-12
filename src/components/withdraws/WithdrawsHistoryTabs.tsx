@@ -1,8 +1,11 @@
+import WithdrawsTabsPayd from "./payd/WihdrawsTabsPayd"
 
 
 const WithdrawsHistoryTabs = () => {
   return (
-    <div>WithdrawsHistoryTabs</div>
+    <div>
+      <WithdrawsTabsPayd />
+    </div>
   )
 }
 

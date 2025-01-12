@@ -36,3 +36,27 @@ export const useGetAllWithdraws = () => {
 
 	return { data, isLoading }
 }
+
+// Получить все непроведенные выплаты
+export const useGetAllNotPaydWithdraws = () => {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get all not payd withdraws'],
+		queryFn: () => WithdrawService.getALLIsNotPaydWithdraws(),
+		select: ({ data }) => data,
+		refetchInterval: 100,
+	})
+
+	return { data, isLoading }
+}               
+
+// Получить все непроведенные выплаты
+export const useGetAllPaydWithdraws = () => {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get all payd withdraws'],
+		queryFn: () => WithdrawService.getALLIsPaydWithdraws(),
+		select: ({ data }) => data,
+		refetchInterval: 100,
+	})
+
+	return { data, isLoading }
+}

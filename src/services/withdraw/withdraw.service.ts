@@ -47,6 +47,26 @@ const WithdrawService = {
       return response
    },
 
+   // Получить все непроведенные выплаты
+   async getALLIsNotPaydWithdraws() {
+      const response = await instanse<IWithdraw[]>({
+         url: `${WITHDRAW}/not-payd`,
+         method: 'GET',
+      })
+
+      return response
+   },
+
+   // Получить все нпроведенные выплаты
+   async getALLIsPaydWithdraws() {
+      const response = await instanse<IWithdraw[]>({
+         url: `${WITHDRAW}/payd`,
+         method: 'GET',
+      })
+
+      return response
+   },
+
    // Обновить выплату
    async updateWithdraw(data: Partial<ICreateWithdraw>) {
       const response = await instanse<IWithdraw>({
