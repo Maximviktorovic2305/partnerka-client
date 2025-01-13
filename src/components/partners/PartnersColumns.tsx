@@ -19,6 +19,7 @@ import { useGetPartnerLeads } from '@/queries/lead'
 import BaseSquareText from '../base/BaseSquareText'
 import PartnerEditRow from './PartnerEditRow/PartnerEditRow'
 import PartnerEditStatus from './PartnerEditRow/PartnerEditStatus'
+import Link from 'next/link'
 
 export const columns: ColumnDef<IPartner>[] = [
 	{
@@ -34,7 +35,13 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <span className='text-blue1'><PartnerEditRow partner={partner} type='name' /></span>
+			return (
+				<span className='text-blue1'>
+					<Link href={`/partners/${partner.id}`}>
+						<PartnerEditRow partner={partner} type='name' />
+					</Link>
+				</span>
+			)
 		},
 	},
 	{
@@ -50,7 +57,11 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <span className='text-blue2'><PartnerEditRow partner={partner} type='registerDate' /></span>
+			return (
+				<span className='text-blue2'>
+					<PartnerEditRow partner={partner} type='registerDate' />
+				</span>
+			)
 		},
 	},
 	{
@@ -93,27 +104,36 @@ export const columns: ColumnDef<IPartner>[] = [
 					column.setFilterValue(activeSelectItem)
 				}
 			}, [activeSelectItem, column])
-			return <PartnersStatusSelect type='normal' setActiveSelecItem={setActiveSelecItem} />
+			return (
+				<PartnersStatusSelect
+					type='normal'
+					setActiveSelecItem={setActiveSelecItem}
+				/>
+			)
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <PartnerEditStatus partner={partner} />     
-		}    
+			return <PartnerEditStatus partner={partner} />
+		},
 	},
 	{
-		accessorKey: 'totalAwards',
+		accessorKey: 'balanceToAwait',
 		header: ({ column }) => {
 			return (
 				<Button
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Вознагр-ие
+					Ожидает выплаты
 				</Button>
 			)
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <span className='text-blue2/70 font-semibold'><PartnerEditRow partner={partner} type='totalAwards' /></span>
+			return (
+				<span className='text-blue2/70 font-semibold'>
+					<PartnerEditRow partner={partner} type='balanceToAwait' />
+				</span>
+			)
 		},
 	},
 	{
@@ -129,7 +149,11 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <span className='text-blue2/70 font-semibold'><PartnerEditRow partner={partner} type='balance' /></span>
+			return (
+				<span className='text-blue2/70 font-semibold'>
+					<PartnerEditRow partner={partner} type='balance' />
+				</span>
+			)
 		},
 	},
 	{
@@ -145,7 +169,11 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <span className='text-blue2'><PartnerEditRow partner={partner} type='phone' /></span>
+			return (
+				<span className='text-blue2'>
+					<PartnerEditRow partner={partner} type='phone' />
+				</span>
+			)
 		},
 	},
 	{
@@ -161,7 +189,11 @@ export const columns: ColumnDef<IPartner>[] = [
 		},
 		cell: ({ row }) => {
 			const partner = row.original
-			return <span className='text-blue2'><PartnerEditRow partner={partner} type='email' /></span>
+			return (
+				<span className='text-blue2'>
+					<PartnerEditRow partner={partner} type='email' />
+				</span>
+			)
 		},
 	},
 	{

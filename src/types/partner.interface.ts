@@ -14,6 +14,7 @@ export interface IPartnerRequest extends Partial<IBasePartnerResponse> {
 	status?: string
 	phone?: string
 	balance?: number
+	balanceToAwait?: number
 	totalAwards?: number
 	leads?: ILead[]
 }
@@ -26,6 +27,7 @@ export interface IPartner extends IBasePartnerResponse {
 	status?: string
 	phone?: string
 	balance?: number
+	balanceToAwait?: number
 	totalAwards?: number
 	leads?: ILead[]
 }
@@ -39,6 +41,7 @@ export interface ICreatePartner {
 	status?: string
 	phone?: string
 	balance?: number
+	balanceToAwait?: number
 	totalAwards?: number
 	leads?: ILead[]
 }

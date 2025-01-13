@@ -6,7 +6,7 @@ import { CheckCheck, X } from 'lucide-react'
 import React, { FormEvent, useCallback, useEffect, useState } from 'react'
 
 interface Props {
-   type: 'name' | 'registerDate' | 'status' | 'totalAwards' | 'balance' | 'phone' | 'email'
+   type: 'name' | 'registerDate' | 'status' | 'totalAwards' | 'balance' | 'balanceToAwait' | 'phone' | 'email' 
    partner: IPartner
 }
 
@@ -64,7 +64,7 @@ const PartnerEditRow = ({ partner, type }: Props) => {
 			<input
 				type='text'
 				value={typeState}
-				onChange={e => setTypeState((type === 'totalAwards' || type === 'balance') ? +e.target.value : e.target.value)}
+				onChange={e => setTypeState((type === 'totalAwards' || type === 'balance' || type === 'balanceToAwait') ? +e.target.value : e.target.value)}
 				className='border-0 outline-none p-0 m-0 bg-transparent max-w-[70px] transition-all duration-300 ease-in-out'
 			/>
 			{/* Кнопки */}

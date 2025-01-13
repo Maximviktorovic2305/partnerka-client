@@ -1,0 +1,34 @@
+.switcher-container {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   border-radius: 8px;
+   overflow: hidden;
+   width: fit-content; 
+   background-color: #F5F6FA;
+   padding: 6px 4px;
+ }
+ 
+ .option {
+   flex: 1;
+   padding: 8px 12px;
+   text-align: center;
+   text-wrap: nowrap;
+   cursor: pointer;
+   transition: all 0.3s ease-in-out;
+   color: #132053;
+   position: relative;
+ }
+ 
+ .option:hover {
+   color: #256ADA;
+ }
+ 
+ .active {
+   color: #256ADA;
+   background-color: white;
+    border-radius: 8px;
+ }
+
+
+ 

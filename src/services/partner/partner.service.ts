@@ -16,9 +16,9 @@ const PartnerService = {
 	},
 
 	// Получить партнера по id
-	async getPartnerById(partnerId: number) {
+	async getPartnerById(id: number) {
 		const response = await instanse<IPartner>({
-			url: `${PARTNER}/${partnerId}`,
+			url: `${PARTNER}/${id}`,
 			method: 'GET',
 		})
 
