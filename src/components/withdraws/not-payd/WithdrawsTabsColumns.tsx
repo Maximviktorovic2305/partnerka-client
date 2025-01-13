@@ -146,7 +146,6 @@ export const columns: ColumnDef<IWithdraw>[] = [
 				setIsPaydOut(value)
 				await WithdrawService.updateWithdraw({ id: withdraw.id, isPaydOut })
 				setIsEditing(false)
-				console.log(isPaydOut)
 			}
 
 			return (
