@@ -20,11 +20,11 @@ const WithdrawTabsStatistics = () => {
 	return (
 		<div className=' m-3'>
 			<div className='flex items-center gap-5 mt-5'>
-				<WithdrawStatisticCard
+				<WithdrawStatisticCard type='l'
 					title='Ожидает выплаты'
 					amount={notPaydAmount ?? 0}
 				/>
-				<WithdrawStatisticCard
+				<WithdrawStatisticCard type='l'
 					title='Всего выплачено'
 					amount={paydAmount ?? 0}
 				/>
