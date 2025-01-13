@@ -49,7 +49,7 @@ export default function RootLayout({
 								document.cookie = \`add=\${add}; path=/; max-age=2592000;\`;
 						}
 
-						fetch('http://localhost:3339/conversation', {
+						fetch('http://85.143.216.62:3339/conversation', {
 								method: 'POST',
 								headers: {
 									'Content-Type': 'application/json',
