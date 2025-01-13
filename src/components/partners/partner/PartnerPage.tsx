@@ -3,6 +3,7 @@
 import { useGetPartnerById } from "@/queries/partners"
 import PartnerProfile from "./PartnerProfile"
 import PartnerLeads from "./PartnerLeads"
+import PartnerWithdraws from "./PartnerWithdraws"
 
 interface Props {
    id: number
@@ -19,8 +20,7 @@ const PartnerPage = ({ id }: Props) => {
     <div className="size-full min-h-screen m-3 mt-10">
       <PartnerProfile partner={partner ?? undefined} />
       <PartnerLeads partner={partner ?? undefined} />
-      {/* <PartnerWithdraws />
-      <PartnerStatistics /> */}
+      <PartnerWithdraws partner={partner ?? undefined} />
     </div>
   )
 }

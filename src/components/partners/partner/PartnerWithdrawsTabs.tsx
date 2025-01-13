@@ -1,6 +1,16 @@
 'use client'
 
+import { Button } from '../../ui/button'
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from '../../ui/table'
 import { useState } from 'react'
+import { columns } from '../PartnerWithdrawNotPaydCol'
 import {
 	ColumnFiltersState,
 	SortingState,
@@ -12,35 +22,17 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table'
-
-import { Button } from '@/components/ui/button'
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from '@/components/ui/table'
-
-import { Settings } from 'lucide-react'
-import { columns } from '../PartnersLeadColumns'
-import LeadCreateModal from '@/components/leads/LeadCreateModal'
-import { useGetPartnerLeads } from '@/queries/lead'
+import WithdrawCreateModal from '@/components/withdraws/not-payd/WithdrawCreateModal'
 import { IPartner } from '@/types/partner.interface'
+import { useGetPartnerWithdraws } from '@/queries/withdraw'
 
 interface Props {
-   partner: IPartner | undefined
+	partner: IPartner | undefined
 }
 
-export function PartnerLeadsTabsContent({ partner }: Props) {
-	const { data } = useGetPartnerLeads({ partnerId: partner?.id })
+const PartnerWithdrawsTabs = ({ partner }: Props) => {
+	const { data: partnerWithdraws } = useGetPartnerWithdraws(partner?.id ?? 0)
+	const data = partnerWithdraws?.filter(item => item.isPaydOut === false)
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -50,9 +42,9 @@ export function PartnerLeadsTabsContent({ partner }: Props) {
 	// Устанавливаем количество строк на страницу
 	const rowsPerPage = 20
 
-	const [isLeadCreatActive, setIsLeadCreatActive] = useState(false)
+	const [isWithdrawCreateActive, setIsWithdrawCreateActive] = useState(false)
 	const table = useReactTable({
-		data: data?.leads ? data.leads : [],
+		data: data ? data : [],
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
@@ -68,7 +60,7 @@ export function PartnerLeadsTabsContent({ partner }: Props) {
 			columnVisibility,
 			rowSelection,
 		},
-		pageCount: Math.ceil((data?.leads ? data.leads.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
+		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
 		initialState: {
 			pagination: {
 				pageSize: rowsPerPage, // Устанавливаем размер страницы
@@ -78,52 +70,13 @@ export function PartnerLeadsTabsContent({ partner }: Props) {
 	})
 
 	return (
-		<>
-			<div className='flex items-center justify-between mt-3 mr-3 transition-all duration-300 ease-in-out'>
-				<div className='flex items-center gap-3 ml-auto transition-all duration-300 ease-in-out'>
-					{/* <Button
-						onClick={() => setIsLeadCreatActive(true)}
-						variant='outline'
-						className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 bg-transparent hover:bg-grayDeep/10'>
-						{' '}
-						<UserPlus /> Добавить Лида
-					</Button> */}
-					{/* Колонки видимые         */}
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button
-								variant='outline'
-								className='border-blue1 shadow text-blue1 py-5 hover:text-blue1 bg-transparent hover:bg-grayDeep/10 shadow-newAccent'>
-								<Settings />
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent
-							align='end'
-							className='text-primary bg-secondary shadow-primary'>
-							{table
-								.getAllColumns()
-								.filter(column => column.getCanHide())
-								.map(column => {
-									return (
-										<DropdownMenuCheckboxItem
-											key={column.id}
-											className='capitalize cursor-pointer'
-											checked={column.getIsVisible()}
-											onCheckedChange={value =>
-												column.toggleVisibility(!!value)
-											}>
-											{column.id}
-										</DropdownMenuCheckboxItem>
-									)
-								})}
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</div>
-			</div>
+		<section className='w-full text-primary p-3 rounded-lg bg-white mt-5'>
 
-			<div className='w-full text-primary p-3 rounded-lg bg-white mt-3 transition-all duration-300 ease-in-out'>
-				{isLeadCreatActive && (
-					<LeadCreateModal setIsLeadCreatActive={setIsLeadCreatActive} />
+			<div className='w-full text-primary rounded-lg bg-white transition-all duration-300 ease-in-out'>
+				{isWithdrawCreateActive && (
+					<WithdrawCreateModal
+						setIsWithdrawCreateActive={setIsWithdrawCreateActive}
+					/>
 				)}
 
 				{/* Table */}
@@ -201,6 +154,8 @@ export function PartnerLeadsTabsContent({ partner }: Props) {
 					</div>
 				</div>
 			</div>
-		</>
+		</section>
 	)
 }
+
+export default PartnerWithdrawsTabs

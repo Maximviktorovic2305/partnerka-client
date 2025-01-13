@@ -1,5 +1,5 @@
 import { instanse } from '@/api/api.interceptor'
-import { GetAllLeadsRequest, ICreateLead, ILead, ILeadResponse } from '@/types/lead.interface'
+import { GetAllLeadsRequest, GetAllPartnerLeadsRequest, ICreateLead, ILead, ILeadResponse } from '@/types/lead.interface'
 
 const SERVICE = '/leads'
 
@@ -27,25 +27,15 @@ const LeadsService = {
 	},         
 
    // Получить все лиды партнера по partnerId
-	async getAllPartnerLeads(partnerId: number) {
+	async getAllPartnerLeads(dataPartnerLeads: GetAllPartnerLeadsRequest) {
 		const response = await instanse<ILeadResponse>({
 			url: `${SERVICE}/partnerId`,
 			method: 'POST',
-         data: { partnerId }
+         data: dataPartnerLeads
 		})
 
 		return response
-	},
-
-	// // Получить все лиды               
-	// async getAllLeads() {
-	// 	const response = await instanse<ILeadResponse>({
-	// 		url: SERVICE,
-	// 		method: 'GET',
-	// 	})
-
-	// 	return response
-	// },         
+	},        
 
 	// Получить все лиды               
 	async getAllLeads(dataLeads: GetAllLeadsRequest) {

@@ -76,7 +76,7 @@ export const columns: ColumnDef<IPartner>[] = [
 			)
 		},
 		cell: ({ row }) => {
-			const { data } = useGetPartnerLeads(Number(row?.original.id))
+			const { data } = useGetPartnerLeads({ partnerId: Number(row?.original.id) })
 			const newLeads = data?.newLeads
 			const inWorkLeads = data?.inWorkLeads
 			const dealLeads = data?.dealLeads

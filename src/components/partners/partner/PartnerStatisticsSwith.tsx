@@ -18,7 +18,7 @@ interface Props {
 
 const PartnerStatisticsSwitch = ({ setActiveSwithItem, activeSwithItem, partner, startDate, endDate, setStartDate, setEndDate }: Props) => {         
    
-	const { data } = useGetPartnerLeads(partner?.id ?? 0)
+	const { data } = useGetPartnerLeads({partnerId: partner?.id ?? 0})
 	const [activeIndex, setActiveIndex] = useState(0)
 	const options = ['Сегодня', 'Вчера', '7 дней', '30 дней', 'Указать период']
 

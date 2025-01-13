@@ -56,3 +56,10 @@ export interface GetAllLeadsRequest {
    startDate?: Date 
    endDate?: Date
 }
+
+export interface GetAllPartnerLeadsRequest {
+   partnerId?: number
+   filterType?: string 
+   startDate?: Date 
+   endDate?: Date
+}

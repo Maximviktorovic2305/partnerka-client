@@ -23,7 +23,7 @@ const PartnerProfile = ({ partner }: Props) => {
 		<section>
 			{/* Title и кнопки */}
 			<div className='flex items-center justify-between gap-3'>
-				<div className='text-blue2 font-semibold text-[30px]'>
+				<div className='text-blue2 font-bold ml-3 text-[30px]'>
 					Профиль партнера
 				</div>
 				<div className='flex items-center gap-3'>

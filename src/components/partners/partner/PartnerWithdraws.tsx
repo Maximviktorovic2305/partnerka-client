@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client'
 
-import WithdrawsHistoryTabs from '@/components/withdraws/WithdrawsHistoryTabs'
-import WithdrawsTabs from '@/components/withdraws/not-payd/WithdrawsTabs'
-import WithdrawTabsStatistics from '@/components/withdraws/WithdrawTabsStatistics'
 import { useUserUnautorized } from '@/hooks/useUserUnautorized'
 import { useState, useEffect, useRef } from 'react'
+import PartnerWithdrawTabsStatistics from './PartnerWithdrawTabsStatistics'
+import PartnerWithdrawsTabs from './PartnerWithdrawsTabs'
+import PartnerWithdrawsHistoryTabs from './PartnerWithdrawsHistoryTabs'
+import { IPartner } from '@/types/partner.interface'
 
-const Leads = () => {
+interface Props {
+	partner: IPartner | undefined
+}
+
+const PartnerWithdraws = ({ partner }: Props) => {
 	const [activeTab, setActiveTab] = useState('statistics')
 	const [underlineStyle, setUnderlineStyle] = useState({})
 	const underlineRef = useRef(null)
@@ -18,11 +23,11 @@ const Leads = () => {
 	const renderContent = () => {
 		switch (activeTab) {
 			case 'statistics':
-				return <WithdrawTabsStatistics />
+				return <PartnerWithdrawTabsStatistics partner={partner ?? undefined} />
 			case 'withdraws':
-				return <WithdrawsTabs />
+				return <PartnerWithdrawsTabs partner={partner ?? undefined} />
 			case 'withdrawsHistory':
-				return <WithdrawsHistoryTabs />
+				return <PartnerWithdrawsHistoryTabs partner={partner ?? undefined} />
 			default:
 				return null
 		}
@@ -49,11 +54,11 @@ const Leads = () => {
 	}, [activeTab])
 
 	return (
-		<div className='transition-all duration-300'>
+		<div className='transition-all duration-300 my-10'>
 			<div className='text-[30px] font-bold text-blue2 text-left mb-5 ml-6'>
 				Выплаты
 			</div>
-			<div className='relative flex items-center justify-start ml-3 text-blue1 text-xl transition-all duration-300'>
+			<div className='relative flex items-center justify-start  text-blue1 text-xl transition-all duration-300'>
 				<button
 					ref={statisticsRef}
 					className={`p-3 transition-all duration-300 ${
@@ -90,4 +95,4 @@ const Leads = () => {
 	)
 }
 
-export default Leads
+export default PartnerWithdraws

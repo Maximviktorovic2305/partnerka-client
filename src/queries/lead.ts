@@ -1,5 +1,5 @@
 import LeadsService from '@/services/leads/lead.service'
-import { GetAllLeadsRequest } from '@/types/lead.interface'
+import { GetAllLeadsRequest, GetAllPartnerLeadsRequest } from '@/types/lead.interface'
 import { useQuery } from '@tanstack/react-query'
 
 // Получить лид по id
@@ -27,10 +27,10 @@ export const useGetAllLeads = (dataLeads: GetAllLeadsRequest) => {
 }               
 
 // Получить все лиды партнера по partnerId         
-export const useGetPartnerLeads = (partnerId: number) => {
+export const useGetPartnerLeads = (dataPartnerLeads: GetAllPartnerLeadsRequest) => {
 	const { data, isLoading } = useQuery({
-		queryKey: ['get all partner leads', partnerId],
-		queryFn: () => LeadsService.getAllPartnerLeads(partnerId),
+		queryKey: ['get all partner leads', dataPartnerLeads],
+		queryFn: () => LeadsService.getAllPartnerLeads(dataPartnerLeads),
 		select: ({ data }) => data,
 		refetchInterval: 1000,
 	})

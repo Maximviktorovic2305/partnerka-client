@@ -28,7 +28,7 @@ const WithdrawService = {
 
    // Получить выплаты партнера                  
    async getPartnerWithdraws(partnerId: number) {
-      const response = await instanse<IWithdraw>({
+      const response = await instanse<IWithdraw[]>({
          url: `${WITHDRAW}/partnerId`,
          method: 'POST',
          data: { partnerId }
@@ -57,7 +57,7 @@ const WithdrawService = {
       return response
    },
 
-   // Получить все нпроведенные выплаты
+   // Получить все проведенные выплаты
    async getALLIsPaydWithdraws() {
       const response = await instanse<IWithdraw[]>({
          url: `${WITHDRAW}/payd`,

@@ -47,7 +47,8 @@ const PartnerLeads = ({ partner }: Props) => {
 
 	return (
 		<section className='transition-all mt-10 duration-300'>
-			<div className='relative flex items-center justify-start text-blue1 font-semibold text-xl transition-all duration-300'>
+			<div className='text-[30px] text-blue2 ml-3 font-bold mb-5'>Лиды</div>
+			<div className='relative flex items-center justify-start text-blue1 text-xl transition-all duration-300'>
 				<button
 					ref={leadsRef}
 					className={`p-3 transition-all duration-300 ${

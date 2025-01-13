@@ -14,7 +14,7 @@ const PartnerStatisticsTabsContent = ({ partner }: Props) => {
   const [startDate, setStartDate] = useState<Date | undefined>()
   const [endDate, setEndDate] = useState<Date | undefined>()
 //   const { data } = useGetAllLeads({filterType: activeSwithItem, startDate, endDate})   
-	const { data } = useGetPartnerLeads(partner?.id ?? 0)   
+	const { data } = useGetPartnerLeads({partnerId: partner?.id ?? 0, filterType: activeSwithItem, startDate, endDate})   
         
 	const blockStyle =
 		'p-3 flex flex-col shadow-md shadow-secandary gap-2 rounded-lg border border-gray-300'
