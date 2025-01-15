@@ -108,7 +108,7 @@ export default function ReferralsLinksWidget() {
 								.map(column => {
 									return (
 										<DropdownMenuCheckboxItem
-											key={column.id}
+											key={`ref-${column.id}`}
 											className='capitalize cursor-pointer'
 											checked={column.getIsVisible()}
 											onCheckedChange={value =>
@@ -134,10 +134,10 @@ export default function ReferralsLinksWidget() {
 						{/* TableHeader */}
 						<TableHeader className='bg-secondary'>
 							{table.getHeaderGroups().map(headerGroup => (
-								<TableRow key={headerGroup.id}>
+								<TableRow key={`ref-header-${headerGroup.id}`}>
 									{headerGroup.headers.map(header => {
 										return (
-											<TableHead key={header.id}>
+											<TableHead key={`ref-head-${header.id}`}>
 												{header.isPlaceholder
 													? null
 													: flexRender(
@@ -156,10 +156,10 @@ export default function ReferralsLinksWidget() {
 								table.getRowModel().rows.map(row => (
 									<TableRow
 										className=''
-										key={row.id}
+										key={`ref-row-${row.id}`}
 										data-state={row.getIsSelected() && 'selected'}>
 										{row.getVisibleCells().map(cell => (
-											<TableCell key={cell.id}>
+											<TableCell key={`ref-cell-${cell.id}`}>
 												{flexRender(
 													cell.column.columnDef.cell,
 													cell.getContext(),

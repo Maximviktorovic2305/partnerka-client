@@ -52,7 +52,7 @@ const PartnerProfile = ({ partner }: Props) => {
 						{partner?.name ?? ''} {partner?.lastname ?? ''}
 					</div>
 					<div className='flex items-center gap-3'>
-					<div className='flex flex-col text-right'>
+						<div className='flex flex-col text-right'>
 							<span className='text-textGray'>В ожидании</span>
 							<span className='text-blue2/70 font-semibold text-xl'>
 								{partner?.balanceToAwait}
@@ -99,11 +99,24 @@ const PartnerProfile = ({ partner }: Props) => {
 						</span>
 					</div>
 				</div>
+
+				{/* Четвертый блок */}
+				<div className='flex min-w-full'>
+					<div className='flex flex-col w-[50%]'>
+						<span className='text-textGray text-sm'>Платежные реквизиты</span>
+						<span className='text-base text-black/70 font-semibold'>
+							1111 2222 3333 4444
+						</span>
+					</div>
+				</div>
 			</div>
 
-		{/* Модальное окно редактирования */}
-		{/* @ts-ignore */}
-			{isEditPartnerModal && <PartnerEditForm partner={partner} setActiveEditPartner={setIsEditPartnerModal} />}
+			{/* Модальное окно редактирования */}
+			{isEditPartnerModal && (
+				// @ts-ignore
+				<PartnerEditForm partner={partner} setActiveEditPartner={setIsEditPartnerModal}
+				/>
+			)}
 		</section>
 	)
 }

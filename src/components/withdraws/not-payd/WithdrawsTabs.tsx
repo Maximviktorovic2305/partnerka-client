@@ -1,4 +1,3 @@
-import { Wallet } from 'lucide-react'
 import { Button } from '../../ui/button'
 import {
 	Table,
@@ -25,6 +24,8 @@ import {
 import WithdrawCreateModal from './WithdrawCreateModal'
 import { useMutation } from '@tanstack/react-query'
 import WithdrawService from '@/services/withdraw/withdraw.service'
+import WithdrawAllBtn from './WithdrawAllBtn'
+import { Wallet } from 'lucide-react'
 
 const WithdrawsTabs = () => {
 	const { data } = useGetAllNotPaydWithdraws()
@@ -42,20 +43,18 @@ const WithdrawsTabs = () => {
 		? data.reduce((acc, item) => (item.amount ? acc + item.amount : 0), 0)
 		: 0
 
+	const { mutate } = useMutation({
+		mutationFn: () => WithdrawService.updateManyWithdrawsToPaydOut(data ?? []),
+	})
 
-		const { mutate } = useMutation({
-			mutationFn: () =>
-				WithdrawService.updateManyWithdrawsToPaydOut(data ?? []),
-		})
-	
-		// Обновить все выплаты на isPaydOut на true         
-		const handleWithdrawAll = async () => {
-			try {
-				await mutate()
-			} catch (error) {
-				console.error('Ошибка обновления выплат!!!', error)
-			}
+	// Обновить все выплаты на isPaydOut на true
+	const handleWithdrawAll = async () => {
+		try {
+			await mutate()
+		} catch (error) {
+			console.error('Ошибка обновления выплат!!!', error)
 		}
+	}
 
 	const [isWithdrawCreateActive, setIsWithdrawCreateActive] = useState(false)
 	const table = useReactTable({
@@ -161,7 +160,11 @@ const WithdrawsTabs = () => {
 				{/* Bottom Navigation */}
 				<div className='flex items-center justify-end space-x-2 py-4'>
 					<div className='space-x-2 flex items-center gap-3'>
-						<div className='text-base font-semibold'><span className='text-black/50'>Итого:</span> {totalSum} <button onClick={handleWithdrawAll} className='text-green-300 hover:text-green-500 duration-200 ml-5'>Выплатить все</button></div>
+						<div className='text-base font-semibold flex items-center'>
+							<span className='text-black/50'>Итого:</span>{' '}
+							<span className='ml-2'>{totalSum}</span>
+							<WithdrawAllBtn handleWithdrawAll={handleWithdrawAll} />
+						</div>
 
 						<div className='flex items-center gap-2'>
 							<Button
