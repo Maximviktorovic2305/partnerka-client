@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ColumnDef } from '@tanstack/react-table'
@@ -11,13 +13,14 @@ import {
 	DropdownMenuTrigger,
 } from '../../ui/dropdown-menu'
 import { Button } from '../../ui/button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IWithdraw } from '@/types/withdraw.interface'
 import WithdrawEditRow from './WithdrawEditRow'
 import WithdrawEditPartnerId from './WithdrawEditPartnerId'
 import { Check, CircleX } from 'lucide-react'
 import WithdrawService from '@/services/withdraw/withdraw.service'
 import WithdrawEditForm from './WithdrawEditForm'
+import { SelectPartnerNotPaydWithdraw } from './SelectPartnerNotPaydWithdraw'
 
 export const columns: ColumnDef<IWithdraw>[] = [
 	{
@@ -43,12 +46,22 @@ export const columns: ColumnDef<IWithdraw>[] = [
 	{
 		accessorKey: 'partnerId',
 		header: ({ column }) => {
+			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
+
+			useEffect(() => {
+				if (activeSelectItem === 'Clear') {
+					column.setFilterValue('') // Сбрасываем фильтр
+				} else {
+					column.setFilterValue(activeSelectItem)
+				}
+			}, [activeSelectItem, column])
+
 			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Партнер
-				</Button>
+				<SelectPartnerNotPaydWithdraw
+					className='flex justify-self-center'
+					type='normal'
+					setActiveSelecItem={setActiveSelecItem}
+				/>
 			)
 		},
 		cell: ({ row }) => {

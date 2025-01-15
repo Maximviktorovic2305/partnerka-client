@@ -105,10 +105,12 @@ export const columns: ColumnDef<IPartner>[] = [
 				}
 			}, [activeSelectItem, column])
 			return (
-				<PartnersStatusSelect
-					type='normal'
-					setActiveSelecItem={setActiveSelecItem}
-				/>
+				<div className='flex justify-self-center'>
+					<PartnersStatusSelect
+						type='normal'
+						setActiveSelecItem={setActiveSelecItem}
+					/>
+				</div>
 			)
 		},
 		cell: ({ row }) => {

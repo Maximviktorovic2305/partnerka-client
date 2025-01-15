@@ -25,7 +25,8 @@ import {
 import WithdrawCreateModal from './WithdrawCreateModal'
 
 const WithdrawsTabs = () => {
-	const { data } = useGetAllNotPaydWithdraws()
+	const { data: withdraw } = useGetAllNotPaydWithdraws()
+	const {  }
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])

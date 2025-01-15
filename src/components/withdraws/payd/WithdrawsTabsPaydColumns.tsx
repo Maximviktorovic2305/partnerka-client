@@ -18,7 +18,7 @@ import WithdrawService from '@/services/withdraw/withdraw.service'
 import WithdrawEditRow from '../not-payd/WithdrawEditRow'
 import WithdrawEditPartnerId from '../not-payd/WithdrawEditPartnerId'
 import WithdrawEditForm from '../not-payd/WithdrawEditForm'
-import { SelectPartnerWithdraw } from './SelectPartnerWithdraw'
+import { SelectPartnerPaydWithdraw } from './SelectPartnerPaydWithdraw'
 
 export const columns: ColumnDef<IWithdraw>[] = [
 	{
@@ -44,32 +44,33 @@ export const columns: ColumnDef<IWithdraw>[] = [
 	{
 		accessorKey: 'partnerId',
 		header: ({ column }) => {
-			 const [activeSelectItem, setActiveSelecItem] = useState('Clear');
-  
-			 useEffect(() => {
-				  if (activeSelectItem === 'Clear') {
-						column.setFilterValue(''); // Сбрасываем фильтр
-				  } else {
-						column.setFilterValue(activeSelectItem);
-				  }
-			 }, [activeSelectItem, column]);
-  
-			 return (
-				  <SelectPartnerWithdraw className='flex justify-self-center'
-						type='normal' 
-						setActiveSelecItem={setActiveSelecItem} 
-				  />
-			 );
+			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
+
+			useEffect(() => {
+				if (activeSelectItem === 'Clear') {
+					column.setFilterValue('') // Сбрасываем фильтр
+				} else {
+					column.setFilterValue(activeSelectItem)
+				}
+			}, [activeSelectItem, column])
+
+			return (
+				<SelectPartnerPaydWithdraw
+					className='flex justify-self-center'
+					type='normal'
+					setActiveSelecItem={setActiveSelecItem}
+				/>
+			)
 		},
 		cell: ({ row }) => {
-			 const withdraw = row.original;
-			 return (
-				  <span className='text-blue2'>
-						<WithdrawEditPartnerId withdraw={withdraw} />
-				  </span>
-			 );
+			const withdraw = row.original
+			return (
+				<span className='text-blue2'>
+					<WithdrawEditPartnerId withdraw={withdraw} />
+				</span>
+			)
 		},
-  },
+	},
 	{
 		accessorKey: 'partnerEmail',
 		header: ({ column }) => {

@@ -21,6 +21,7 @@ import LeadEditRow from './LeadsEditRow/LeadEditRow'
 import LeadEditPartnerId from './LeadsEditRow/LeadEditPartnerId'
 import LeadEditStatus from './LeadsEditRow/LeadEditStatusRow'
 import LeadEditSourse from './LeadsEditRow/LeadEditSourseRow'
+import { SelectPartnerWithdraw } from '../withdraws/payd/SelectPartnerWithdraw'
 
 export const columns: ColumnDef<ILead>[] = [
 	{
@@ -36,7 +37,11 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <span className='text-blue1'><LeadEditRow lead={lead} type='name' /></span>
+			return (
+				<span className='text-blue1'>
+					<LeadEditRow lead={lead} type='name' />
+				</span>
+			)
 		},
 	},
 	{
@@ -52,7 +57,9 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <div className='lowercase text-blue2'>{lead.createdFormatedDate}</div>
+			return (
+				<div className='lowercase text-blue2'>{lead.createdFormatedDate}</div>
+			)
 		},
 	},
 	{
@@ -68,29 +75,45 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <div className='lowercase text-blue2'>{lead.updatedFormatedDate}</div>
+			return (
+				<div className='lowercase text-blue2'>{lead.updatedFormatedDate}</div>
+			)
 		},
 	},
 	{
 		accessorKey: 'partnerId',
 		header: ({ column }) => {
+			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
+
+			useEffect(() => {
+				if (activeSelectItem === 'Clear') {
+					column.setFilterValue('') // Сбрасываем фильтр
+				} else {
+					column.setFilterValue(activeSelectItem)
+				}
+			}, [activeSelectItem, column])
+
 			return (
-				<Button
-					variant='ghost'
-					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Партнер
-				</Button>
+				<SelectPartnerWithdraw
+					className='flex justify-self-center'
+					type='normal'
+					setActiveSelecItem={setActiveSelecItem}
+				/>
 			)
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <span className='text-blue1'><LeadEditPartnerId lead={lead} /></span>
+			return (
+				<span className='text-blue1'>
+					<LeadEditPartnerId lead={lead} />
+				</span>
+			)
 		},
 	},
 	{
 		accessorKey: 'sourse',
 		header: ({ column }) => {
-			const [activeSelectItem, setActiveSelecItem] = useState('Clear')               
+			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
 
 			useEffect(() => {
 				if (activeSelectItem === 'Clear') {
@@ -99,11 +122,18 @@ export const columns: ColumnDef<ILead>[] = [
 					column.setFilterValue(activeSelectItem)
 				}
 			}, [activeSelectItem, column])
-			return <LeadSourceSelect type='normal' setActiveSelecItem={setActiveSelecItem} />
+			return (
+				<div className='flex justify-self-center'>
+					<LeadSourceSelect
+						type='normal'
+						setActiveSelecItem={setActiveSelecItem}
+					/>
+				</div>
+			)
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <LeadEditSourse lead={lead} />                     
+			return <LeadEditSourse lead={lead} />
 		},
 	},
 	{
@@ -118,8 +148,15 @@ export const columns: ColumnDef<ILead>[] = [
 					column.setFilterValue(activeSelectItem)
 				}
 			}, [activeSelectItem, column])
-			return <LeadStatusSelect type='normal' setActiveSelecItem={setActiveSelecItem} />
-		},         
+			return (
+				<div className='flex justify-self-center'>
+					<LeadStatusSelect
+						type='normal'
+						setActiveSelecItem={setActiveSelecItem}
+					/>
+				</div>
+			)
+		},
 		cell: ({ row }) => {
 			const lead = row.original
 			return <LeadEditStatus lead={lead} />
@@ -138,7 +175,11 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <span className='text-blue1'><LeadEditRow lead={lead} type='offer' /></span>
+			return (
+				<span className='text-blue1'>
+					<LeadEditRow lead={lead} type='offer' />
+				</span>
+			)
 		},
 	},
 	{
@@ -154,7 +195,11 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 		cell: ({ row }) => {
 			const lead = row.original
-			return <span className='text-blue2 font-semibold'><LeadEditRow lead={lead} type='amount' /></span>
+			return (
+				<span className='text-blue2 font-semibold'>
+					<LeadEditRow lead={lead} type='amount' />
+				</span>
+			)
 		},
 	},
 	{
