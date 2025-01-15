@@ -6,6 +6,7 @@ import LeadsService from '@/services/leads/lead.service'
 import { SelectPartner } from '../base/PartnerSelect'
 import { LeadSourceSelect } from '../base/LeadSourceSelect'
 import { LeadStatusSelect } from '../base/LeadStatusSelect'
+import { LeadOfferSelect } from '../base/LeadOfferSelect'
 
 interface Props {
 	setIsLeadCreatActive: (value: boolean) => void
@@ -18,6 +19,8 @@ const LeadCreateModal = ({ setIsLeadCreatActive }: Props) => {
 	const [offer, setOffer] = useState('')
 	const [amount, setAmount] = useState<string | number>()
 	const [partner, setPartner] = useState<string | number>(0)
+
+	console.log(offer)
 
 	const { mutate } = useMutation({
 		mutationFn: () =>
@@ -72,14 +75,15 @@ const LeadCreateModal = ({ setIsLeadCreatActive }: Props) => {
 							className='border-blue2/70'
 							setActiveSelecItem={setStatus}
 						/>
+					</div>                     
+
+					<div className='text-primary border-blue2/70'>
+						<LeadOfferSelect type='normal'
+							className='border-blue2/70'
+							setActiveSelecItem={setOffer}
+						/>
 					</div>
 
-					<PartnerEditInput
-						className='text-primary mt-[1px] border-blue2/70'
-						value={offer}
-						onChange={setOffer}
-						name='Оффер'
-					/>
 					<PartnerEditInput
 						className='text-primary mt-[1px] border-blue2/70'
 						value={String(amount)}

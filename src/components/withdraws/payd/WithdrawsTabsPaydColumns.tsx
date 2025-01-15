@@ -72,13 +72,13 @@ export const columns: ColumnDef<IWithdraw>[] = [
 		},
 	},
 	{
-		accessorKey: 'partnerEmail',
+		accessorKey: 'leadName',
 		header: ({ column }) => {
 			return (
 				<Button
 					variant='ghost'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Почта
+					Лид
 				</Button>
 			)
 		},
@@ -86,7 +86,7 @@ export const columns: ColumnDef<IWithdraw>[] = [
 			const withdraw = row.original
 			return (
 				<div className='lowercase text-blue1'>
-					{withdraw?.partner?.email ?? ''}
+					{withdraw?.leadName ?? ''}
 				</div>
 			)
 		},

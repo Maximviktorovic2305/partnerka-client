@@ -76,6 +76,17 @@ const WithdrawService = {
       })
 
       return response
+   },   
+   
+   // Обновить много выплат на isPaydOut = true
+   async updateManyWithdrawsToPaydOut(data: Partial<ICreateWithdraw>[]) {
+      const response = await instanse<IWithdraw[]>({
+         url: `${WITHDRAW}/update-many-isPaydOutTrue`,
+         method: 'PUT',
+         data,
+      })
+
+      return response
    },
 
    // Удалить выплату

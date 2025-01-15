@@ -23,10 +23,11 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 import WithdrawCreateModal from './WithdrawCreateModal'
+import { useMutation } from '@tanstack/react-query'
+import WithdrawService from '@/services/withdraw/withdraw.service'
 
 const WithdrawsTabs = () => {
-	const { data: withdraw } = useGetAllNotPaydWithdraws()
-	const {  }
+	const { data } = useGetAllNotPaydWithdraws()
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -35,6 +36,26 @@ const WithdrawsTabs = () => {
 
 	// Устанавливаем количество строк на страницу
 	const rowsPerPage = 20
+
+	// Общая сумма не проведенных выплат
+	const totalSum = data
+		? data.reduce((acc, item) => (item.amount ? acc + item.amount : 0), 0)
+		: 0
+
+
+		const { mutate } = useMutation({
+			mutationFn: () =>
+				WithdrawService.updateManyWithdrawsToPaydOut(data ?? []),
+		})
+	
+		// Обновить все выплаты на isPaydOut на true         
+		const handleWithdrawAll = async () => {
+			try {
+				await mutate()
+			} catch (error) {
+				console.error('Ошибка обновления выплат!!!', error)
+			}
+		}
 
 	const [isWithdrawCreateActive, setIsWithdrawCreateActive] = useState(false)
 	const table = useReactTable({
@@ -87,9 +108,9 @@ const WithdrawsTabs = () => {
 					<Table>
 						{/* TableHeader */}
 						<TableHeader className='bg-secondary transition-all duration-300 ease-in-out'>
-							{table.getHeaderGroups().map(headerGroup => (
+							{table.getHeaderGroups().map((headerGroup) => (
 								<TableRow key={headerGroup.id}>
-									{headerGroup.headers.map(header => {
+									{headerGroup.headers.map((header) => {
 										return (
 											<TableHead key={header.id}>
 												{header.isPlaceholder
@@ -107,12 +128,12 @@ const WithdrawsTabs = () => {
 						{/* TableBody */}
 						<TableBody className='transition-all duration-300 ease-in-out'>
 							{table.getRowModel().rows?.length ? (
-								table.getRowModel().rows.map(row => (
+								table.getRowModel().rows.map((row) => (
 									<TableRow
 										className=''
 										key={row.id}
 										data-state={row.getIsSelected() && 'selected'}>
-										{row.getVisibleCells().map(cell => (
+										{row.getVisibleCells().map((cell) => (
 											<TableCell
 												key={cell.id}
 												className='transition-all duration-300 ease-in-out'>
@@ -139,21 +160,25 @@ const WithdrawsTabs = () => {
 
 				{/* Bottom Navigation */}
 				<div className='flex items-center justify-end space-x-2 py-4'>
-					<div className='space-x-2'>
-						<Button
-							variant='outline'
-							size='sm'
-							onClick={() => table.previousPage()}
-							disabled={!table.getCanPreviousPage()}>
-							Previous
-						</Button>
-						<Button
-							variant='outline'
-							size='sm'
-							onClick={() => table.nextPage()}
-							disabled={!table.getCanNextPage()}>
-							Next
-						</Button>
+					<div className='space-x-2 flex items-center gap-3'>
+						<div className='text-base font-semibold'><span className='text-black/50'>Итого:</span> {totalSum} <button onClick={handleWithdrawAll} className='text-green-300 hover:text-green-500 duration-200 ml-5'>Выплатить все</button></div>
+
+						<div className='flex items-center gap-2'>
+							<Button
+								variant='outline'
+								size='sm'
+								onClick={() => table.previousPage()}
+								disabled={!table.getCanPreviousPage()}>
+								Previous
+							</Button>
+							<Button
+								variant='outline'
+								size='sm'
+								onClick={() => table.nextPage()}
+								disabled={!table.getCanNextPage()}>
+								Next
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
