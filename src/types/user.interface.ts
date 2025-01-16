@@ -9,7 +9,7 @@ export interface IUserRequest extends Partial<IBaseUserResponse> {
 	lastname?: string
 	email?: string
 	password?: string
-	isAdmin?: string
+	isAdmin?: boolean
 }
 
 export interface IUser extends IBaseUserResponse {
@@ -18,5 +18,5 @@ export interface IUser extends IBaseUserResponse {
 	lastname?: string
 	email: string
 	password?: string
-	isAdmin?: string
+	isAdmin?: boolean
 }
