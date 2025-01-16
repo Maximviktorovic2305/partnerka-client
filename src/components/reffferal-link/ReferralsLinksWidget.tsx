@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import {
 	ColumnFiltersState,
 	SortingState,
@@ -37,6 +37,7 @@ import { useUserUnautorized } from '@/hooks/useUserUnautorized'
 
 export default function ReferralsLinksWidget() {
 	const { data } = useGetAllRefferalLinks()
+	const id = useId()
 
 	useUserUnautorized()
 
@@ -134,10 +135,10 @@ export default function ReferralsLinksWidget() {
 						{/* TableHeader */}
 						<TableHeader className='bg-secondary'>
 							{table.getHeaderGroups().map(headerGroup => (
-								<TableRow key={`ref-header-${headerGroup.id}`}>
+								<TableRow key={`ref-header-${id}`}>
 									{headerGroup.headers.map(header => {
 										return (
-											<TableHead key={`ref-head-${header.id}`}>
+											<TableHead key={`ref-head-${id}`}>
 												{header.isPlaceholder
 													? null
 													: flexRender(
@@ -156,10 +157,10 @@ export default function ReferralsLinksWidget() {
 								table.getRowModel().rows.map(row => (
 									<TableRow
 										className=''
-										key={`ref-row-${row.id}`}
+										key={`ref-row-${id}`}
 										data-state={row.getIsSelected() && 'selected'}>
 										{row.getVisibleCells().map(cell => (
-											<TableCell key={`ref-cell-${cell.id}`}>
+											<TableCell key={`ref-cell-${id}`}>
 												{flexRender(
 													cell.column.columnDef.cell,
 													cell.getContext(),
