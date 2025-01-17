@@ -135,19 +135,17 @@ export default function ReferralsLinksWidget() {
 						{/* TableHeader */}
 						<TableHeader className='bg-secondary'>
 							{table.getHeaderGroups().map(headerGroup => (
-								<TableRow key={`ref-header-${id}`}>
-									{headerGroup.headers.map(header => {
-										return (
-											<TableHead key={`ref-head-${id}`}>
-												{header.isPlaceholder
-													? null
-													: flexRender(
-															header.column.columnDef.header,
-															header.getContext(),
-													  )}
-											</TableHead>
-										)
-									})}
+								<TableRow key={headerGroup.id}>
+									{headerGroup.headers.map(header => (
+										<TableHead key={header.id}>
+											{header.isPlaceholder
+												? null
+												: flexRender(
+														header.column.columnDef.header,
+														header.getContext(),
+												  )}
+										</TableHead>
+									))}
 								</TableRow>
 							))}
 						</TableHeader>
@@ -157,10 +155,10 @@ export default function ReferralsLinksWidget() {
 								table.getRowModel().rows.map(row => (
 									<TableRow
 										className=''
-										key={`ref-row-${id}`}
+										key={row.id}
 										data-state={row.getIsSelected() && 'selected'}>
 										{row.getVisibleCells().map(cell => (
-											<TableCell key={`ref-cell-${id}`}>
+											<TableCell key={cell.id}>
 												{flexRender(
 													cell.column.columnDef.cell,
 													cell.getContext(),

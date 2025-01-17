@@ -23,13 +23,10 @@ const Header = () => {
 		router.refresh()
 	}
 
-	
-
 	return (
 		<header className='py-3 px-5 w-full text-blue1 flex items-center justify-between bg-white sm:pl-[22%] md:pl-[17%]'>
-			<div className='flex items-center gap-7 ml-auto'>   
-
-			<SwithchAdmin />
+			<div className='flex items-center gap-7 ml-auto'>
+				<SwithchAdmin />
 
 				<div className='hover:text-primary font-bold text-base text-primary/80 cursor-pointer duration-200'>
 					{user && user?.name}

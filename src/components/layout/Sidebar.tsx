@@ -12,10 +12,12 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useUser } from '@/hooks/useSelectors';
 
 const Sidebar = () => {
 	const pathname = usePathname();
 	const [isCollapsed, setIsCollapsed] = useState(false);
+	const { isAdmin } = useUser()
 
 	const linkStyle =
 		`hover:text-white duration-200 hover:bg-black1 my-2 px-2 ${isCollapsed ? 'mb-5 pt-5' : 'flex items-center gap-3 py-3'}`;
@@ -41,7 +43,7 @@ const Sidebar = () => {
 						Prt-Online
 					</span>
 					<span className={`pl-2 text-wrap text-[12px] text-left leading-3`}>
-						Кабинет администратора
+						Кабинет {isAdmin ? 'администратора' : 'партнера'}
 					</span>
 				</div>
 			</Link>
