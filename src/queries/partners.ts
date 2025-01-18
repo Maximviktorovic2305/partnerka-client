@@ -13,6 +13,18 @@ export const useGetPartnerById = (id: number) => {
 	return { data, isLoading }
 }
 
+// Получить партнера по email
+export const useGetPartnerByEmail = (email: string) => {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get partner by id', email],
+		queryFn: () => PartnerService.getPartnerByEmail(email),
+		select: ({ data }) => data,
+		refetchInterval: 1000,
+	})
+
+	return { data, isLoading }
+}
+
 // Получить всех партнеров
 export const useGetAllPartners = () => {
 	const { data, isLoading } = useQuery({

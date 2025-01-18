@@ -1,3 +1,6 @@
+'use client'
+
+import React, { useState, useMemo } from 'react'
 import { Button } from '../../ui/button'
 import {
 	Table,
@@ -7,8 +10,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '../../ui/table'
-import { useGetAllPaydWithdraws } from '@/queries/withdraw'
-import { useState } from 'react'
+import { useGetAllPaydWithdraws, useGetPartnerWithdraws } from '@/queries/withdraw'
 import { columns } from '../payd/WithdrawsTabsPaydColumns'
 import {
 	ColumnFiltersState,
@@ -22,19 +24,30 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 import WithdrawCreateModal from '../not-payd/WithdrawCreateModal'
+import { useUser } from '@/hooks/useSelectors'
+import { IPartner } from '@/types/partner.interface'
 
-const WithdrawsTabsPayd = () => {
-	const { data } = useGetAllPaydWithdraws()
+interface Props {
+	partner?: IPartner
+}
 
+const WithdrawsTabsPayd = ({ partner }: Props) => {
+	const { isAdmin } = useUser()
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
+	const [isWithdrawCreateActive, setIsWithdrawCreateActive] = useState(false)
 
-	// Устанавливаем количество строк на страницу
+	const { data: allPaydWithdraws } = useGetAllPaydWithdraws()
+	const { data: partnerWithdraws } = useGetPartnerWithdraws(partner?.id ?? 0)
+
+	const partnerPayd = useMemo(() => partnerWithdraws?.filter(withdraw => withdraw.isPaydOut === true), [partnerWithdraws])
+
+	const data = useMemo(() => isAdmin ? allPaydWithdraws : partnerPayd, [isAdmin, allPaydWithdraws, partnerPayd])
+
 	const rowsPerPage = 20
 
-	const [isWithdrawCreateActive, setIsWithdrawCreateActive] = useState(false)
 	const table = useReactTable({
 		data: data ? data : [],
 		columns,
@@ -52,18 +65,21 @@ const WithdrawsTabsPayd = () => {
 			columnVisibility,
 			rowSelection,
 		},
-		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
+		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage),
 		initialState: {
 			pagination: {
-				pageSize: rowsPerPage, // Устанавливаем размер страницы
+				pageSize: rowsPerPage,
 				pageIndex: 0,
 			},
 		},
 	})
 
+	if (typeof window === 'undefined') {
+		return null
+	}
+
 	return (
 		<section className='w-full text-primary rounded-lg bg-white m-3 mt-5'>
-
 			<div className='w-full text-primary rounded-lg p-3 bg-white transition-all duration-300 ease-in-out'>
 				{isWithdrawCreateActive && (
 					<WithdrawCreateModal
@@ -71,29 +87,24 @@ const WithdrawsTabsPayd = () => {
 					/>
 				)}
 
-				{/* Table */}
 				<div className='rounded-md border overflow-hidden transition-all duration-300 ease-in-out'>
 					<Table>
-						{/* TableHeader */}
 						<TableHeader className='bg-secondary transition-all duration-300 ease-in-out'>
 							{table.getHeaderGroups().map(headerGroup => (
 								<TableRow key={headerGroup.id}>
-									{headerGroup.headers.map(header => {
-										return (
-											<TableHead key={header.id}>
-												{header.isPlaceholder
-													? null
-													: flexRender(
-															header.column.columnDef.header,
-															header.getContext(),
-													  )}
-											</TableHead>
-										)
-									})}
+									{headerGroup.headers.map(header => (
+										<TableHead key={header.id}>
+											{header.isPlaceholder
+												? null
+												: flexRender(
+														header.column.columnDef.header,
+														header.getContext(),
+												  )}
+										</TableHead>
+									))}
 								</TableRow>
 							))}
 						</TableHeader>
-						{/* TableBody */}
 						<TableBody className='transition-all duration-300 ease-in-out'>
 							{table.getRowModel().rows?.length ? (
 								table.getRowModel().rows.map(row => (
@@ -126,7 +137,6 @@ const WithdrawsTabsPayd = () => {
 					</Table>
 				</div>
 
-				{/* Bottom Navigation */}
 				<div className='flex items-center justify-end space-x-2 py-4'>
 					<div className='space-x-2'>
 						<Button

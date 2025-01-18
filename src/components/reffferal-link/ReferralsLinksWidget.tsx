@@ -1,6 +1,6 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { useState } from 'react'
 import {
 	ColumnFiltersState,
 	SortingState,
@@ -29,15 +29,24 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 
+interface Props {
+	partner?: IPartner
+}
+
 import { columns } from '@/components/reffferal-link/RefLinksColumns'
 import { Link, Settings } from 'lucide-react'
-import { useGetAllRefferalLinks } from '@/queries/refferal-link'
+import { useGetAllRefferalLinks, useGetPartnerRefferalLinks } from '@/queries/refferal-link'
 import ReffCreateModal from './RefCreateModal'
 import { useUserUnautorized } from '@/hooks/useUserUnautorized'
+import { IPartner } from '@/types/partner.interface'
+import { useUser } from '@/hooks/useSelectors'
 
-export default function ReferralsLinksWidget() {
-	const { data } = useGetAllRefferalLinks()
-	const id = useId()
+export default function ReferralsLinksWidget({ partner }: Props) {
+	const { isAdmin } = useUser()
+	const { data: partnerLinks } = useGetPartnerRefferalLinks(partner?.id ?? 0)
+	const { data: allLinks } = useGetAllRefferalLinks()
+
+	const data = isAdmin ? allLinks : partnerLinks
 
 	useUserUnautorized()
 
@@ -48,7 +57,6 @@ export default function ReferralsLinksWidget() {
 
 	const [isReffLinkCreatActive, setIsReffLinkCreatActive] = useState(false)
 
-	// Устанавливаем количество строк на страницу
 	const rowsPerPage = 15
 
 	const table = useReactTable({
@@ -68,10 +76,10 @@ export default function ReferralsLinksWidget() {
 			columnVisibility,
 			rowSelection,
 		},
-		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
+		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage),
 		initialState: {
 			pagination: {
-				pageSize: rowsPerPage, // Устанавливаем размер страницы
+				pageSize: rowsPerPage,
 				pageIndex: 0,
 			},
 		},
@@ -88,10 +96,8 @@ export default function ReferralsLinksWidget() {
 						onClick={() => setIsReffLinkCreatActive(true)}
 						variant='outline'
 						className='text-blue1 border-blue1 p-5 hover:text-blue1 duration-200 bg-transparent hover:bg-grayDeep/10'>
-						{' '}
 						<Link /> Создать Ссылку
 					</Button>
-					{/* Колонки видимые         */}
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button
@@ -100,25 +106,19 @@ export default function ReferralsLinksWidget() {
 								<Settings />
 							</Button>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent
-							align='end'
-							className='text-primary bg-secondary shadow-primary'>
+						<DropdownMenuContent align='end' className='text-primary bg-secondary shadow-primary'>
 							{table
 								.getAllColumns()
 								.filter(column => column.getCanHide())
-								.map(column => {
-									return (
-										<DropdownMenuCheckboxItem
-											key={`ref-${column.id}`}
-											className='capitalize cursor-pointer'
-											checked={column.getIsVisible()}
-											onCheckedChange={value =>
-												column.toggleVisibility(!!value)
-											}>
-											{column.id}
-										</DropdownMenuCheckboxItem>
-									)
-								})}
+								.map(column => (
+									<DropdownMenuCheckboxItem
+										key={`ref-${column.id}`} // Уникальный ключ
+										className='capitalize cursor-pointer'
+										checked={column.getIsVisible()}
+										onCheckedChange={value => column.toggleVisibility(!!value)}>
+										{column.id}
+									</DropdownMenuCheckboxItem>
+								))}
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
@@ -132,46 +132,33 @@ export default function ReferralsLinksWidget() {
 				{/* Table */}
 				<div className='rounded-md border overflow-hidden'>
 					<Table>
-						{/* TableHeader */}
 						<TableHeader className='bg-secondary'>
 							{table.getHeaderGroups().map(headerGroup => (
 								<TableRow key={headerGroup.id}>
 									{headerGroup.headers.map(header => (
 										<TableHead key={header.id}>
-											{header.isPlaceholder
-												? null
-												: flexRender(
-														header.column.columnDef.header,
-														header.getContext(),
-												  )}
+											{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
 										</TableHead>
 									))}
 								</TableRow>
 							))}
 						</TableHeader>
-						{/* TableBody */}
 						<TableBody>
 							{table.getRowModel().rows?.length ? (
-								table.getRowModel().rows.map(row => (
+								table.getRowModel().rows.map((row) => (
 									<TableRow
-										className=''
-										key={row.id}
+										key={row.id} // Уникальный ключ для строки
 										data-state={row.getIsSelected() && 'selected'}>
-										{row.getVisibleCells().map(cell => (
-											<TableCell key={cell.id}>
-												{flexRender(
-													cell.column.columnDef.cell,
-													cell.getContext(),
-												)}
+										{row.getVisibleCells().map((cell, cellIndex) => (
+											<TableCell key={`${cell.id}-${cellIndex}`}>
+												{flexRender(cell.column.columnDef.cell, cell.getContext())}
 											</TableCell>
 										))}
 									</TableRow>
 								))
 							) : (
 								<TableRow>
-									<TableCell
-										colSpan={columns.length}
-										className='h-24 text-center'>
+									<TableCell colSpan={columns.length} className='h-24 text-center'>
 										Нет данных...
 									</TableCell>
 								</TableRow>

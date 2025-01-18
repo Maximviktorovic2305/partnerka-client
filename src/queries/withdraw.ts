@@ -49,7 +49,7 @@ export const useGetAllNotPaydWithdraws = () => {
 	return { data, isLoading }
 }               
 
-// Получить все непроведенные выплаты
+// Получить все проведенные выплаты
 export const useGetAllPaydWithdraws = () => {
 	const { data, isLoading } = useQuery({
 		queryKey: ['get all payd withdraws'],

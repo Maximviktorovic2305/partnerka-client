@@ -27,10 +27,10 @@ export const useGetAllLeads = (dataLeads: GetAllLeadsRequest) => {
 }               
 
 // Получить все лиды партнера по partnerId         
-export const useGetPartnerLeads = (dataPartnerLeads: GetAllPartnerLeadsRequest) => {
+export const useGetPartnerLeads = (dto: GetAllPartnerLeadsRequest) => {
 	const { data, isLoading } = useQuery({
-		queryKey: ['get all partner leads', dataPartnerLeads],
-		queryFn: () => LeadsService.getAllPartnerLeads(dataPartnerLeads),
+		queryKey: ['get all partner leads', dto],
+		queryFn: () => LeadsService.getAllPartnerLeads(dto),
 		select: ({ data }) => data,
 		refetchInterval: 1000,
 	})

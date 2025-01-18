@@ -2,16 +2,16 @@
 
 import { useUser } from '@/hooks/useSelectors'
 import UserService from '@/services/user/user.service'
-import { useMutation } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import { Label } from '../ui/label'
 import { Switch } from '../ui/switch'
 import { useDispatch } from 'react-redux'
 import { toggleIsAdmin } from '@/store/user/user.slice'
+import { useMutation } from '@tanstack/react-query'
 
 const SwithchAdmin = () => {
 	const { user } = useUser()
-	const [isUserAdmin, setIsUserAdmin] = useState(user?.isAdmin)                     
+	const [isUserAdmin, setIsUserAdmin] = useState(user?.isAdmin)
 	const dispath = useDispatch()
 
 	const { mutate } = useMutation({
@@ -21,10 +21,14 @@ const SwithchAdmin = () => {
 			}),
 	})
 
+	if (typeof window === 'undefined') {
+		return
+	}
+
 	const handleSelectAdmin = async () => {
-		setIsUserAdmin((prev) => !prev)
+		setIsUserAdmin(prev => !prev)
 		try {
-			await mutate()
+			mutate()
 			dispath(toggleIsAdmin())
 		} catch (error) {
 			console.error('Ошибка обновления пользователя!!!', error)

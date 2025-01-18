@@ -8,7 +8,7 @@ import { getStorageLocal } from '@/utils/local-storage'
 const initialState: IInitialState = {
 	user: getStorageLocal('user') || null,
 	isLoading: false,
-	isAdmin: getStorageLocal('user').isAdmin || false,
+	isAdmin: false,
 }
 
 export const userSlice = createSlice({

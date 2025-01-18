@@ -6,8 +6,10 @@ import WithdrawsTabs from '@/components/withdraws/not-payd/WithdrawsTabs'
 import WithdrawTabsStatistics from '@/components/withdraws/WithdrawTabsStatistics'
 import { useUserUnautorized } from '@/hooks/useUserUnautorized'
 import { useState, useEffect, useRef } from 'react'
+import { useGetCurrentPartner } from '@/hooks/useGetCurrentPartner'
 
 const Leads = () => {
+	const partner = useGetCurrentPartner()         
 	const [activeTab, setActiveTab] = useState('statistics')
 	const [underlineStyle, setUnderlineStyle] = useState({})
 	const underlineRef = useRef(null)
@@ -18,11 +20,11 @@ const Leads = () => {
 	const renderContent = () => {
 		switch (activeTab) {
 			case 'statistics':
-				return <WithdrawTabsStatistics />
+				return <WithdrawTabsStatistics partner={partner} />
 			case 'withdraws':
-				return <WithdrawsTabs />
+				return <WithdrawsTabs partner={partner} />
 			case 'withdrawsHistory':
-				return <WithdrawsHistoryTabs />
+				return <WithdrawsHistoryTabs partner={partner} />
 			default:
 				return null
 		}

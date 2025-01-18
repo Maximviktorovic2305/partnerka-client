@@ -3,10 +3,13 @@
 
 import { LeadsTabsContent } from '@/components/leads/tabs/LeadsTabsContent';
 import StatisticsTabsContent from '@/components/leads/tabs/StatisticsTabsContent';
+import { useGetCurrentPartner } from '@/hooks/useGetCurrentPartner';
 import { useUserUnautorized } from '@/hooks/useUserUnautorized';
 import { useState, useEffect, useRef } from 'react';
 
 const Leads = () => {
+  const partner = useGetCurrentPartner()
+
   const [activeTab, setActiveTab] = useState('leads');
   const [underlineStyle, setUnderlineStyle] = useState({});
   const underlineRef = useRef(null);
@@ -16,9 +19,9 @@ const Leads = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'leads':
-        return <LeadsTabsContent />;
+        return <LeadsTabsContent partner={partner} />;
       case 'statistics':
-        return <StatisticsTabsContent />;
+        return <StatisticsTabsContent partner={partner} />;
       default:
         return null;
     }
@@ -38,6 +41,10 @@ const Leads = () => {
       });
     }
   }, [activeTab]);
+
+  if (typeof window === 'undefined') {
+    return
+  }
 
   return (
     <section className='transition-all duration-300'>

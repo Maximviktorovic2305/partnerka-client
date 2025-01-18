@@ -30,12 +30,22 @@ import {
 } from '@/components/ui/table'
 
 import { Settings, UserPlus } from 'lucide-react'
-import { useGetAllLeads } from '@/queries/lead'
+import { useGetAllLeads, useGetPartnerLeads } from '@/queries/lead'
 import { columns } from '../LeadsColumns'
 import LeadCreateModal from '../LeadCreateModal'
+import { IPartner } from '@/types/partner.interface'
+import { useUser } from '@/hooks/useSelectors'
 
-export function LeadsTabsContent() {
-	const { data } = useGetAllLeads({})
+interface Props {
+	partner?: IPartner
+}
+
+export function LeadsTabsContent({ partner }: Props) {
+	const { isAdmin } = useUser()
+	const { data: allLeads } = useGetAllLeads({})
+	const { data: partnerLeads } = useGetPartnerLeads({ partnerId: partner?.id ?? 0 })
+
+	const data = isAdmin ? allLeads : partnerLeads
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])

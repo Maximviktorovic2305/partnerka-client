@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '../../ui/button'
 import {
 	Table,
@@ -7,8 +9,8 @@ import {
 	TableHeader,
 	TableRow,
 } from '../../ui/table'
-import { useGetAllNotPaydWithdraws } from '@/queries/withdraw'
-import { useState } from 'react'
+import { useGetAllNotPaydWithdraws, useGetPartnerWithdraws } from '@/queries/withdraw'
+import { useState, useMemo } from 'react'
 import { columns } from '../not-payd/WithdrawsTabsColumns'
 import {
 	ColumnFiltersState,
@@ -26,31 +28,39 @@ import { useMutation } from '@tanstack/react-query'
 import WithdrawService from '@/services/withdraw/withdraw.service'
 import WithdrawAllBtn from './WithdrawAllBtn'
 import { Wallet } from 'lucide-react'
+import { IPartner } from '@/types/partner.interface'
+import { useUser } from '@/hooks/useSelectors'
 
-const WithdrawsTabs = () => {
-	const { data } = useGetAllNotPaydWithdraws()
+interface Props {
+	partner?: IPartner
+}
+
+const WithdrawsTabs = ({ partner }: Props) => {
+	const { isAdmin } = useUser()
+	const { data: allNotPaydWithdraws } = useGetAllNotPaydWithdraws()
+	const { data: partnerWithdraws } = useGetPartnerWithdraws(partner?.id ?? 0)
+
+	const partnerNotPayd = useMemo(() => partnerWithdraws?.filter(withdraw => withdraw.isPaydOut === false), [partnerWithdraws])
+	const data = useMemo(() => isAdmin ? allNotPaydWithdraws : partnerNotPayd, [isAdmin, allNotPaydWithdraws, partnerNotPayd])
 
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
 
-	// Устанавливаем количество строк на страницу
 	const rowsPerPage = 20
 
-	// Общая сумма не проведенных выплат
-	const totalSum = data
+	const totalSum = useMemo(() => data
 		? data.reduce((acc, item) => (item.amount ? acc + item.amount : 0), 0)
-		: 0
+		: 0, [data])
 
 	const { mutate } = useMutation({
 		mutationFn: () => WithdrawService.updateManyWithdrawsToPaydOut(data ?? []),
 	})
 
-	// Обновить все выплаты на isPaydOut на true
 	const handleWithdrawAll = async () => {
 		try {
-			await mutate()
+			mutate()
 		} catch (error) {
 			console.error('Ошибка обновления выплат!!!', error)
 		}
@@ -74,14 +84,18 @@ const WithdrawsTabs = () => {
 			columnVisibility,
 			rowSelection,
 		},
-		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
+		pageCount: Math.ceil((data ? data.length : 0) / rowsPerPage),
 		initialState: {
 			pagination: {
-				pageSize: rowsPerPage, // Устанавливаем размер страницы
+				pageSize: rowsPerPage,
 				pageIndex: 0,
 			},
 		},
 	})
+
+	if (typeof window === 'undefined') {
+		return null
+	}
 
 	return (
 		<section className='w-full text-primary p-3 rounded-lg bg-white m-3 mt-5'>
@@ -109,18 +123,16 @@ const WithdrawsTabs = () => {
 						<TableHeader className='bg-secondary transition-all duration-300 ease-in-out'>
 							{table.getHeaderGroups().map((headerGroup) => (
 								<TableRow key={headerGroup.id}>
-									{headerGroup.headers.map((header) => {
-										return (
-											<TableHead key={header.id}>
-												{header.isPlaceholder
-													? null
-													: flexRender(
-															header.column.columnDef.header,
-															header.getContext(),
-													  )}
-											</TableHead>
-										)
-									})}
+									{headerGroup.headers.map((header) => (
+										<TableHead key={header.id}>
+											{header.isPlaceholder
+												? null
+												: flexRender(
+														header.column.columnDef.header,
+														header.getContext(),
+												  )}
+										</TableHead>
+									))}
 								</TableRow>
 							))}
 						</TableHeader>

@@ -23,6 +23,17 @@ const PartnerService = {
 		})
 
 		return response
+	},   
+	
+	// Получить партнера по email
+	async getPartnerByEmail(email: string) {
+		const response = await instanse<IPartner>({
+			url: `${PARTNER}/email`,
+			method: 'POST',
+			data: { email }
+		})
+
+		return response
 	},
 
 	// Получить всех партнеров

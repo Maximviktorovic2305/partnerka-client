@@ -35,8 +35,10 @@ import PartnerCreateModal from '@/components/partners/PartnerCreateModal'
 import { Settings, UserPlus } from 'lucide-react'
 import BaseSquareText from '@/components/base/BaseSquareText'
 import { useUserUnautorized } from '@/hooks/useUserUnautorized'
+import { useUser } from '@/hooks/useSelectors'
 
 export function Partners() {
+	const { isAdmin } = useUser()
 	const { data } = useGetAllPartners()
 
 	useUserUnautorized()
@@ -76,6 +78,10 @@ export function Partners() {
 			},
 		},
 	})
+
+	if (!isAdmin) {
+		return <div className='mt-10 font-bold text-xl'>Страница ПАРТНЕРЫ только для Администратора</div>
+	}
 
 	return (
 		<>
