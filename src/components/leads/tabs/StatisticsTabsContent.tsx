@@ -41,6 +41,7 @@ const StatisticsTabsContent = ({ partner }: Props) => {
 				setEndDate={setEndDate}
 				activeSwithItem={activeSwithItem}
 				setActiveSwithItem={setActiveSwithItem}
+				partner={partner}
 			/>
 
 			<div className='flex items-center justify-between flex-wrap mt-10 text-blue2'>

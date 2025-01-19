@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react'
 import './StatisticsSwitch.css'
-import { useGetAllLeads } from '@/queries/lead'
+import { useGetAllLeads, useGetPartnerLeads } from '@/queries/lead'
 import DateLeadsSelect from './DateLeadsSelect'
+import { IPartner } from '@/types/partner.interface'
+import { useUser } from '@/hooks/useSelectors'
 
 interface Props {
 	setActiveSwithItem: (value: string) => void
@@ -12,13 +14,20 @@ interface Props {
    endDate?: Date
    setStartDate?: (date: Date) => void
    setEndDate?: (date: Date) => void
+	partner?: IPartner
 }
 
-const StatisticsSwitch = ({ setActiveSwithItem, activeSwithItem, startDate, endDate, setStartDate, setEndDate }: Props) => {         
-   
-	const { data } = useGetAllLeads({})
+const StatisticsSwitch = ({ setActiveSwithItem, activeSwithItem, partner, startDate, endDate, setStartDate, setEndDate }: Props) => {         
+   const { isAdmin } = useUser()
 	const [activeIndex, setActiveIndex] = useState(0)
-	const options = ['Сегодня', 'Вчера', '7 дней', '30 дней', 'Указать период']
+	const options = ['Сегодня', 'Вчера', '7 дней', '30 дней', 'Указать период']   
+
+	const { data: partnerLeads } = useGetPartnerLeads({
+			partnerId: partner?.id,
+		})
+		const { data: allLeads } = useGetAllLeads({})         
+		
+		const data = isAdmin ? allLeads : partnerLeads
 
 	return (
 		<div className='w-full flex items-center justify-between'>
