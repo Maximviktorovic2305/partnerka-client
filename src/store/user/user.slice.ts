@@ -5,10 +5,12 @@ import { checkAuth, getProfile, login, logout, register } from './user.actions'
 import { IInitialState } from './user.interface'
 import { getStorageLocal } from '@/utils/local-storage'
 
+const storedUser = getStorageLocal('user')
+
 const initialState: IInitialState = {
-	user: getStorageLocal('user') || null,
+	user: storedUser || null,
 	isLoading: false,
-	isAdmin: false,
+	isAdmin: storedUser ? storedUser.isAdmin : false,
 }
 
 export const userSlice = createSlice({

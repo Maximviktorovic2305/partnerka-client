@@ -19,7 +19,7 @@ const BaseModal = ({ isOpen, link, onClose }: Props) => {
 				<div>
 					<p className='mt-2'>
 						Переходите по ссылке:{' '}
-						<a
+						<a	onClick={() => onClose(false)}
 							className='text-blue-600 underline'
 							href={link}
 							target='_blank'

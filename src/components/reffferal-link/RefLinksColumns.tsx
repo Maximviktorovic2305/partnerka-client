@@ -18,9 +18,8 @@ import RefferalLinkService from '@/services/referral-links/referral-links.servic
 import RefLinkEditRow from './RefLinkEditRow'
 import RefLinksEditPartner from './RefLinksEditPartner'
 import RefLinksEditOffer from './RefLinksEditOffer'
-import { CheckCheck, Files, QrCode } from 'lucide-react'               
+import { CheckCheck, Files, QrCode } from 'lucide-react'
 import BaseQRModal from '../base/BaseQRModal'
-
 
 export const columns: ColumnDef<IRefferalLink>[] = [
 	{
@@ -74,39 +73,50 @@ export const columns: ColumnDef<IRefferalLink>[] = [
 			)
 		},
 		cell: ({ row }) => {
-			const reffLink = row.original;
-        const [copied, setCopied] = useState(false);
-        const [isModalOpen, setIsModalOpen] = useState(false); // Состояние для управления модальным окном
+			const reffLink = row.original
+			const [copied, setCopied] = useState(false)
+			const [isModalOpen, setIsModalOpen] = useState(false) // Состояние для управления модальным окном
 
-        const handleCopy = async () => {
-            try {
-                await navigator.clipboard.writeText(reffLink.localeLinkPath ?? '');
-                console.log('Ссылка скопирована');
-                setCopied(true);
-                setTimeout(() => {
-                    setCopied(false);
-                }, 1000);
-            } catch (err) {
-                console.error('Ошибка копирования: ', err);
-            }
-        };
+			const handleCopy = async () => {
+				try {
+					await navigator.clipboard.writeText(reffLink.localeLinkPath ?? '')
+					console.log('Ссылка скопирована')
+					setCopied(true)
+					setTimeout(() => {
+						setCopied(false)
+					}, 1000)
+				} catch (err) {
+					console.error('Ошибка копирования: ', err)
+				}
+			}
 
-        return (
-            <div className='text-blue3 flex items-center gap-2'>
-                <RefLinkEditRow reffLink={reffLink} type='localeLinkPath' />
-                <span className='flex items-center gap-1 text-blue1'>
-                    {copied ? (
-                        <CheckCheck className='cursor-pointer size-5 transition-opacity duration-300 opacity-100' />
-                    ) : (
-                        <Files className='cursor-pointer size-5 transition-opacity duration-300 opacity-100' onClick={handleCopy} />
-                    )}
-                    <QrCode className='cursor-pointer size-5' onClick={() => setIsModalOpen(true)} /> {/* Открытие модального окна */}
-                </span>
-                
-                {/* Модальное окно для QR-кода */}
-                <BaseQRModal isOpen={isModalOpen} onClose={setIsModalOpen} link={reffLink.localeLinkPath ?? ''} />
-            </div>
-        );
+			return (
+				<div className='text-blue3 flex items-center gap-2'>
+					<RefLinkEditRow reffLink={reffLink} type='localeLinkPath' />
+					<span className='flex items-center gap-1 text-blue1'>
+						{copied ? (
+							<CheckCheck className='cursor-pointer size-5 transition-opacity duration-300 opacity-100' />
+						) : (
+							<Files
+								className='cursor-pointer size-5 transition-opacity duration-300 opacity-100'
+								onClick={handleCopy}
+							/>
+						)}
+						<QrCode
+							className='cursor-pointer size-5'
+							onClick={() => setIsModalOpen(true)}
+						/>{' '}
+						{/* Открытие модального окна */}
+					</span>
+
+					{/* Модальное окно для QR-кода */}
+					<BaseQRModal
+						isOpen={isModalOpen}
+						onClose={setIsModalOpen}
+						link={reffLink.localeLinkPath ?? ''}
+					/>
+				</div>
+			)
 		},
 	},
 	{
