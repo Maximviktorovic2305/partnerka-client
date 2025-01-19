@@ -12,8 +12,8 @@ export interface IWithdrawRequest extends Partial<IBaseWithdrawResponse> {
 	partnerId?: number
 	leadName?: string
 	partnerEmail?: string
-	leadId: number
-	lead: ILead
+	leadId?: number
+	lead?: ILead
 	isPaydOut?: boolean
 	comment?: string
 	amount?: number
@@ -25,8 +25,8 @@ export interface IWithdraw extends IBaseWithdrawResponse {
 	partner?: IPartner
 	partnerEmail?: string
 	isPaydOut?: boolean
-	leadId: number
-	lead: ILead
+	leadId?: number
+	lead?: ILead
 	leadName?: string
 	comment?: string
 	amount?: number
@@ -39,8 +39,8 @@ export interface ICreateWithdraw {
 	isPaydOut?: boolean
 	partnerEmail?: string
 	leadName?: string
-	leadId: number
-	lead: ILead
+	leadId?: number
+	lead?: ILead
 	comment?: string
 	amount?: number
 }
