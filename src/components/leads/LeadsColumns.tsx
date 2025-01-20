@@ -81,7 +81,7 @@ export const columns: ColumnDef<ILead>[] = [
 		},
 	},
 	{
-		accessorKey: 'partnerId',
+		accessorKey: 'partner.name',
 		header: ({ column }) => {
 			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
 

@@ -9,7 +9,6 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { useGetAllPartners } from '@/queries/partners' // Импорт функции для получения данных партнеров
-import { useState } from 'react'
 
 interface Props {
 	setActiveSelecItem: (value: string) => void
@@ -17,9 +16,8 @@ interface Props {
 	type: 'edit' | 'normal'
 }
 
-export function SelectPartnerNotPaydWithdraw({setActiveSelecItem, type = 'normal', className}: Props) {
+export function SelectPartnerNotPaydWithdraw({ setActiveSelecItem, type = 'normal', className }: Props) {
 	const { data: partners } = useGetAllPartners() // Получение данных партнеров
-	const [searchTerm, setSearchTerm] = useState('')
 
 	const data = partners?.filter((partner) =>
 		partner.withdraws?.some((withdraw) => withdraw.isPaydOut === false)
@@ -27,10 +25,6 @@ export function SelectPartnerNotPaydWithdraw({setActiveSelecItem, type = 'normal
 
 	const handleSelectChange = (value: string) => {
 		setActiveSelecItem(value)
-
-		if (value === 'Clear') {
-			setSearchTerm('') // Сброс строки поиска если выбрано "Clear"
-		}
 	}
 
 	return (
@@ -43,23 +37,12 @@ export function SelectPartnerNotPaydWithdraw({setActiveSelecItem, type = 'normal
 			</SelectTrigger>
 			<SelectContent>
 				<SelectGroup className='text-primary bg-white'>
-					<input
-						type='text'
-						placeholder='Поиск по имени...'
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-						className='w-full p-2 mb-2 border-b border-sidebarText outline-none'
-					/>
-					{data
-						?.filter((partner) =>
-							partner.name?.toLowerCase().includes(searchTerm.toLowerCase()),
-						)
-						.map((partner) => (
-							<SelectItem value={String(partner.id)} key={partner.id}>
+					{data?.map((partner) => (
+							<SelectItem value={String(partner.name)} key={partner.id}>
 								{partner.name}
 							</SelectItem>
 						))}
-					<SelectItem value='Clear'>Очистить</SelectItem>
+					<SelectItem value='Clear'>Партнер</SelectItem>
 				</SelectGroup>
 			</SelectContent>
 		</Select>

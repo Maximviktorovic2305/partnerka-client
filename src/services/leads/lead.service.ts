@@ -49,7 +49,7 @@ const LeadsService = {
 	},
 
 	// Обновить партнера
-	async updateLead(data: Partial<ICreateLead>) {
+	async updateLead(data: Partial<ILead>) {
 		const response = await instanse<ILead>({
 			url: `${SERVICE}/updateLead`,
 			method: 'PUT',

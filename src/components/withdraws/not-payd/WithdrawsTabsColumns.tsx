@@ -16,7 +16,6 @@ import { Button } from '../../ui/button'
 import { useEffect, useState } from 'react'
 import { IWithdraw } from '@/types/withdraw.interface'
 import WithdrawEditRow from './WithdrawEditRow'
-import WithdrawEditPartnerId from './WithdrawEditPartnerId'
 import { Check, CircleX } from 'lucide-react'
 import WithdrawService from '@/services/withdraw/withdraw.service'
 import WithdrawEditForm from './WithdrawEditForm'
@@ -44,7 +43,7 @@ export const columns: ColumnDef<IWithdraw>[] = [
 		},
 	},
 	{
-		accessorKey: 'partnerId',
+		accessorKey: 'partner.name',
 		header: ({ column }) => {
 			const [activeSelectItem, setActiveSelecItem] = useState('Clear')
 
@@ -68,7 +67,7 @@ export const columns: ColumnDef<IWithdraw>[] = [
 			const withdraw = row.original
 			return (
 				<span className='text-blue2'>
-					<WithdrawEditPartnerId withdraw={withdraw} />
+					{withdraw?.partner?.name ?? ''}
 				</span>
 			)
 		},
