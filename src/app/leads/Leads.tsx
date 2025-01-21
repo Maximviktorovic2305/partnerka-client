@@ -26,7 +26,7 @@ const Leads = () => {
         return null;
     }
   };
-  
+
   useUserUnautorized()
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Leads = () => {
       setUnderlineStyle({
          // @ts-ignore
         width: activeRef.offsetWidth,
-        // @ts-ignore
+         // @ts-ignore
         transform: `translateX(${activeRef.offsetLeft}px)`,
       });
     }
@@ -49,22 +49,22 @@ const Leads = () => {
   return (
     <section className='transition-all duration-300'>
       <div className="relative flex items-center justify-start ml-3 text-blue1 text-xl transition-all duration-300">
-        <button 
+        <button
           ref={leadsRef}
-          className={`p-3 transition-all duration-300 ${activeTab === 'leads' ? 'text-blue1' : 'text-blue2'}`} 
+          className={`p-3 transition-all duration-300 ${activeTab === 'leads' ? 'text-blue1' : 'text-blue2'}`}
           onClick={() => setActiveTab('leads')}
         >
           Лиды
         </button>
-        <button 
+        <button
           ref={statisticsRef}
-          className={`p-3 transition-all duration-300 ${activeTab === 'statistics' ? 'text-blue1' : 'text-blue2'}`} 
+          className={`p-3 transition-all duration-300 ${activeTab === 'statistics' ? 'text-blue1' : 'text-blue2'}`}
           onClick={() => setActiveTab('statistics')}
         >
           Статистика
         </button>
-        
-        <div 
+
+        <div
           ref={underlineRef}
           className="absolute h-[3px] bg-blue1 mt-10 transition-all duration-200"
           style={underlineStyle}

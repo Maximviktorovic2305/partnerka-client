@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/select'
 import { useGetAllOffers } from '@/queries/offers'
 import { useState } from 'react'
+import {v4 as uuidv4} from 'uuid'
 
 interface Props {
 	type: 'edit' | 'normal'
@@ -33,6 +34,10 @@ export function LeadOfferSelect({
 		setActiveSelecItem(value)
 	}
 
+	if (typeof window == 'undefined') {
+		return
+	}
+
 	return (
 		<Select onValueChange={handleSelectChange}>
 			<div>
@@ -54,7 +59,7 @@ export function LeadOfferSelect({
 						className='w-full p-2 mb-2 border-b border-sidebarText outline-none'
 					/>
 					{searchData?.map((offer) => (
-						<SelectItem value={String(offer.name)} key={offer.id}>
+						<SelectItem value={String(offer.name)} key={offer.id ?? uuidv4()}>
 							{offer.name}
 						</SelectItem>
 					))}

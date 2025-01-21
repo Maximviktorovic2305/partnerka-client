@@ -52,10 +52,9 @@ export function LeadsTabsContent({ partner }: Props) {
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
 
-	// Устанавливаем количество строк на страницу
 	const rowsPerPage = 20
-
 	const [isLeadCreatActive, setIsLeadCreatActive] = useState(false)
+
 	const table = useReactTable({
 		data: data?.leads ? data.leads : [],
 		columns,
@@ -73,14 +72,22 @@ export function LeadsTabsContent({ partner }: Props) {
 			columnVisibility,
 			rowSelection,
 		},
-		pageCount: Math.ceil((data?.leads ? data.leads.length : 0) / rowsPerPage), // Устанавливаем общее количество страниц
+		pageCount: Math.ceil((data?.leads ? data.leads.length : 0) / rowsPerPage),
 		initialState: {
 			pagination: {
-				pageSize: rowsPerPage, // Устанавливаем размер страницы
+				pageSize: rowsPerPage,
 				pageIndex: 0,
 			},
 		},
 	})
+
+	if (typeof window === 'undefined') {
+		return null
+	}
+
+	if (!partner && !isAdmin) {
+		return <div>Partner not found</div>
+	}
 
 	return (
 		<>
@@ -93,7 +100,6 @@ export function LeadsTabsContent({ partner }: Props) {
 						{' '}
 						<UserPlus /> Добавить Лида
 					</Button>
-					{/* Колонки видимые         */}
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button
@@ -131,10 +137,8 @@ export function LeadsTabsContent({ partner }: Props) {
 					<LeadCreateModal setIsLeadCreatActive={setIsLeadCreatActive} />
 				)}
 
-				{/* Table */}
 				<div className='rounded-md border overflow-hidden transition-all duration-300 ease-in-out'>
 					<Table>
-						{/* TableHeader */}
 						<TableHeader className='bg-secondary transition-all duration-300 ease-in-out'>
 							{table.getHeaderGroups().map(headerGroup => (
 								<TableRow key={headerGroup.id}>
@@ -153,7 +157,6 @@ export function LeadsTabsContent({ partner }: Props) {
 								</TableRow>
 							))}
 						</TableHeader>
-						{/* TableBody */}
 						<TableBody className='transition-all duration-300 ease-in-out'>
 							{table.getRowModel().rows?.length ? (
 								table.getRowModel().rows.map(row => (
@@ -186,12 +189,7 @@ export function LeadsTabsContent({ partner }: Props) {
 					</Table>
 				</div>
 
-				{/* Bottom Navigation */}
 				<div className='flex items-center justify-end space-x-2 py-4'>
-					{/* <div className='flex-1 text-sm text-muted-foreground'>
-					{table.getFilteredSelectedRowModel().rows.length} of{' '}
-					{table.getFilteredRowModel().rows.length} row(s) selected.
-				</div> */}
 					<div className='space-x-2'>
 						<Button
 							variant='outline'

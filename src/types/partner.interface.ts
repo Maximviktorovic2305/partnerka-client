@@ -1,4 +1,5 @@
 import { ILead } from "./lead.interface"
+import { IUser } from "./user.interface"
 import { IWithdraw } from "./withdraw.interface"
 
 interface IBasePartnerResponse {
@@ -17,6 +18,8 @@ export interface IPartnerRequest extends Partial<IBasePartnerResponse> {
 	balance?: number
 	withdraws?: IWithdraw[]
 	balanceToAwait?: number
+	user?: IUser
+	userId?: number
 	totalAwards?: number
 	leads?: ILead[]
 }
@@ -31,6 +34,8 @@ export interface IPartner extends IBasePartnerResponse {
 	phone?: string
 	balance?: number
 	balanceToAwait?: number
+	user?: IUser
+	userId?: number
 	totalAwards?: number
 	leads?: ILead[]
 }
@@ -46,6 +51,8 @@ export interface ICreatePartner {
 	withdraws?: IWithdraw[]
 	balance?: number
 	balanceToAwait?: number
+	user?: IUser
+	userId?: number
 	totalAwards?: number
 	leads?: ILead[]
 }

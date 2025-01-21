@@ -36,7 +36,6 @@ export function SelectPartner({
 	return (
 		<Select onValueChange={handleSelectChange}>
 			<div>
-				{/* <div className='text-[10px] text-left pl-2 text-muted-foreground'>{label}</div> */}
 				<SelectTrigger className={`${type === 'edit' ? 'w-[134px] border-none -my-2' : 'w-[170px]'} ${className}`}>
 					<SelectValue placeholder='Партнер' />
 				</SelectTrigger>

@@ -34,7 +34,7 @@ const PartnerService = {
 		})
 
 		return response
-	},
+	},         
 
 	// Получить всех партнеров
 	async getAllPartners() {

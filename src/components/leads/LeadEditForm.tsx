@@ -9,6 +9,7 @@ import { SelectPartner } from '../base/PartnerSelect'
 import { LeadSourceSelect } from '../base/LeadSourceSelect'
 import { LeadStatusSelect } from '../base/LeadStatusSelect'
 import LeadsService from '@/services/leads/lead.service'
+import { LeadOfferSelect } from '../base/LeadOfferSelect'
 
 interface Props {
 	lead: ILead
@@ -19,19 +20,19 @@ const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 	const [name, setName] = useState(lead.name ?? '')
 	const [sourse, setSourse] = useState(lead.sourse ?? '')
 	const [status, setStatus] = useState(lead.status ?? '')
-	const [offer, setOffer] = useState(lead.offer ?? '')   
+	const [offer, setOffer] = useState(lead.offer ?? '')
 	const [amount, setAmount] = useState<string | number>(lead.amount ?? 0)
 	const [partner, setPartner] = useState<string | number>(lead.partnerId ?? 0)
 
-
+	
 	const { mutate } = useMutation({
 		mutationFn: () =>
 			LeadsService.updateLead({
-            id: lead.id,
+				id: lead.id,
 				name,
 				sourse,
 				status,
-            offer,
+				offer,
 				amount: Number(amount),
 				partnerId: Number(partner),
 			}),
@@ -54,43 +55,37 @@ const PartnerEditForm = ({ setActiveEditLead, lead }: Props) => {
 			<form onSubmit={handleSubmit} className='fixed top-2 right-10'>
 				<div className='px-5 pt-5 pb-[22%] relative z-10 rounded-lg flex flex-col gap-3 bg-primary/80 backdrop-blur-sm text-primary min-w-[300px] right-10 top-10'>
 					<PartnerEditInput
-					className='text-newAccent border-white'
+						className='text-newAccent border-white'
 						onChange={setName}
 						value={name}
 						name='Имя'
 					/>
 					<div className='text-newAccent border-white'>
-							<SelectPartner type='normal'
-								setActiveSelecItem={setPartner}
-							/>
-						</div>
+						<SelectPartner type='normal' setActiveSelecItem={setPartner} />
+					</div>
 
-               <div className='text-newAccent border-white'>
-							<LeadSourceSelect type='normal'
-								setActiveSelecItem={setSourse}
-							/>
-						</div>
+					<div className='text-newAccent border-white'>
+						<LeadSourceSelect type='normal' setActiveSelecItem={setSourse} />
+					</div>
 
-               <div className='text-newAccent border-white'>
-							<LeadStatusSelect type='normal'
-								setActiveSelecItem={setStatus}
-							/>
-						</div>               
+					<div className='text-newAccent border-white'>
+						<LeadStatusSelect type='normal' setActiveSelecItem={setStatus} />
+					</div>
 
-               <PartnerEditInput
-					className='text-newAccent border-white'
-						value={offer}
-						onChange={setOffer}
-						name='Оффер'
-					/>
+					<div className='text-primary border-blue2/70'>
+						<LeadOfferSelect
+							type='normal'
+							className='border-blue2/70'
+							setActiveSelecItem={setOffer}
+						/>
+					</div>
 
 					<PartnerEditInput
-					className='text-newAccent border-white'
+						className='text-newAccent border-white'
 						value={String(amount)}
 						onChange={setAmount}
 						name='Сумма'
 					/>
-
 				</div>
 				<div className='flex z-50 absolute -bottom-6 right-[20%] items-center gap-3'>
 					<Button

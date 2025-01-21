@@ -210,7 +210,7 @@ export const columns: ColumnDef<ILead>[] = [
 			const lead = row.original
 			const [activeEditLead, setActiveEditLead] = useState(false)
 
-			const handleDeleteUser = async () => {
+			const handleDeleteLead = async () => {
 				await LeadsService.deleteLead(lead.id)
 			}
 
@@ -238,7 +238,7 @@ export const columns: ColumnDef<ILead>[] = [
 						{/* Delete Partner */}
 						<DropdownMenuItem
 							className='cursor-pointer hover:bg-sidebarText'
-							onClick={handleDeleteUser}>
+							onClick={handleDeleteLead}>
 							Удалить
 						</DropdownMenuItem>
 					</DropdownMenuContent>

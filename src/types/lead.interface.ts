@@ -1,4 +1,5 @@
 import { IPartner } from "./partner.interface"
+import { IUser } from "./user.interface"
 
 interface IBaseLeadResponse {
 	id: number
@@ -14,6 +15,8 @@ export interface ILeadRequest extends Partial<IBaseLeadResponse> {
    status?: string
    offer?: string
    amount?: number
+   user?: IUser
+   userId?: number
    partnerId?: number
    partner?: IPartner
 }
@@ -34,6 +37,8 @@ export interface ILead extends IBaseLeadResponse {
    status?: string
    offer?: string
    amount?: number
+   user?: IUser
+   userId?: number
    partnerId?: number
    partner?: IPartner
 }
@@ -47,6 +52,8 @@ export interface ICreateLead {
    status?: string
    offer?: string
    amount?: number
+   user?: IUser
+   userId?: number
    partnerId?: number
    partner?: IPartner
 }
